@@ -1,0 +1,29 @@
+{
+  "name": "d3-composite-projections",
+  "version": "0.0.0",
+  "authors": [
+    "Roger Veciana i Rovira <rveciana@gmail.com>"
+  ],
+  "description": "Like the AlbersUsa projection, adds several d3 projections to show the countries that are far from the mainland close to it.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rveciana/d3-composite-projections.git"
+  },
+  "keywords": [
+    "d3",
+    "projection",
+    "Europe"
+  ],
+  "license": "MIT",
+  "homepage": "http://rveciana.github.io/d3-composite-projections/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.5"
+  }
+}
