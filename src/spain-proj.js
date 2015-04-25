@@ -142,7 +142,7 @@ conicConformalSpain.stream = function(stream) {
     return conicConformalSpain;
   };
 
-  return conicConformalSpain.scale(300);
+  return conicConformalSpain.scale(2500);
 };
 
 })();
