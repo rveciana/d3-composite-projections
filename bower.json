@@ -14,7 +14,7 @@
     "projection",
     "Europe"
   ],
-  "license": "MIT",
+  "license": "BSD",
   "homepage": "http://rveciana.github.io/d3-composite-projections/",
   "ignore": [
     "**/.*",

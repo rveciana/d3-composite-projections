@@ -16,21 +16,24 @@ d3.geo.conicConformalSpain = function() {
   function conicConformalSpain(coordinates) {
     var x = coordinates[0], y = coordinates[1];
     point = null;
+    console.info("coords: "+coordinates + " point: " + point);
     (iberianPeninsulePoint(x, y), point) || (canaryIslandsPoint(x, y), point);
+    console.info("coords: "+coordinates + " point: " + point);
+    console.info(iberianPeninsulePoint(x, y) + " - " + canaryIslandsPoint(x, y));
     return point;
   }
 
 
 conicConformalSpain.invert = function(coordinates) {
-
+    console.info("inv");
     var k = iberianPeninsule.scale(),
         t = iberianPeninsule.translate(),
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
 
-        console.info(coordinates + " ---> scale: " + k + " trans: " + t + ": x = " + x + " y = " + y);
+        //console.info(coordinates + " ---> scale: " + k + " trans: " + t + ": x = " + x + " y = " + y);
         //Trobar bé les coordenades!!!
-    return (y >= .120 && y < .234 && x >= -.425 && x < -.214 ? canaryIslands
+    return (y >= 0.120 && y < 0.234 && x >= -0.425 && x < -0.214 ? canaryIslands
       : iberianPeninsule).invert(coordinates);
   };
 
@@ -85,7 +88,7 @@ conicConformalSpain.stream = function(stream) {
   };
 
   conicConformalSpain.translate = function(_) {
-
+    console.info("translate");
     if (!arguments.length) return iberianPeninsule.translate();
     
     var k = iberianPeninsule.scale(), x = +_[0], y = +_[1];
@@ -97,52 +100,18 @@ conicConformalSpain.stream = function(stream) {
 
     iberianPeninsulePoint = iberianPeninsule
         .translate(_)
-        //.clipExtent([ [x - .455 * k, y - .238 * k], [x + .455 * k, y + .238 * k]])
-        //.clipExtent([[410, 120], [570, 340]])
-        //.clipExtent([ [x - .07 * k, y - .13 * k], [x + .09 * k, y + .09 * k]])
         .clipExtent([iberianPeninsule(iberianPeninsuleBbox[0]),iberianPeninsule(iberianPeninsuleBbox[1])])
         .stream(pointStream).point;
 
-    console.info(iberianPeninsule(iberianPeninsuleBbox[0]));
-    console.info(iberianPeninsule(iberianPeninsuleBbox[1]));
-   /*
-  300:
-  [-9.9921301043373, 48.119816258446754] europe_proj.js:100
-  [4.393178805228727, 34.02148129982776] 
-
-[-12.22643614428382, 34.989324589964816] europe_proj.js:119
-[-6.681087681832122, 33.712511769541585]  
-
-  1000:
-  [-9.992130104337303, 48.119816258446725] europe_proj.js:108
-[4.393178805228724, 34.02148129982776]
-
-
-[-12.226436144283818, 34.98932458996479] europe_proj.js:115
-[-6.681087681832129, 33.712511769541585] 
-   
-
-
-    console.info(iberianPeninsule.invert([x - .07 * k, y - .13 * k]));
-    console.info(iberianPeninsule.invert([x + .09 * k, y + .09 * k]));
-
-    console.info('----');
-    console.info(iberianPeninsule.invert([x - .116 * k, y + .068 * k]));
-    console.info(iberianPeninsule.invert([x - .0488 * k, y + .0932 * k]));*/
-
     canaryIslandsPoint = canaryIslands
-        .translate([x - .067 * k, y + .081 * k])
-        //.clipExtent([[x - .455 * k, y - .238 * k], [x + .455 * k, y + .238 * k]])
-        //.clipExtent([[190, 420], [358, 483]])
-        //.clipExtent([[364, 318], [431, 368]])
-        //.clipExtent([[x - .116 * k, y + .068 * k], [x - .0488 * k, y + .0932 * k]])
+        .translate([x - 0.067 * k, y + 0.081 * k])
         .clipExtent([iberianPeninsule(canaryIslandsBbox[0]),iberianPeninsule(canaryIslandsBbox[1])])
         .stream(pointStream).point;
 
     return conicConformalSpain;
   };
 
-  return conicConformalSpain.scale(300);
+  return conicConformalSpain.scale(2500);
 };
 
 })();
