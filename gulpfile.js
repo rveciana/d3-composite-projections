@@ -27,19 +27,8 @@ gulp.task('lint', function() {
         .pipe(gp_jshint.reporter('default'));
 });
 
-gulp.task('build', function(){
-    return gulp.src(['./src/spain-proj.js'])
-        .pipe(gp_newer('composite-projections.js'), {extension: '.js'})
-        .pipe(gp_concat('composite-projections.js'))
-        .pipe(gulp.dest('./'))
-        .pipe(gp_rename('composite-projections.min.js'))
-        .pipe(gp_uglify())
-        .pipe(gulp.dest('./'));
-});
-
-
 gulp.task('license_year', function() {
-  
+  /*gulp-licence didn't work, so I change year manually*/
   var out_file = './LICENSE';
 
   var d = new Date();
@@ -65,5 +54,18 @@ gulp.task('license_year', function() {
   }
   
 });
+
+gulp.task('build', function(){
+    return gulp.src(['./src/*.js'])
+        .pipe(gp_newer('composite-projections.js'), {extension: '.js'})
+        .pipe(gp_concat('composite-projections.js'))
+        .pipe(gulp.dest('./'))
+        .pipe(gp_rename('composite-projections.min.js'))
+        .pipe(gp_uglify())
+        .pipe(gulp.dest('./'));
+});
+
+
+
 
 gulp.task('default', ['lint','build','test','license_year'], function(){});

@@ -7,6 +7,9 @@ d3.geo.conicConformalSpain = function() {
   var canaryIslands = d3.geo.conicConformal()
   .center([-14.5, 28.5]);
 
+  var iberianPeninsuleBbox = [[-9.9921301043373, 48.119816258446754], [4.393178805228727, 34.02148129982776]];
+
+  var canaryIslandsBbox = [[-12.22643614428382, 34.989324589964816], [-6.681087681832122, 33.712511769541585]];
   
   var point,
       pointStream = {point: function(x, y) { point = [x, y]; }},
@@ -15,11 +18,16 @@ d3.geo.conicConformalSpain = function() {
 
   function conicConformalSpain(coordinates) {
     var x = coordinates[0], y = coordinates[1];
+    console.info(x + " - " + (x>canaryIslandsBbox[0][0]));
+    if (x>canaryIslandsBbox[0][0] && x<canaryIslandsBbox[1][0] && y<canaryIslandsBbox[0][1] && y>canaryIslandsBbox[1][1])
+      console.info(coordinates + "--->CANARIAS");
     point = null;
-    console.info("coords: "+coordinates + " point: " + point);
-    (iberianPeninsulePoint(x, y), point) || (canaryIslandsPoint(x, y), point);
-    console.info("coords: "+coordinates + " point: " + point);
-    console.info(iberianPeninsulePoint(x, y) + " - " + canaryIslandsPoint(x, y));
+
+
+    (iberianPeninsulePoint(x, y), point) || canaryIslandsPoint(x, y);
+    //console.info("------->" + iberianPeninsule([x, y]) + " - " + canaryIslands([x, y]));
+    console.info("-->" + (iberianPeninsulePoint(x, y), point)  + ' - ' + (canaryIslandsPoint(x, y),point) +' - ' + point);
+    
     return point;
   }
 
@@ -88,15 +96,10 @@ conicConformalSpain.stream = function(stream) {
   };
 
   conicConformalSpain.translate = function(_) {
-    console.info("translate");
     if (!arguments.length) return iberianPeninsule.translate();
     
     var k = iberianPeninsule.scale(), x = +_[0], y = +_[1];
 
-
-    var iberianPeninsuleBbox = [[-9.9921301043373, 48.119816258446754], [4.393178805228727, 34.02148129982776]];
-
-    var canaryIslandsBbox = [[-12.22643614428382, 34.989324589964816], [-6.681087681832122, 33.712511769541585]];
 
     iberianPeninsulePoint = iberianPeninsule
         .translate(_)
