@@ -25,7 +25,7 @@ d3.geo.conicConformalSpain = function() {
 
 
 conicConformalSpain.invert = function(coordinates) {
-    console.info("inv");
+    
     var k = iberianPeninsule.scale(),
         t = iberianPeninsule.translate(),
         x = (coordinates[0] - t[0]) / k,
