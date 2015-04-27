@@ -34,16 +34,9 @@ conicConformalSpain.invert = function(coordinates) {
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
 
-        //console.info(coordinates + " ---> scale: " + k + " trans: " + t + ": x = " + x + " y = " + y);
-        //Trobar bé les coordenades!!!
-        /*
-    return (y >= 0.120 && y < 0.234 && x >= -0.425 && x < -0.214 ? canaryIslands
-      : iberianPeninsule).invert(coordinates);*/
-      console.info('-----ini---');
-      console.info(coordinates); //console.info(canaryIslandsBbox);
-      //console.info(x + ' - ' + y);
-      console.info(canaryIslands(canaryIslandsBbox[0]) + ' - ' + canaryIslands(canaryIslandsBbox[1]));
+      /*
 
+      How are the return values calculated:
       var c0 = canaryIslands(canaryIslandsBbox[0]);
       x0 = (c0[0] - t[0]) / k;
       y0 = (c0[1] - t[1]) / k;
@@ -56,11 +49,7 @@ conicConformalSpain.invert = function(coordinates) {
       y1 = (c1[1] - t[1]) / k;
 
       console.info(x1 + ' - ' + y1);
-
-      console.info('----fi----');
-
-      if (y >= 0.0644035378075283 && y < 0.10650900059950263 && x >= -0.12473512280697115 && x < -0.045924257587065816)
-        console.info("CANA")
+      */
     return (y >= 0.06440353 && y < 0.106509 && x >= -0.1247351 && x < -0.045924 ? canaryIslands
         : iberianPeninsule).invert(coordinates);
   };
@@ -119,6 +108,8 @@ conicConformalSpain.stream = function(stream) {
     if (!arguments.length) return iberianPeninsule.translate();
 
     var k = iberianPeninsule.scale(), x = +_[0], y = +_[1];
+
+
 
 
     iberianPeninsulePoint = iberianPeninsule

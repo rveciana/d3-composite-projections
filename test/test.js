@@ -22,22 +22,12 @@ describe('Composite Projections', function(){
         var inv_barcelona = proj.invert(proj(barcelona));
         var inv_las_palmas = proj.invert(proj(las_palmas));
 
-        //var loc_las_palmas = proj(las_palmas);
-
         assert.ok((inv_barcelona[0] - barcelona[0]) < 0.0001);
         assert.ok((inv_barcelona[1] - barcelona[1]) < 0.0001);
-
-        console.info('----------');
-        //console.info(proj(barcelona));
-        console.info(las_palmas);
-        console.info(proj(las_palmas));
-        console.info(inv_las_palmas);
 
         assert.ok((inv_las_palmas[0] - las_palmas[0]) < 0.0001, "Las Palmas should be properly reprojected");
         assert.ok((inv_las_palmas[1] - las_palmas[1]) < 0.0001);
 
-        //assert.ok((proj.invert(loc_las_palmas)[0] - las_palmas[0]) < 0.0001, "Las Palmas should be properly reprojected");
-        //assert.ok((proj.invert(loc_las_palmas)[1] - las_palmas[1]) < 0.0001);
 
     })
   })
