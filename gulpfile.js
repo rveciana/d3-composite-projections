@@ -7,6 +7,7 @@ var gp_mocha = require('gulp-mocha');
 var gp_jshint = require('gulp-jshint');
 var gp_replace = require('gulp-replace');
 
+var gp_newer = require('gulp-newer');
 
 var fs = require('fs');
 
@@ -28,6 +29,7 @@ gulp.task('lint', function() {
 
 gulp.task('build', function(){
     return gulp.src(['./src/spain-proj.js'])
+        .pipe(gp_newer('composite-projections.js'), {extension: '.js'})
         .pipe(gp_concat('composite-projections.js'))
         .pipe(gulp.dest('./'))
         .pipe(gp_rename('composite-projections.min.js'))
@@ -36,7 +38,7 @@ gulp.task('build', function(){
 });
 
 
-gulp.task('license', function() {
+gulp.task('license_year', function() {
   
   var out_file = './LICENSE';
 
@@ -64,4 +66,4 @@ gulp.task('license', function() {
   
 });
 
-gulp.task('default', ['lint','build','test','license'], function(){});
+gulp.task('default', ['lint','build','test','license_year'], function(){});
