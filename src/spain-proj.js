@@ -109,18 +109,37 @@ conicConformalSpain.stream = function(stream) {
 
     var k = iberianPeninsule.scale(), x = +_[0], y = +_[1];
 
+   /*
+    var c0 = iberianPeninsule(iberianPeninsuleBbox[0]);
+   x0 = (x - c0[0]) / k;
+   y0 = (y - c0[1]) / k;
 
+   var c1 = iberianPeninsule(iberianPeninsuleBbox[1]);
+   x1 = (x - c1[0]) / k;
+   y1 = (y - c1[1]) / k;
 
+   console.info('Iberian Peninsula: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
 
-    iberianPeninsulePoint = iberianPeninsule
-        .translate(_)
-        .clipExtent([iberianPeninsule(iberianPeninsuleBbox[0]),iberianPeninsule(iberianPeninsuleBbox[1])])
-        .stream(pointStream).point;
+   var c0 = canaryIslands.translate([x - 0.067 * k, y + 0.081 * k])(canaryIslandsBbox[0]);
+   x0 = (x - c0[0]) / k;
+   y0 = (y - c0[1]) / k;
 
-    canaryIslandsPoint = canaryIslands
-        .translate([x - 0.067 * k, y + 0.081 * k])
-        .clipExtent([canaryIslands(canaryIslandsBbox[0]),canaryIslands(canaryIslandsBbox[1])])
-        .stream(pointStream).point;
+   var c1 = canaryIslands.translate([x - 0.067 * k, y + 0.081 * k])(canaryIslandsBbox[1]);
+   x1 = (x - c1[0]) / k;
+   y1 = (y - c1[1]) / k;
+
+   console.info('Canry Islands: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
+   */
+
+   iberianPeninsulePoint = iberianPeninsule
+       .translate(_)
+       .clipExtent([[x - 0.06999999999999987 * k, y - .13 * k],[x + 0.09 * k, y + 0.09 * k]])
+       .stream(pointStream).point;
+
+   canaryIslandsPoint = canaryIslands
+       .translate([x - 0.067 * k, y + 0.081 * k])
+       .clipExtent([[x - 0.12473512280697119* k, y + 0.06440353780752857 * k],[x  - 0.04592425758706586* k, y + 0.10650900059950291 * k]])
+       .stream(pointStream).point;
 
     return conicConformalSpain;
   };
