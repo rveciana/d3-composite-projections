@@ -5,13 +5,25 @@ var composite_projection = require('../composite-projections.js');
 describe('Composite Projections', function(){
   describe('Methods', function(){
     it('All projections must be defined', function(){
+        assert.equal(typeof d3.geo.albersUsa , 'function');
         assert.equal(typeof d3.geo.conicConformalSpain , 'function');
 
-    })
+    });
   });
+
+  describe('USA', function(){
+    it('Must have a getCompositionBorders method', function(){
+      var proj = d3.geo.albersUsa();
+
+      //console.log(proj.invert(proj([-120.50000000,   47.50000000])));
+      assert.equal(typeof proj.getCompositionBorders , 'function');
+      console.info(proj.getCompositionBorders());
+    });
+  });
+
   describe('Spain', function(){
     it('Projection results should be correct', function(){
-        var projUSA = d3.geo.albersUsa();
+
         var proj = d3.geo.conicConformalSpain();
         assert.equal(2500, proj.scale());
 
@@ -29,6 +41,6 @@ describe('Composite Projections', function(){
         assert.ok((inv_las_palmas[1] - las_palmas[1]) < 0.0001);
 
 
-    })
-  })
+    });
+  });
 });
