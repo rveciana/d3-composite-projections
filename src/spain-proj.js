@@ -133,7 +133,7 @@ conicConformalSpain.stream = function(stream) {
 
    iberianPeninsulePoint = iberianPeninsule
        .translate(_)
-       .clipExtent([[x - 0.06999999999999987 * k, y - .13 * k],[x + 0.09 * k, y + 0.09 * k]])
+       .clipExtent([[x - 0.06999999999999987 * k, y - 0.13 * k],[x + 0.09 * k, y + 0.09 * k]])
        .stream(pointStream).point;
 
    canaryIslandsPoint = canaryIslands
@@ -143,11 +143,21 @@ conicConformalSpain.stream = function(stream) {
 
     return conicConformalSpain;
   };
+
+
   conicConformalSpain.getCompositionBorders = function() {
-   var ini = canaryIslands(canaryIslandsBbox[0]);
-   var end = canaryIslands(canaryIslandsBbox[1]);
-   var path = "M"+ini[0]+" "+ini[1]+"L"+end[0]+" "+ini[1]+"L"+end[0]+" "+(end[1]);
-   return path;
+
+    var compositionBorders = { "type": "Feature",
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+          [[-19.0, 29.0], [-13.1, 29.7], [-12.9, 27.9]]
+          ]
+          }
+        };
+
+    return compositionBorders;
+
  };
 
 
