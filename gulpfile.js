@@ -12,11 +12,12 @@ var gp_newer = require('gulp-newer');
 var fs = require('fs');
 
 gulp.task('default', function() {
-        
+
 
 });
 
-gulp.task('test', function(){
+//Test depends on build so is run after the new version is ready
+gulp.task('test', ['build'], function(){
     return gulp.src('./test/test.js', {read: false})
         .pipe(gp_mocha({reporter: 'nyan'}));
 });
@@ -32,7 +33,7 @@ gulp.task('license_year', function() {
   var out_file = './LICENSE';
 
   var d = new Date();
-  var year = d.getFullYear(); 
+  var year = d.getFullYear();
   var create = true;
 
   try {
@@ -52,7 +53,7 @@ gulp.task('license_year', function() {
         .pipe(gp_replace(/<YEAR>/g, year))
         .pipe(gulp.dest('./'));
   }
-  
+
 });
 
 gulp.task('build', function(){
