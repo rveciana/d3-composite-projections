@@ -29,16 +29,11 @@ d3.geo.albersUsa = function() {
     console.info('USA');
     var x = coordinates[0], y = coordinates[1];
     point = null;
-    /*
+
     (lower48Point(x, y), point)
         || (alaskaPoint(x, y), point)
-        || hawaiiPoint(x, y);*/
-    console.info(point);
-    console.info(lower48Point(x, y));
-
-    console.info(point);
-    console.info("USA -->" + (lower48Point(x, y),point) || (alaskaPoint(x, y), point)|| hawaiiPoint(x, y));
-    return point;
+        || hawaiiPoint(x, y);
+        return point;
   }
 
   albersUsa.invert = function(coordinates) {
@@ -130,10 +125,29 @@ d3.geo.albersUsa = function() {
 
     return albersUsa;
   };
+  albersUsa.getCompositionBorders = function() {
+
+    var compositionBorders = { "type": "Feature",
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+          [[-103.578544, 27.493423], [-107.533622, 29.425018], [-110.785640 , 29.46420]],
+          [[-135.207515, 69.909828], [-136.295406, 62.525360], [-126.913570, 55.891163]]
+          ]
+          }
+        };
+
+    return compositionBorders;
+
+  };
+
 
   return albersUsa.scale(1070);
 };
+
+
 })();
+
 (function() {
 d3.geo.conicConformalSpain = function() {
 
@@ -245,26 +259,55 @@ conicConformalSpain.stream = function(stream) {
 
     var k = iberianPeninsule.scale(), x = +_[0], y = +_[1];
 
+   /*
+    var c0 = iberianPeninsule(iberianPeninsuleBbox[0]);
+   x0 = (x - c0[0]) / k;
+   y0 = (y - c0[1]) / k;
 
+   var c1 = iberianPeninsule(iberianPeninsuleBbox[1]);
+   x1 = (x - c1[0]) / k;
+   y1 = (y - c1[1]) / k;
 
+   console.info('Iberian Peninsula: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
 
-    iberianPeninsulePoint = iberianPeninsule
-        .translate(_)
-        .clipExtent([iberianPeninsule(iberianPeninsuleBbox[0]),iberianPeninsule(iberianPeninsuleBbox[1])])
-        .stream(pointStream).point;
+   var c0 = canaryIslands.translate([x - 0.067 * k, y + 0.081 * k])(canaryIslandsBbox[0]);
+   x0 = (x - c0[0]) / k;
+   y0 = (y - c0[1]) / k;
 
-    canaryIslandsPoint = canaryIslands
-        .translate([x - 0.067 * k, y + 0.081 * k])
-        .clipExtent([canaryIslands(canaryIslandsBbox[0]),canaryIslands(canaryIslandsBbox[1])])
-        .stream(pointStream).point;
+   var c1 = canaryIslands.translate([x - 0.067 * k, y + 0.081 * k])(canaryIslandsBbox[1]);
+   x1 = (x - c1[0]) / k;
+   y1 = (y - c1[1]) / k;
+
+   console.info('Canry Islands: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
+   */
+
+   iberianPeninsulePoint = iberianPeninsule
+       .translate(_)
+       .clipExtent([[x - 0.06999999999999987 * k, y - 0.13 * k],[x + 0.09 * k, y + 0.09 * k]])
+       .stream(pointStream).point;
+
+   canaryIslandsPoint = canaryIslands
+       .translate([x - 0.067 * k, y + 0.081 * k])
+       .clipExtent([[x - 0.12473512280697119* k, y + 0.06440353780752857 * k],[x  - 0.04592425758706586* k, y + 0.10650900059950291 * k]])
+       .stream(pointStream).point;
 
     return conicConformalSpain;
   };
+
+
   conicConformalSpain.getCompositionBorders = function() {
-   var ini = canaryIslands(canaryIslandsBbox[0]);
-   var end = canaryIslands(canaryIslandsBbox[1]);
-   var path = "M"+ini[0]+" "+ini[1]+"L"+end[0]+" "+ini[1]+"L"+end[0]+" "+(end[1]);
-   return path;
+
+    var compositionBorders = { "type": "Feature",
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+          [[-19.0, 29.0], [-13.1, 29.7], [-12.9, 27.9]]
+          ]
+          }
+        };
+
+    return compositionBorders;
+
  };
 
 

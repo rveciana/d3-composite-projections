@@ -11,10 +11,7 @@ var gp_newer = require('gulp-newer');
 
 var fs = require('fs');
 
-gulp.task('default', function() {
 
-
-});
 
 //Test depends on build so is run after the new version is ready
 gulp.task('test', ['build'], function(){
