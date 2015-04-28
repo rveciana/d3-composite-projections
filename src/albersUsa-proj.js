@@ -29,16 +29,11 @@ d3.geo.albersUsa = function() {
     console.info('USA');
     var x = coordinates[0], y = coordinates[1];
     point = null;
-    /*
+
     (lower48Point(x, y), point)
         || (alaskaPoint(x, y), point)
-        || hawaiiPoint(x, y);*/
-    console.info(point);
-    console.info(lower48Point(x, y));
-
-    console.info(point);
-    console.info("USA -->" + (lower48Point(x, y),point) || (alaskaPoint(x, y), point)|| hawaiiPoint(x, y));
-    return point;
+        || hawaiiPoint(x, y);
+        return point;
   }
 
   albersUsa.invert = function(coordinates) {
@@ -130,7 +125,25 @@ d3.geo.albersUsa = function() {
 
     return albersUsa;
   };
+  albersUsa.getCompositionBorders = function() {
+
+    var compositionBorders = { "type": "Feature",
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+          [[-103.578544, 27.493423], [-107.533622, 29.425018], [-110.785640 , 29.46420]],
+          [[-135.207515, 69.909828], [-136.295406, 62.525360], [-126.913570, 55.891163]]
+          ]
+          }
+        };
+
+    return compositionBorders;
+
+  };
+
 
   return albersUsa.scale(1070);
 };
+
+
 })();
