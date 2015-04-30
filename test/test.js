@@ -1,8 +1,9 @@
 var assert = require("assert")
 var d3 = require('../node_modules/d3/d3.js');
 var composite_projection = require('../composite-projections.js');
-
+var createSvgSample = require('./createSvgSample.js');
 describe('Composite Projections', function(){
+
   describe('Methods', function(){
     it('All projections must be defined', function(){
         assert.equal(typeof d3.geo.albersUsa , 'function');
@@ -17,7 +18,6 @@ describe('Composite Projections', function(){
 
       //console.log(proj.invert(proj([-120.50000000,   47.50000000])));
       assert.equal(typeof proj.getCompositionBorders , 'function');
-      console.info(proj.getCompositionBorders());
     });
   });
 
@@ -43,4 +43,21 @@ describe('Composite Projections', function(){
 
     });
   });
+
+
+  describe('Create sample SVGs', function(){
+    /* I still have to test something, but simply generating the SVG can htlp to see visually is everything works
+    The test is outside each projection to make easy to skip, since it takes its time*/
+    it('Spain SVG sample', function(){
+        createSvgSample.createSvgSample("provincias.json", "conicConformalSpain", "conicConformalSpain.svg", "provincias");
+
+    });
+
+    it('USA SVG sample', function(){
+        createSvgSample.createSvgSample("us.json", "albersUsa", "albersUsa.svg","states");
+
+    });
+  });
+
+
 });

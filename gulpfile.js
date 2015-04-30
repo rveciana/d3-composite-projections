@@ -8,13 +8,15 @@ var gp_jshint = require('gulp-jshint');
 var gp_replace = require('gulp-replace');
 
 var gp_newer = require('gulp-newer');
+var gp_download = require("gulp-download");
+
+
 
 var fs = require('fs');
 
 
-
 //Test depends on build so is run after the new version is ready
-gulp.task('test', ['build'], function(){
+gulp.task('test', ['build', 'get_sample_data'], function(){
     return gulp.src('./test/test.js', {read: false})
         .pipe(gp_mocha({reporter: 'nyan'}));
 });
@@ -61,6 +63,27 @@ gulp.task('build', function(){
         .pipe(gp_rename('composite-projections.min.js'))
         .pipe(gp_uglify())
         .pipe(gulp.dest('./'));
+});
+
+
+
+gulp.task('get_sample_data', function(){
+  //Gets the neecssary topojsons for running the tests
+  var outDir = "test/data_files";
+  var dataFiles = ["https://cdn.rawgit.com/rveciana/5919944/raw//provincias.json", 
+      "http://bl.ocks.org/mbostock/raw/4090846/us.json"];
+  var filesToDownload = [];
+  for (i = 0; i < dataFiles.length; i++){
+    if(! fs.existsSync(outDir + "/" + dataFiles[i].split('/').reverse()[0])) {
+      filesToDownload.push(dataFiles[i]);
+    } 
+  }
+  
+  if (filesToDownload.length > 0)
+    return gp_download(filesToDownload)
+      .pipe(gulp.dest("test/data_files"));
+  else
+    return true;
 });
 
 
