@@ -29,7 +29,7 @@ d3.geo.conicConformalPortugal = function() {
     var x = coordinates[0], y = coordinates[1];
     point = null;
 
-    (iberianPeninsulePoint(x, y), point) || (madeiraPoint(x, y), point) || azoresPoint;
+    (iberianPeninsulePoint(x, y), point) || (madeiraPoint(x, y), point) || azoresPoint(x, y);
 
     return point;
   }
@@ -57,8 +57,24 @@ conicConformalPortugal.invert = function(coordinates) {
       y1 = (c1[1] - t[1]) / k;
 
       console.info(x1 + ' - ' + y1);
+      
+
+      var c0 = azores(azoresBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info(x0 + ' - ' + y0);
+
+
+      var c1 = azores(azoresBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
       */
-    return (y >= 0.06440353 && y < 0.106509 && x >= -0.1247351 && x < -0.045924 ? madeira
+
+    return (y >= -0.03498 && y < 0.0208488 && x >= -0.0836717 && x < -0.03954468 ? azores
+        : y >= 0.03617397 && y < 0.064008179 && x >= -0.050925 && x < -0.027008978 ? madeira
         : iberianPeninsule).invert(coordinates);
   };
 
