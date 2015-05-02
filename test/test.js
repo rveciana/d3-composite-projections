@@ -57,6 +57,11 @@ describe('Composite Projections', function(){
         createSvgSample.createSvgSample("us.json", "albersUsa", "albersUsa.svg","states");
 
     });
+
+    it('Portugal SVG sample', function(){
+        createSvgSample.createSvgSample("world-50m.json", "conicConformalPortugal", "conicConformalPortugal.svg", "countries");
+
+    });
   });
 
 

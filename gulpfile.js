@@ -70,15 +70,16 @@ gulp.task('build', function(){
 gulp.task('get_sample_data', function(){
   //Gets the neecssary topojsons for running the tests
   var outDir = "test/data_files";
-  var dataFiles = ["https://cdn.rawgit.com/rveciana/5919944/raw//provincias.json", 
-      "http://bl.ocks.org/mbostock/raw/4090846/us.json"];
+  var dataFiles = ["https://cdn.rawgit.com/rveciana/5919944/raw//provincias.json",
+      "http://bl.ocks.org/mbostock/raw/4090846/us.json",
+      "https://cdn.rawgit.com/mbostock/4090846/raw//world-50m.json"];
   var filesToDownload = [];
   for (i = 0; i < dataFiles.length; i++){
     if(! fs.existsSync(outDir + "/" + dataFiles[i].split('/').reverse()[0])) {
       filesToDownload.push(dataFiles[i]);
-    } 
+    }
   }
-  
+
   if (filesToDownload.length > 0)
     return gp_download(filesToDownload)
       .pipe(gulp.dest("test/data_files"));
