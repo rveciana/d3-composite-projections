@@ -40,13 +40,21 @@ jsdom.env({
         .style("fill","#aca")
         .style("stroke","#000")
         .attr("d", path);
+        
 
+        /*
         svg.append("path")
             .datum(projection.getCompositionBorders())
               .style("fill","none")
               .style("stroke","#000")
-              .attr("d", path);
+              .attr("d", path);*/
 
+        svg
+          .append("path")
+            .style("fill","none")
+            .style("stroke","#000")
+            .attr("d", projection.getCompositionBorders());
+        
       if (!fs.existsSync(__dirname +'/sample_files')) {
             fs.mkdirSync(__dirname +'/sample_files',0744);
         }

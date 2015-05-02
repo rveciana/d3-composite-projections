@@ -149,8 +149,8 @@ conicConformalSpain.stream = function(stream) {
     var ulCanaryIslands = iberianPeninsule([-13.0, 35.3]);
     var ldCanaryIslands = iberianPeninsule([-6.4, 34.0]);
     
-    return "M"+ulCanaryIslands[0]+" "+ulCanaryIslands[1]+"L"+ldCanaryIslands[0]+" "+ulCanaryIslands[1]
-    +"L"+ldCanaryIslands[0]+" "+ldCanaryIslands[1];
+    return "M"+ulCanaryIslands[0]+" "+ulCanaryIslands[1]+"L"+ldCanaryIslands[0]+" "+ulCanaryIslands[1]+
+      "L"+ldCanaryIslands[0]+" "+ldCanaryIslands[1];
 
  };
 

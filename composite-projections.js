@@ -126,21 +126,23 @@ d3.geo.albersUsa = function() {
     return albersUsa;
   };
   albersUsa.getCompositionBorders = function() {
+    var hawaii1 = lower48([-102.91, 26.3]);
+    var hawaii2 = lower48([-104.0, 27.5]);
+    var hawaii3 = lower48([-108.0, 29.1]);
+    var hawaii4 = lower48([-110.0, 29.1]);
+    
+    var alaska1 = lower48([-110.0, 26.7]);
+    var alaska2 = lower48([-112.8, 27.6]);
+    var alaska3 = lower48([-114.3, 30.6]);
+    var alaska4 = lower48([-119.3, 30.1]);
 
-    var compositionBorders = { "type": "Feature",
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-          [[-103.578544, 27.493423], [-107.533622, 29.425018], [-110.785640 , 29.46420]],
-          [[-135.207515, 69.909828], [-136.295406, 62.525360], [-126.913570, 55.891163]]
-          ]
-          }
-        };
+    return "M"+hawaii1[0]+" "+hawaii1[1]+"L"+hawaii2[0]+" "+hawaii2[1]+
+      "L"+hawaii3[0]+" "+hawaii3[1]+"L"+hawaii4[0]+" "+hawaii4[1]+
+      "M"+alaska1[0]+" "+alaska1[1]+"L"+alaska2[0]+" "+alaska2[1]+
+      "L"+alaska3[0]+" "+alaska3[1]+"L"+alaska4[0]+" "+alaska4[1];
 
-    return compositionBorders;
 
   };
-
 
   return albersUsa.scale(1070);
 };
@@ -149,6 +151,8 @@ d3.geo.albersUsa = function() {
 })();
 
 (function() {
+
+
 d3.geo.conicConformalPortugal = function() {
 
   var iberianPeninsule = d3.geo.conicConformal()
@@ -322,6 +326,7 @@ conicConformalPortugal.stream = function(stream) {
    azoresPoint = azores
        .translate([x - 0.06 * k, y + -0.01 * k])
        .clipExtent([[x - 0.08367* k, y - 0.03498 * k ],[x  - 0.0395 * k, y + 0.0208488 * k]])
+      //  .clipExtent([azores(azoresBbox[0]),azores(azoresBbox[1])])
        .stream(pointStream).point;
 
         return conicConformalPortugal;
@@ -329,22 +334,19 @@ conicConformalPortugal.stream = function(stream) {
 
 
   conicConformalPortugal.getCompositionBorders = function() {
-    var delta = 0.001;
 
-    var compositionBorders = { "type": "Feature",
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-          //[[madeiraBbox[0][0] + delta, madeiraBbox[0][1] - delta],
-          //[madeiraBbox[1][0] - delta, madeiraBbox[0][1] - delta], [-12.9, 27.9]]
-          [[-12.0, 44.0], [-3.5, 35.5]]
-          ]
-          }
-        };
-    return compositionBorders;
+    var ldAzores = iberianPeninsule([-10.65, 38.8]);
+    var ulAzores = iberianPeninsule([-16.0, 41.4]);
+
+    var ldMadeira = iberianPeninsule([-10.34, 35.9]);
+    var ulMadeira = iberianPeninsule([-12.0, 36.8]);
+
+    return "M"+ldAzores[0]+" "+ldAzores[1]+"L"+ldAzores[0]+" "+ulAzores[1]+
+    "L"+ulAzores[0]+" "+ulAzores[1]+"L"+ulAzores[0]+" "+ldAzores[1]+"L"+ldAzores[0]+" "+ldAzores[1]+
+    "M"+ldMadeira[0]+" "+ldMadeira[1]+"L"+ldMadeira[0]+" "+ulMadeira[1]+
+    "L"+ulMadeira[0]+" "+ulMadeira[1]+"L"+ulMadeira[0]+" "+ldMadeira[1]+"L"+ldMadeira[0]+" "+ldMadeira[1];
 
  };
-
 
   return conicConformalPortugal.scale(3000);
 };
@@ -364,7 +366,6 @@ d3.geo.conicConformalSpain = function() {
 
   var iberianPeninsuleBbox = [[-9.9921301043373, 48.119816258446754], [4.393178805228727, 34.02148129982776]];
   var canaryIslandsBbox = [[-19.0, 29.0], [-12.7, 27.0]];
-
 
 
   var point,
@@ -502,16 +503,11 @@ conicConformalSpain.stream = function(stream) {
 
   conicConformalSpain.getCompositionBorders = function() {
 
-    var compositionBorders = { "type": "Feature",
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-          [[-19.0, 29.0], [-13.1, 29.7], [-12.9, 27.9]]
-          ]
-          }
-        };
-
-    return compositionBorders;
+    var ulCanaryIslands = iberianPeninsule([-13.0, 35.3]);
+    var ldCanaryIslands = iberianPeninsule([-6.4, 34.0]);
+    
+    return "M"+ulCanaryIslands[0]+" "+ulCanaryIslands[1]+"L"+ldCanaryIslands[0]+" "+ulCanaryIslands[1]+
+      "L"+ldCanaryIslands[0]+" "+ldCanaryIslands[1];
 
  };
 
