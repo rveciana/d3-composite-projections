@@ -11,7 +11,6 @@ d3.geo.conicConformalSpain = function() {
   var canaryIslandsBbox = [[-19.0, 29.0], [-12.7, 27.0]];
 
 
-
   var point,
       pointStream = {point: function(x, y) { point = [x, y]; }},
       iberianPeninsulePoint,
@@ -147,16 +146,11 @@ conicConformalSpain.stream = function(stream) {
 
   conicConformalSpain.getCompositionBorders = function() {
 
-    var compositionBorders = { "type": "Feature",
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-          [[-19.0, 29.0], [-13.1, 29.7], [-12.9, 27.9]]
-          ]
-          }
-        };
-
-    return compositionBorders;
+    var ulCanaryIslands = iberianPeninsule([-13.0, 35.3]);
+    var ldCanaryIslands = iberianPeninsule([-6.4, 34.0]);
+    
+    return "M"+ulCanaryIslands[0]+" "+ulCanaryIslands[1]+"L"+ldCanaryIslands[0]+" "+ulCanaryIslands[1]
+    +"L"+ldCanaryIslands[0]+" "+ldCanaryIslands[1];
 
  };
 
