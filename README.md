@@ -2,11 +2,51 @@
 Set of d3 projections for showing countries distant lands together
 
 
-npm update
+INSTALLATION
+============
 
-npm install -g gulp
+Getting the files
+-----------------
 
-npm install -g mocha
+You can get the files just by cloning the repository:
 
+  git clone https://github.com/rveciana/d3-composite-projections.git
 
-gulp
+or downloading the *composite-projections.js* or *composite-projections.min.js* files.
+
+Of course, you can link the files from your script:
+
+  <script src="https://cdn.rawgit.com/rveciana/d3-composite-projections/master/composite-projections.min.js.js"></script>
+
+Using bower
+-----------
+
+The bower package will install the production files, without tests or building options:
+
+  bower install d3-composite-projections
+
+Using NPM
+---------
+
+[![NPM](https://nodei.co/npm/d3-composite-projections.png?downloads=true&stars=true)](https://nodei.co/npm/d3-composite-projections/)
+
+To install the projections with npm so you can run the tests, use it with node, etc, just run:
+
+  npm install d3-composite-projections
+
+  npm install -g gulp
+
+  gulp
+
+This will download all the dependencies, the test files, and build and run the tests.
+
+Running the tests
+-----------------
+
+The tests are made using [mocha](https://github.com/mochajs/mocha). You can run them without using gulp:
+
+  npm install -g mocha
+
+And, from the *test* directory,
+
+  mocha
