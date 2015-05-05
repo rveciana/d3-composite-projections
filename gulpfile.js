@@ -6,6 +6,7 @@ var gp_uglify = require('gulp-uglify');
 var gp_mocha = require('gulp-mocha');
 var gp_jshint = require('gulp-jshint');
 var gp_replace = require('gulp-replace');
+var gp_strip = require('gulp-strip-comments');
 
 var gp_newer = require('gulp-newer');
 var gp_download = require("gulp-download");
@@ -58,6 +59,7 @@ gulp.task('license_year', function() {
 gulp.task('build', function(){
     return gulp.src(['./src/*.js'])
         .pipe(gp_newer('composite-projections.js'), {extension: '.js'})
+        .pipe(gp_strip())
         .pipe(gp_concat('composite-projections.js'))
         .pipe(gulp.dest('./'))
         .pipe(gp_rename('composite-projections.min.js'))
