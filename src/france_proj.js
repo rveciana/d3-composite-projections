@@ -429,18 +429,36 @@ conicConformalFrance.stream = function(stream) {
 
   conicConformalFrance.getCompositionBorders = function() {
 
-    var ulguyane = europe([-13.0, 35.3]);
-    var ldguyane = europe([-6.4, 34.0]);
+    var ur = europe([7.1, 41.9]);
+    var ul = europe([-3.1, 42.6]);
+    var lr = europe([7.1, 39.8]);
+    var llr = europe([7.1, 38.2]);
+    var s1 = europe([-1.8, 39.8]);
+    var s2 = europe([0.4, 39.8]);
+    var s3 = europe([2.0, 39.8]);
+    var s4 = europe([4.3, 39.8]);
+    var s5 = europe([5.4, 39.8]);
+    var s6 = europe([-0.5, 38.2]);
+    var s7 = europe([2.9, 38.2]);
+    var s8 = europe([4.7, 38.2]);
 
-    return "M"+ulguyane[0]+" "+ulguyane[1]+"L"+ldguyane[0]+" "+ulguyane[1]+
-      "L"+ldguyane[0]+" "+ldguyane[1];
+
+    return "M"+ur[0]+" "+ur[1]+"L"+ul[0]+" "+ur[1]
+    +"M"+ur[0]+" "+lr[1]+"L"+ul[0]+" "+lr[1]
+    +"M"+ur[0]+" "+llr[1]+"L"+ul[0]+" "+llr[1]
+    +"M"+s1[0]+" "+lr[1]+"L"+s1[0]+" "+ur[1]
+    +"M"+s2[0]+" "+lr[1]+"L"+s2[0]+" "+ur[1]
+    +"M"+s3[0]+" "+lr[1]+"L"+s3[0]+" "+ur[1]
+    +"M"+s4[0]+" "+lr[1]+"L"+s4[0]+" "+ur[1]
+    +"M"+s5[0]+" "+lr[1]+"L"+s5[0]+" "+ur[1]
+    +"M"+s6[0]+" "+llr[1]+"L"+s6[0]+" "+lr[1]
+    +"M"+s7[0]+" "+llr[1]+"L"+s7[0]+" "+lr[1]
+    +"M"+s8[0]+" "+llr[1]+"L"+s8[0]+" "+lr[1];
 
  };
 
 
-  return conicConformalFrance.scale(2500);
+  return conicConformalFrance.scale(2300);
 };
-
-
 
 })();

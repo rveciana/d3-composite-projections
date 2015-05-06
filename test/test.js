@@ -70,7 +70,24 @@ describe('Composite Projections', function(){
     });
   });
 
-  
+  /*
+  Cayenne (Guyane) -52.314, 4.910
+  Saint-Denis (Reunion) 55.4537, -20.885
+
+  Mamoudzou (Mayotte) 45.23, -12.7777
+  Fort de France (Martinique) -61.058909 14.607208,
+  Pointe-à-Pitre (Guadeloupe) -61.535311, 16.244799
+
+  Nouméa (Nouvelle Calédonie) 166.484263, -22.254973
+
+  Papeete (Polynesie) -149.567121 -17.532704,
+
+  Kolotai (Wallis et futuna) -178.080656 -14.311235,
+
+  St Pierre (St Pierre et Miquelon)  -56.173538, 46.780368,
+
+  Gustavia (St. Barthélemy ) -62.851940 17.895830,
+  */
 
   describe('Create sample SVGs', function(){
     /* I still have to test something, but simply generating the SVG can htlp to see visually is everything works
@@ -87,6 +104,11 @@ describe('Composite Projections', function(){
 
     it('Portugal SVG sample', function(){
         createSvgSample.createSvgSample("world-50m.json", "conicConformalPortugal", "conicConformalPortugal.svg", "countries");
+
+    });
+
+    it('France SVG sample', function(){
+        createSvgSample.createSvgSample("france.json", "conicConformalFrance", "conicConformalFrance.svg", "regions");
 
     });
   });
