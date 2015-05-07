@@ -68,12 +68,11 @@ d3.geo.conicConformalFrance = function() {
     var x = coordinates[0], y = coordinates[1];
     point = null;
 
-    (europePoint(x, y), point) || (guyanePoint(x, y), point)
-    || (reunionPoint(x, y), point) || (mayottePoint(x, y), point)
-    || (martiniquePoint(x, y), point) || (guadeloupePoint(x, y), point)
-    || (nouvelleCaledoniePoint(x, y), point) || (polynesiePoint(x, y), point)
-    || (wallisFutunaPoint(x, y), point) || (stPierreMichelonPoint(x, y), point)
-    || saintBarthlemyPoint(x, y);
+    polynesiePoint(x,y); guyanePoint(x, y); reunionPoint(x, y);
+    mayottePoint(x, y); martiniquePoint(x, y);
+    guadeloupePoint(x, y); wallisFutunaPoint(x, y);
+    stPierreMichelonPoint(x, y); saintBarthlemyPoint(x, y);
+    nouvelleCaledoniePoint(x, y);europePoint(x, y);
 
     return point;
   }
@@ -86,25 +85,45 @@ conicConformalFrance.invert = function(coordinates) {
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
 
+
+
+      //How are the return values calculated:
       /*
 
-      How are the return values calculated:
-      var c0 = guyane(guyaneBbox[0]);
+      wallisFutunaPoint,
+
+      var c0 = wallisFutuna(wallisFutunaBbox[0]);
       x0 = (c0[0] - t[0]) / k;
       y0 = (c0[1] - t[1]) / k;
 
-      console.info(x0 + ' - ' + y0);
+      console.info('-->'+x0 + ' - ' + y0);
 
 
-      var c1 = guyane(guyaneBbox[1]);
+      var c1 = wallisFutuna(wallisFutunaBbox[1]);
       x1 = (c1[0] - t[0]) / k;
       y1 = (c1[1] - t[1]) / k;
 
-      console.info(x1 + ' - ' + y1);
-      */
-    return (y >= 0.06440353 && y < 0.106509 && x >= -0.1247351 && x < -0.045924 ? guyane
+      console.info(x1 + ' - ' + y1);*/
+
+
+
+    return (y >= 0.04534132 && y < 0.0748 && x >= 0.0070587 && x < 0.0290499 ? guyane
+        : y >= 0.0558693 && y < 0.076059 && x >= 0.0392934 && x < 0.061382 ? reunion
+        : y >= 0.0594717 && y < 0.072226 && x >= 0.0285938 && x < 0.0402412 ? mayotte
+        : y >= 0.057607 && y < 0.074437 && x >= -0.016984 && x < -0.001753 ? martinique
+        : y >= 0.0548843 && y < 0.074104 && x >= -0.040543 && x < -0.015923 ? guadeloupe
+        : y >= 0.080338 && y < 0.1024854 && x >= -0.057904 && x < -0.030983 ? nouvelleCaledonie
+        : y >= 0.080643 && y < 0.10296 && x >= -0.025450 && x < 0.009523 ? polynesie
+        : y >= 0.09117 && y < 0.098995 && x >= 0.02006979 && x < 0.02990088 ? wallisFutuna
+        : y >= 0.081793 && y < 0.096724 && x >= 0.038989 && x < 0.0478735 ? stPierreMichelon
+        : y >= 0.061928 && y < 0.0688073 && x >= -0.053403 && x < -0.0459264 ? saintBarthlemy
         : europe).invert(coordinates);
+//0.020069793928965025 - 0.09117081720139011
+//0.029900884539600395 - 0.09899502240049
+
+
   };
+
 
 
 conicConformalFrance.stream = function(stream) {
@@ -241,6 +260,7 @@ conicConformalFrance.stream = function(stream) {
   };
 
   conicConformalFrance.translate = function(_) {
+
     if (!arguments.length) return europe.translate();
 
     var k = europe.scale(), x = +_[0], y = +_[1];
@@ -364,6 +384,7 @@ conicConformalFrance.stream = function(stream) {
    console.info('St Pierre et Michelon: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ', ' + y1);
    */
 
+
    europePoint = europe
        .translate(_)
        .clipExtent([[x - 0.08 * k, y - 0.13 * k],[x + 0.09 * k, y + 0.09 * k]])
@@ -408,7 +429,7 @@ conicConformalFrance.stream = function(stream) {
 
   polynesiePoint = polynesie
       .translate([x - 0.01 * k, y + 0.09 * k])
-      .clipExtent([[x -0.02545 * k, y + 0.080643 * k],[x + 0.00952 * k, y + 0.1029635 * k]])
+      .clipExtent([[x - 0.02545 * k, y + 0.080643 * k],[x + 0.00952 * k, y + 0.1029635 * k]])
       .stream(pointStream).point;
 
   wallisFutunaPoint = wallisFutuna
@@ -420,8 +441,6 @@ conicConformalFrance.stream = function(stream) {
       .translate([x + 0.045 * k, y + 0.09 * k])
       .clipExtent([[x + 0.03899 * k, y + 0.08179 * k],[x + 0.04787 * k, y + 0.09672 * k]])
       .stream(pointStream).point;
-
-
 
   return conicConformalFrance;
   };
