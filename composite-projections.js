@@ -226,8 +226,6 @@ d3.geo.conicConformalFrance = function() {
     stPierreMichelonPoint(x, y); saintBarthlemyPoint(x, y);
     nouvelleCaledoniePoint(x, y);europePoint(x, y);
 
-
-   
     return point;
   }
 
