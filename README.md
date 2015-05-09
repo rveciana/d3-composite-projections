@@ -40,7 +40,7 @@ or downloading the *composite-projections.js* or *composite-projections.min.js* 
 
 Of course, you can link the files from your script:
 
-    <script src="https://cdn.rawgit.com/rveciana/d3-composite-projections/master/composite-projections.min.js.js"></script>
+    <script src="https://raw.githubusercontent.com/rveciana/d3-composite-projections/master/composite-projections.min.js"></script>
 
 Using bower
 -----------
