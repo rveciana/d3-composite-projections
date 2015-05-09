@@ -52,7 +52,7 @@ The bower package will install the production files, without tests or building o
 Using NPM
 ---------
 
-![NPM](https://nodei.co/npm/d3-composite-projections.png?downloads=true&stars=true)](https://nodei.co/npm/d3-composite-projections/)
+[![NPM](https://nodei.co/npm/d3-composite-projections.png?downloads=true&stars=true)](https://nodei.co/npm/d3-composite-projections/)
 
 To install the projections with npm so you can run the tests, use it with node, etc, just run:
 
