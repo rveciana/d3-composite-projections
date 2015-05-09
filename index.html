@@ -6,15 +6,16 @@
 		<title>d3-composite-projections</title>
     <link href='//fonts.googleapis.com/css?family=Lato:300,300italic|Inconsolata' rel='stylesheet' type='text/css'>
     <style>
-    html {
-              border-top: 5px solid #89b889;
-          }
+  html {
+      border-top: 5px solid #89b889;
+      border-bottom: 5px solid #719871;
+        }
 
-    body {
-	  color: #343434;
-	  font-family: "Lato", sans-serif;
+  body {
+  color: #343434;
+  font-family: "Lato", sans-serif;
 
-        background: #eee;
+      background: #eee;
   }
   h1 {
   text-align: center;
@@ -63,7 +64,12 @@ padding-bottom: 2em;
 }
 
 .darker-section {
-  background: #719871;
+  background: #81ae81;
+text-align: center;
+padding-bottom: 2em;
+}
+
+.white-section {
 text-align: center;
 padding-bottom: 2em;
 }
@@ -90,7 +96,10 @@ margin: 0 auto;
   </head>
 
 	<body>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
 
+    <script src="composite-projections.min.js"></script>
 		<header>
 			<h1>d3-composite-projections</h1>
 			<h2>Set of d3 projections for showing countries' distant lands together</h2>
@@ -116,7 +125,7 @@ margin: 0 auto;
       </ul>
       </section>
 
-      <section class="darker-section">
+      <section class="white-section">
         <h2>Adding the composite projection borders</h2>
         <h3>To draw the separation between projection regions, you can use <i>getCompositionBorders()</i>, which returns the calculated path:</h3>
 
@@ -127,6 +136,127 @@ margin: 0 auto;
     .attr("d", projection.getCompositionBorders());</code></pre>
 
       </section>
-  </body>
+      <section class="darker-section">
+        <h2>Installation</h2>
+        <h3>Getting the files</h3>
+<div>You can get the files just by cloning the repository:</div>
 
+  <pre><code>git clone https://github.com/rveciana/d3-composite-projections.git</code></pre>
+<div>
+or downloading the <i>composite-projections.js</i> or <i>composite-projections.min.js</i> files.<br/>
+
+Of course, you can link the files from your script:</div>
+
+<pre><code>&lt;script src="https://raw.githubusercontent.com/rveciana/d3-composite-projections/master/composite-projections.min.js"&gt;&lt;/script&gt;</code></pre>
+</div>
+<h3>Using bower</h3>
+<div>The bower package will install the production files, without tests or building options:</div>
+
+<pre><code>bower install d3-composite-projections</code></pre>
+
+<h3>Using NPM</h3>
+
+<div>To install the projections with npm so you can run the tests, use it with node, etc, just run:</div>
+
+<pre><code>npm install d3-composite-projections
+
+npm install -g gulp
+
+gulp</code></pre>
+
+<div>This will download all the dependencies, the test files, and build and run the tests.</div>
+
+      </section>
+      <section class="white-section">
+      <h2>Example</h2>
+      <div id="example_map"></div>
+      <h3>Code:</h3>
+      <pre><code>var width = 900,
+height = 500;
+var projection = d3.geo.conicConformalFrance();
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("france.json", function(error, regions) {
+  var land = topojson.feature(regions, regions.objects.regions);
+
+svg.selectAll("path")
+  .data(land.features)
+  .enter()
+  .append("path")
+  .attr("d", path)
+  .style("stroke","#000")
+  .style("stroke-width",".5px")
+  .style("fill","#aca")
+  .on("mouseover", function(d,i) {
+    d3.select(this)
+      .transition()
+      .style("fill", "red");
+    })
+  .on("mouseout", function(d,i) {
+    d3.select(this)
+      .transition()
+      .style("fill", "#aca");
+    });
+
+svg
+.append("path")
+  .style("fill","none")
+  .style("stroke","#000")
+  .attr("d", projection.getCompositionBorders());
+
+});</code></pre>
+      </section>
+  </body>
+  <script>
+
+  var width = 900,
+      height = 500;
+
+  var projection = d3.geo.conicConformalFrance();
+  var path = d3.geo.path()
+      .projection(projection);
+
+  var svg = d3.select("#example_map").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  d3.json("france.json", function(error, regions) {
+  var land = topojson.feature(regions, regions.objects.regions);
+
+  svg.selectAll("path")
+    .data(land.features)
+    .enter()
+    .append("path")
+    .attr("d", path)
+    .style("stroke","#000")
+    .style("stroke-width",".5px")
+    .style("fill","#aca")
+    .on("mouseover", function(d,i) {
+      d3.select(this)
+        .transition()
+        .style("fill", "red");
+      })
+    .on("mouseout", function(d,i) {
+      d3.select(this)
+        .transition()
+        .style("fill", "#aca");
+      });
+
+
+  svg
+    .append("path")
+      .style("fill","none")
+      .style("stroke","#000")
+      .attr("d", projection.getCompositionBorders());
+
+
+});
+
+</script>
 </html>
