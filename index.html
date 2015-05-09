@@ -2,10 +2,90 @@
 <html lang="en">
 	<head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>d3-composite-projections</title>
+    <link href='//fonts.googleapis.com/css?family=Lato:300,300italic|Inconsolata' rel='stylesheet' type='text/css'>
     <style>
     html {
-              border-top: 5px solid #343434;
+              border-top: 5px solid #89b889;
           }
+
+    body {
+	  color: #343434;
+	  font-family: "Lato", sans-serif;
+
+        background: #eee;
+  }
+  h1 {
+  text-align: center;
+  font-size: 80px;
+  font-weight: 300;
+  margin: 0;
+}
+
+h2 {
+  font-size: 22px;
+  text-align: center;
+  font-style: italic;
+  font-weight: 300;
+  padding: 1em;
+  margin: 0;
+}
+
+h3 {
+  font-size: 18px;
+  text-align: center;
+  font-style: italic;
+  font-weight: 300;
+  padding: 1em;
+  margin: 0;
+}
+.github {
+    margin: auto;
+    margin-bottom: 2em;
+    max-width: 120px;
+}
+.svg-section {
+               /*opacity: 0;*/
+               margin: auto;
+               margin-top: 0;
+               margin-bottom: 2em;
+               max-width: 660px;
+               min-height: 400px;
+            }
+#france_example {
+  width: 100%;
+}
+.light-section {
+  background: #89b889;
+text-align: center;
+padding-bottom: 2em;
+}
+
+.darker-section {
+  background: #719871;
+text-align: center;
+padding-bottom: 2em;
+}
+
+code {
+	  font-family: "Inconsolata", monospace;
+	  font-size: 14px;
+    margin: auto;
+}
+pre {
+
+            margin: 10px 10px 10px 10px;
+            display: inline-block;
+            vertical-align: top;
+        text-align: left;
+            /*background: rgba(255,255,255,0.3);*/
+      }
+ul {
+  text-align:left;
+  display: inline-block;
+margin: 0 auto;
+}
 </style>
   </head>
 
@@ -22,7 +102,31 @@
         <section class="github">
           <span>View on <a href="https://github.com/rveciana/d3-composite-projections">Github</a></span>
         </section>
-      <section id="intro"></section>
+
+      <section class="light-section"><h2>Using the projection</h2>
+      <h3>Use the composite projections as any other D3 projection. They are based in the included <a href="https://github.com/mbostock/d3/wiki/Geo-Projections#albersUsa">AlbersUsa</a>:</h3>
+      <pre><code>var projection = d3.geo.conicConformalFrance();</code></pre>
+      <h3>The following regions have available projections right now:</h3>
+      <ul>
+        <li>France: conicConformalFrance</li>
+        <li>Portugal: conicConformalPortugal</li>
+        <li>Spain: conicConformalSpain</li>
+        <li>USA: albersUsa</li>
+
+      </ul>
+      </section>
+
+      <section class="darker-section">
+        <h2>Adding the composite projection borders</h2>
+        <h3>To draw the separation between projection regions, you can use <i>getCompositionBorders()</i>, which returns the calculated path:</h3>
+
+          <pre><code>svg
+  .append("path")
+    .style("fill","none")
+    .style("stroke","#000")
+    .attr("d", projection.getCompositionBorders());</code></pre>
+
+      </section>
   </body>
 
 </html>
