@@ -14,10 +14,10 @@ Change the scale using scale i.e. `.scale(3000)`, as usual.
 
 The projection is available for:
 
-* USA: `albersUSA()`
-* France: `conicConformalFrance()`
-* Portugal: `conicConformalPortugal()`
-* Spain: `conicConformalSpain()`
+* USA: [albersUSA](http://bl.ocks.org/rveciana/170a76b8dc1f9cfd8b2d)
+* France: [conicConformalFrance](http://bl.ocks.org/rveciana/02eb5b83848e0b06fa8e)
+* Portugal: [conicConformalPortugal](http://bl.ocks.org/rveciana/aec08199d43759e98afe)
+* Spain: [conicConformalSpain](http://bl.ocks.org/rveciana/472b7749352554ca4b68)
 
 To draw the borders between the projection zones, use `getCompositionBorders()`:
 
