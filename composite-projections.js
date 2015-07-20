@@ -658,10 +658,10 @@ conicConformalPortugal.stream = function(stream) {
 d3.geo.conicConformalSpain = function() {
 
   var iberianPeninsule = d3.geo.conicConformal()
-  .center([-3, 40]);
+  .center([2, 37.5]);
 
   var canaryIslands = d3.geo.conicConformal()
-  .center([-14.5, 28.5]);
+  .center([-9.6, 26.4]);
 
   var iberianPeninsuleBbox = [[-9.9921301043373, 48.119816258446754], [4.393178805228727, 34.02148129982776]];
   var canaryIslandsBbox = [[-19.0, 29.0], [-12.7, 27.0]];
@@ -689,7 +689,9 @@ conicConformalSpain.invert = function(coordinates) {
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
 
-          return (y >= 0.06440353 && y < 0.106509 && x >= -0.1247351 && x < -0.045924 ? canaryIslands
+      
+            
+    return (y >= -0.10779 && y < 0.067673 && x >= -0.1866 && x < 0.0255 ? canaryIslands
         : iberianPeninsule).invert(coordinates);
   };
 
@@ -750,12 +752,12 @@ conicConformalSpain.stream = function(stream) {
 
       iberianPeninsulePoint = iberianPeninsule
        .translate(_)
-       .clipExtent([[x - 0.06999999999999987 * k, y - 0.13 * k],[x + 0.09 * k, y + 0.09 * k]])
+       .clipExtent([[x - 0.1291 * k, y - 0.1683 * k],[x + 0.0309 * k, y + 0.0517 * k]])
        .stream(pointStream).point;
 
    canaryIslandsPoint = canaryIslands
        .translate([x - 0.067 * k, y + 0.081 * k])
-       .clipExtent([[x - 0.12473512280697119* k, y + 0.06440353780752857 * k],[x  - 0.04592425758706586* k, y + 0.10650900059950291 * k]])
+       .clipExtent([[x - 0.1866* k, y + 0.02557 * k],[x  - 0.10779* k, y + 0.06767 * k]])
        .stream(pointStream).point;
 
     return conicConformalSpain;
@@ -775,7 +777,5 @@ conicConformalSpain.stream = function(stream) {
 
   return conicConformalSpain.scale(2500);
 };
-
-
 
 })();
