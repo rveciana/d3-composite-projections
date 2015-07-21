@@ -48,7 +48,7 @@ describe('Composite Projections', function(){
     it('Projection results should be correct', function(){
 
         var proj = d3.geo.conicConformalPortugal();
-        assert.equal(3000, proj.scale());
+        assert.equal(3500, proj.scale());
 
         var lisboa = [-9.15, 38.7];
         var ponta_delgada = [-25.7, 37.7];

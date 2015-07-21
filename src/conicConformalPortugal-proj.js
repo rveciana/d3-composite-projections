@@ -4,7 +4,7 @@
 d3.geo.conicConformalPortugal = function() {
 
   var iberianPeninsule = d3.geo.conicConformal()
-    .center([-8.0, 39.9]);
+    .center([-5.0, 38.5]);
 
   var madeira = d3.geo.conicConformal()
     .center([-16.9, 32.8]);
@@ -42,9 +42,9 @@ conicConformalPortugal.invert = function(coordinates) {
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
 
-      /*
 
-      How are the return values calculated:
+      /*
+      //How are the return values calculated:
       var c0 = madeira(madeiraBbox[0]);
       x0 = (c0[0] - t[0]) / k;
       y0 = (c0[1] - t[1]) / k;
@@ -57,7 +57,7 @@ conicConformalPortugal.invert = function(coordinates) {
       y1 = (c1[1] - t[1]) / k;
 
       console.info(x1 + ' - ' + y1);
-      
+
 
       var c0 = azores(azoresBbox[0]);
       x0 = (c0[0] - t[0]) / k;
@@ -71,12 +71,13 @@ conicConformalPortugal.invert = function(coordinates) {
       y1 = (c1[1] - t[1]) / k;
 
       console.info(x1 + ' - ' + y1);
+      console.info("------");
       */
-
-    return (y >= -0.03498 && y < 0.0208488 && x >= -0.0836717 && x < -0.03954468 ? azores
-        : y >= 0.03617397 && y < 0.064008179 && x >= -0.050925 && x < -0.027008978 ? madeira
+    return (y >= -0.059983 && y < -0.004151 && x >= -0.1186717 && x < -0.07454468 ? azores
+        : y >= 0.0131739727 && y < 0.04100812 && x >= -0.084925 && x < -0.06100898 ? madeira
         : iberianPeninsule).invert(coordinates);
   };
+
 
 
 conicConformalPortugal.stream = function(stream) {
@@ -143,7 +144,8 @@ conicConformalPortugal.stream = function(stream) {
 
     var k = iberianPeninsule.scale(), x = +_[0], y = +_[1];
 
-   /* How to calculate the fixed parameters
+   /*
+   //How to calculate the fixed parameters
     var c0 = iberianPeninsule(iberianPeninsuleBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
@@ -154,11 +156,11 @@ conicConformalPortugal.stream = function(stream) {
 
    console.info('Iberian Peninsula: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
 
-   var c0 = madeira.translate([x - 0.041 * k, y + 0.05 * k])(madeiraBbox[0]);
+   var c0 = madeira.translate([x - 0.075 * k, y + 0.027 * k])(madeiraBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = madeira.translate([x - 0.041 * k, y + 0.05 * k])(madeiraBbox[1]);
+   var c1 = madeira.translate([x - 0.075 * k, y + 0.027 * k])(madeiraBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
@@ -166,11 +168,11 @@ conicConformalPortugal.stream = function(stream) {
 
 
 
-    var c0 = azores.translate([x - 0.06 * k, y + -0.01 * k])(azoresBbox[0]);
+    var c0 = azores.translate([x - 0.095 * k, y - 0.035 * k])(azoresBbox[0]);
     x0 = (x - c0[0]) / k;
     y0 = (y - c0[1]) / k;
 
-    var c1 = azores.translate([x - 0.06 * k, y + -0.01 * k])(azoresBbox[1]);
+    var c1 = azores.translate([x - 0.095 * k, y - 0.035 * k])(azoresBbox[1]);
     x1 = (x - c1[0]) / k;
     y1 = (y - c1[1]) / k;
 
@@ -179,21 +181,20 @@ conicConformalPortugal.stream = function(stream) {
 
    iberianPeninsulePoint = iberianPeninsule
        .translate(_)
-       .clipExtent([[x - 0.039661 * k, y - 0.06681 * k],[x + 0.0504 * k, y + 0.0695 * k]])
+       .clipExtent([[x - 0.0737 * k, y - 0.090189 * k],[x + 0.01636 * k, y + 0.04613 * k]])
        .stream(pointStream).point;
 
    madeiraPoint = madeira
-       .translate([x - 0.041 * k, y + 0.05 * k])
-       .clipExtent([[x - 0.0509* k, y + 0.03617 * k ],[x  - 0.027 * k, y + 0.064 * k]])
+       .translate([x - 0.075 * k, y + 0.027 * k])
+       .clipExtent([[x - 0.0849* k, y + 0.01317 * k ],[x  - 0.061 * k, y + 0.041 * k]])
        .stream(pointStream).point;
 
    azoresPoint = azores
-       .translate([x - 0.06 * k, y + -0.01 * k])
-       .clipExtent([[x - 0.08367* k, y - 0.03498 * k ],[x  - 0.0395 * k, y + 0.0208488 * k]])
-      //  .clipExtent([azores(azoresBbox[0]),azores(azoresBbox[1])])
+       .translate([x - 0.095 * k, y - 0.035 * k])
+       .clipExtent([[x - 0.1187* k, y - 0.06 * k ],[x  - 0.07454 * k, y + 0.00415 * k]])
        .stream(pointStream).point;
 
-        return conicConformalPortugal;
+   return conicConformalPortugal;
   };
 
 
@@ -212,7 +213,7 @@ conicConformalPortugal.stream = function(stream) {
 
  };
 
-  return conicConformalPortugal.scale(3000);
+  return conicConformalPortugal.scale(3500);
 };
 
 
