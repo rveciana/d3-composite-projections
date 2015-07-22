@@ -2,7 +2,7 @@
 d3.geo.conicConformalFrance = function() {
 
   var europe = d3.geo.conicConformal()
-    .center([2.0, 45.0]);
+    .center([13.5, 44.0]);
 
   var guyane = d3.geo.mercator()
     .center([-53.2, 3.9]);
@@ -26,7 +26,7 @@ d3.geo.conicConformalFrance = function() {
       .center([-150.55, -17.11]);
 
   var wallisFutuna = d3.geo.mercator()
-      .center([-178.1, -14.30]);
+      .center([-178.1, -14.3]);
 
   var stPierreMichelon = d3.geo.mercator()
       .center([-56.23, 46.93]);
@@ -36,7 +36,7 @@ d3.geo.conicConformalFrance = function() {
 
 
 
-  var europeBbox = [[-9.9921301043373, 48.119816258446754], [4.393178805228727, 34.02148129982776]];
+  var europeBbox = [[-9.9921301043373, 52.0], [4.393178805228727, 40.5]];
   var guyaneBbox = [[-54.5, 6.29], [-50.9, 1.48]];
   var reunionBbox = [[55.0088, -20.7228],[56.063449, -21.621723]];
   var mayotteBbox = [[44.9153, -12.594],[45.3602, -13.069]];
@@ -86,12 +86,110 @@ conicConformalFrance.invert = function(coordinates) {
         y = (coordinates[1] - t[1]) / k;
 
 
-
-      //How are the return values calculated:
       /*
+      //How are the return values calculated:
 
-      wallisFutunaPoint,
+      console.info("Guyane");
+      var c0 = guyane(guyaneBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
 
+      console.info('-->'+x0 + ' - ' + y0);
+
+
+      var c1 = guyane(guyaneBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
+
+
+      console.info("reunion");
+      var c0 = reunion(reunionBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info('-->'+x0 + ' - ' + y0);
+
+
+      var c1 = reunion(reunionBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
+
+      console.info("mayotte");
+      var c0 = mayotte(mayotteBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info('-->'+x0 + ' - ' + y0);
+
+
+      var c1 = mayotte(mayotteBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
+
+      console.info("martinique");
+      var c0 = martinique(martiniqueBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info('-->'+x0 + ' - ' + y0);
+
+
+      var c1 = martinique(martiniqueBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
+
+
+      console.info("guadeloupe");
+      var c0 = guadeloupe(guadeloupeBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info('-->'+x0 + ' - ' + y0);
+
+
+      var c1 = guadeloupe(guadeloupeBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
+
+      console.info("nouvelleCaledonie");
+      var c0 = nouvelleCaledonie(nouvelleCaledonieBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info('-->'+x0 + ' - ' + y0);
+
+
+      var c1 = nouvelleCaledonie(nouvelleCaledonieBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
+
+      console.info("polynesie");
+      var c0 = polynesie(polynesieBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info('-->'+x0 + ' - ' + y0);
+
+
+      var c1 = polynesie(polynesieBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
+
+      console.info("wallisFutuna");
       var c0 = wallisFutuna(wallisFutunaBbox[0]);
       x0 = (c0[0] - t[0]) / k;
       y0 = (c0[1] - t[1]) / k;
@@ -103,24 +201,47 @@ conicConformalFrance.invert = function(coordinates) {
       x1 = (c1[0] - t[0]) / k;
       y1 = (c1[1] - t[1]) / k;
 
-      console.info(x1 + ' - ' + y1);*/
+      console.info(x1 + ' - ' + y1);
+
+      console.info("stPierreMichelon");
+      var c0 = stPierreMichelon(stPierreMichelonBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info('-->'+x0 + ' - ' + y0);
 
 
+      var c1 = stPierreMichelon(stPierreMichelonBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
 
-    return (y >= 0.04534132 && y < 0.0748 && x >= 0.0070587 && x < 0.0290499 ? guyane
-        : y >= 0.0558693 && y < 0.076059 && x >= 0.0392934 && x < 0.061382 ? reunion
-        : y >= 0.0594717 && y < 0.072226 && x >= 0.0285938 && x < 0.0402412 ? mayotte
-        : y >= 0.057607 && y < 0.074437 && x >= -0.016984 && x < -0.001753 ? martinique
-        : y >= 0.0548843 && y < 0.074104 && x >= -0.040543 && x < -0.015923 ? guadeloupe
-        : y >= 0.080338 && y < 0.1024854 && x >= -0.057904 && x < -0.030983 ? nouvelleCaledonie
-        : y >= 0.080643 && y < 0.10296 && x >= -0.025450 && x < 0.009523 ? polynesie
-        : y >= 0.09117 && y < 0.098995 && x >= 0.02006979 && x < 0.02990088 ? wallisFutuna
-        : y >= 0.081793 && y < 0.096724 && x >= 0.038989 && x < 0.0478735 ? stPierreMichelon
-        : y >= 0.061928 && y < 0.0688073 && x >= -0.053403 && x < -0.0459264 ? saintBarthlemy
+      console.info(x1 + ' - ' + y1);
+
+      console.info("saintBarthlemy");
+      var c0 = saintBarthlemy(saintBarthlemyBbox[0]);
+      x0 = (c0[0] - t[0]) / k;
+      y0 = (c0[1] - t[1]) / k;
+
+      console.info('-->'+x0 + ' - ' + y0);
+
+
+      var c1 = saintBarthlemy(saintBarthlemyBbox[1]);
+      x1 = (c1[0] - t[0]) / k;
+      y1 = (c1[1] - t[1]) / k;
+
+      console.info(x1 + ' - ' + y1);
+      */
+    return (y >= 0.04034 && y < 0.0698 && x >= -0.1209 && x < -0.0989 ? guyane
+        : y >= 0.04586 && y < 0.066059 && x >= -0.0867 && x < -0.064618 ? reunion
+        : y >= 0.04847 && y < 0.061225 && x >= -0.0994 && x < -0.08776 ? mayotte
+        : y >= 0.047607 && y < 0.064437 && x >= -0.14348 && x < -0.128253 ? martinique
+        : y >= 0.045884 && y < 0.0651042 && x >= -0.168543 && x < -0.14392 ? guadeloupe
+        : y >= 0.073339 && y < 0.095485 && x >= -0.1859 && x < -0.15898 ? nouvelleCaledonie
+        : y >= 0.07364 && y < 0.09596 && x >= -0.15045 && x < -0.115476 ? polynesie
+        : y >= 0.080171 && y < 0.08799 && x >= -0.109930 && x < -0.100099 ? wallisFutuna
+        : y >= 0.07679 && y < 0.091724 && x >= -0.08401 && x < -0.075126 ? stPierreMichelon
+        : y >= 0.0509 && y < 0.060076 && x >= -0.18453 && x < -0.174568 ? saintBarthlemy
         : europe).invert(coordinates);
-//0.020069793928965025 - 0.09117081720139011
-//0.029900884539600395 - 0.09899502240049
-
 
   };
 
@@ -254,7 +375,7 @@ conicConformalFrance.stream = function(stream) {
     polynesie.scale(_ * 0.6);
     wallisFutuna.scale(_ * 2.4);
     stPierreMichelon.scale(_ * 1.2);
-    saintBarthlemy.scale(_ * 3.0);
+    saintBarthlemy.scale(_ * 4.0);
 
     return conicConformalFrance.translate(europe.translate());
   };
@@ -265,7 +386,7 @@ conicConformalFrance.stream = function(stream) {
 
     var k = europe.scale(), x = +_[0], y = +_[1];
 
-    /*
+
     //The composition is inspired by this map: http://coffeespoons.me/wp-content/uploads/2012/04/figaro-deptMap.png
 
     var c0 = europe(europeBbox[0]);
@@ -276,108 +397,108 @@ conicConformalFrance.stream = function(stream) {
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
-
+   /*
    console.info('Europe: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
 
-   var c0 = guyane.translate([x + 0.015 * k, y + 0.06 * k])(guyaneBbox[0]);
+   var c0 = guyane.translate([x - 0.113 * k, y + 0.055 * k])(guyaneBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = guyane.translate([x + 0.015 * k, y + 0.06 * k])(guyaneBbox[1]);
+   var c1 = guyane.translate([x - 0.113 * k, y + 0.055 * k])(guyaneBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('Guyane: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
 
-   var c0 = reunion.translate([x + 0.050 * k, y + 0.065 * k])(reunionBbox[0]);
+   var c0 = reunion.translate([x - 0.076 * k, y + 0.055 * k])(reunionBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = reunion.translate([x + 0.050 * k, y + 0.065 * k])(reunionBbox[1]);
+   var c1 = reunion.translate([x - 0.076 * k, y + 0.055 * k])(reunionBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('Reunion: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
 
 
-   var c0 = mayotte.translate([x + 0.035 * k, y + 0.065 * k])(mayotteBbox[0]);
+   var c0 = mayotte.translate([x - 0.093 * k, y + 0.054 * k])(mayotteBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = mayotte.translate([x + 0.035 * k, y + 0.065 * k])(mayotteBbox[1]);
+   var c1 = mayotte.translate([x - 0.093 * k, y + 0.054 * k])(mayotteBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('Mayotte: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ' - ' + y1);
 
 
-   var c0 = martinique.translate([x - 0.01 * k, y + 0.065 * k])(martiniqueBbox[0]);
+   var c0 = martinique.translate([x - 0.1365 * k, y + 0.055 * k])(martiniqueBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = martinique.translate([x - 0.01 * k, y + 0.065 * k])(martiniqueBbox[1]);
+   var c1 = martinique.translate([x - 0.1365 * k, y + 0.055 * k])(martiniqueBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('Martinique: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ', ' + y1);
 
-   var c0 = guadeloupe.translate([x - 0.03 * k, y + 0.065 * k])(guadeloupeBbox[0]);
+   var c0 = guadeloupe.translate([x - 0.158 * k, y + 0.056 * k])(guadeloupeBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = guadeloupe.translate([x - 0.03 * k, y + 0.065 * k])(guadeloupeBbox[1]);
+   var c1 = guadeloupe.translate([x - 0.158 * k, y + 0.056 * k])(guadeloupeBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('Guadeloupe: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ', ' + y1);
 
-   var c0 = saintBarthlemy.translate([x - 0.05 * k, y + 0.065 * k])(saintBarthlemyBbox[0]);
+   var c0 = saintBarthlemy.translate([x - 0.18 * k, y + 0.055 * k])(saintBarthlemyBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = saintBarthlemy.translate([x - 0.05 * k, y + 0.065 * k])(saintBarthlemyBbox[1]);
+   var c1 = saintBarthlemy.translate([x - 0.18 * k, y + 0.055 * k])(saintBarthlemyBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('St Barthélemy: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ', ' + y1);
 
-   var c0 = nouvelleCaledonie.translate([x - 0.044 * k, y + 0.09 * k])(nouvelleCaledonieBbox[0]);
+   var c0 = nouvelleCaledonie.translate([x - 0.172 * k, y + 0.083 * k])(nouvelleCaledonieBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = nouvelleCaledonie.translate([x - 0.044 * k, y + 0.09 * k])(nouvelleCaledonieBbox[1]);
+   var c1 = nouvelleCaledonie.translate([x - 0.172 * k, y + 0.083 * k])(nouvelleCaledonieBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('Nouvelle Calédonie: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ', ' + y1);
 
 
-   var c0 = polynesie.translate([x - 0.01 * k, y + 0.09 * k])(polynesieBbox[0]);
+   var c0 = polynesie.translate([x - 0.135 * k, y + 0.083 * k])(polynesieBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = polynesie.translate([x - 0.01 * k, y + 0.09 * k])(polynesieBbox[1]);
+   var c1 = polynesie.translate([x - 0.135 * k, y + 0.083 * k])(polynesieBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('Polynesie: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ', ' + y1);
 
-   var c0 = wallisFutuna.translate([x + 0.025 * k, y + 0.095 * k])(wallisFutunaBbox[0]);
+   var c0 = wallisFutuna.translate([x - 0.105 * k, y + 0.084 * k])(wallisFutunaBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = wallisFutuna.translate([x + 0.025 * k, y + 0.095 * k])(wallisFutunaBbox[1]);
+   var c1 = wallisFutuna.translate([x - 0.105 * k, y + 0.084 * k])(wallisFutunaBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
    console.info('Wallis et Futuna: p0: ' + x0 + ', ' + y0 + ' , p1: ' + x1 + ', ' + y1);
 
 
-   var c0 = stPierreMichelon.translate([x + 0.045 * k, y + 0.09 * k])(stPierreMichelonBbox[0]);
+   var c0 = stPierreMichelon.translate([x - 0.078 * k, y + 0.085 * k])(stPierreMichelonBbox[0]);
    x0 = (x - c0[0]) / k;
    y0 = (y - c0[1]) / k;
 
-   var c1 = stPierreMichelon.translate([x + 0.045 * k, y + 0.09 * k])(stPierreMichelonBbox[1]);
+   var c1 = stPierreMichelon.translate([x - 0.078 * k, y + 0.085 * k])(stPierreMichelonBbox[1]);
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
@@ -387,59 +508,57 @@ conicConformalFrance.stream = function(stream) {
 
    europePoint = europe
        .translate(_)
-       .clipExtent([[x - 0.08 * k, y - 0.13 * k],[x + 0.09 * k, y + 0.09 * k]])
+       .clipExtent([[x - 0.249 * k, y - 0.1215 * k],[x + 0.0987 * k, y + 0.06201 * k]])
        .stream(pointStream).point;
 
-
    reunionPoint = reunion
-       .translate([x + 0.05 * k, y + 0.065 * k])
-       .clipExtent([[x + 0.03929 * k, y + 0.05587 * k],[x + 0.06138 * k, y + 0.0760594 * k]])
+       .translate([x - 0.076 * k, y + 0.055 * k])
+       .clipExtent([[x - 0.0867 * k, y + 0.045869 * k],[x - 0.064618 * k, y + 0.066059 * k]])
        .stream(pointStream).point;
 
   mayottePoint = mayotte
-       .translate([x + 0.035 * k, y + 0.065 * k])
-       .clipExtent([[x + 0.02859 * k, y + 0.05947 * k],[x + 0.04024 * k, y + 0.0722257 * k]])
+       .translate([x - 0.093 * k, y + 0.054 * k])
+       .clipExtent([[x - 0.0994 * k, y + 0.04847 * k],[x - 0.08776 * k, y + 0.0612257 * k]])
        .stream(pointStream).point;
 
-   guyanePoint = guyane
-       .translate([x + 0.015 * k, y + 0.06 * k])
-       .clipExtent([[x + 0.007059 * k, y + 0.045341 * k],[x + 0.02905 * k, y + 0.0748 * k]])
+  guyanePoint = guyane
+       .translate([x - 0.113 * k, y + 0.055 * k])
+       .clipExtent([[x - 0.12094 * k, y + 0.04034 * k],[x - 0.0989 * k, y + 0.0698 * k]])
        .stream(pointStream).point;
-
 
    martiniquePoint = martinique
-      .translate([x - 0.01 * k, y + 0.065 * k])
-      .clipExtent([[x - 0.01698 * k, y + 0.0576 * k],[x - 0.0017533 * k, y + 0.074437 * k]])
+      .translate([x - 0.1365 * k, y + 0.055 * k])
+      .clipExtent([[x - 0.14348 * k, y + 0.0476 * k],[x - 0.12825 * k, y + 0.064437 * k]])
       .stream(pointStream).point;
 
   guadeloupePoint = guadeloupe
-     .translate([x - 0.03 * k, y + 0.065 * k])
-     .clipExtent([[x - 0.04054 * k, y + 0.054884 * k],[x - 0.01592 * k, y + 0.074104 * k]])
+     .translate([x - 0.158 * k, y + 0.056 * k])
+     .clipExtent([[x - 0.16854 * k, y + 0.045884 * k],[x - 0.14392 * k, y + 0.065104 * k]])
      .stream(pointStream).point;
 
  saintBarthlemyPoint = saintBarthlemy
-     .translate([x - 0.05 * k, y + 0.065 * k])
-     .clipExtent([[x - 0.053403 * k, y + 0.061929 * k],[x - 0.045926 * k, y + 0.068807 * k]])
+     .translate([x - 0.18 * k, y + 0.055 * k])
+     .clipExtent([[x - 0.18454 * k, y + 0.0509 * k],[x - 0.174569 * k, y + 0.06 * k]])
      .stream(pointStream).point;
 
   nouvelleCaledoniePoint = nouvelleCaledonie
-      .translate([x - 0.044 * k, y + 0.09 * k])
-      .clipExtent([[x - 0.0579 * k, y + 0.080339 * k],[x - 0.0309833 * k, y + 0.102485 * k]])
+      .translate([x - 0.172 * k, y + 0.083 * k])
+      .clipExtent([[x - 0.1859 * k, y + 0.07334 * k],[x - 0.15898 * k, y + 0.09549 * k]])
       .stream(pointStream).point;
 
   polynesiePoint = polynesie
-      .translate([x - 0.01 * k, y + 0.09 * k])
-      .clipExtent([[x - 0.02545 * k, y + 0.080643 * k],[x + 0.00952 * k, y + 0.1029635 * k]])
+      .translate([x - 0.135 * k, y + 0.083 * k])
+      .clipExtent([[x - 0.15045 * k, y + 0.07364 * k],[x - 0.11547 * k, y + 0.09596 * k]])
       .stream(pointStream).point;
 
   wallisFutunaPoint = wallisFutuna
-      .translate([x + 0.025 * k, y + 0.095 * k])
-      .clipExtent([[x + 0.02007 * k, y + 0.09117 * k],[x + 0.0299 * k, y + 0.098995 * k]])
+      .translate([x - 0.105 * k, y + 0.084 * k])
+      .clipExtent([[x - 0.10993 * k, y + 0.08017 * k],[x - 0.1 * k, y + 0.087995 * k]])
       .stream(pointStream).point;
 
   stPierreMichelonPoint = stPierreMichelon
-      .translate([x + 0.045 * k, y + 0.09 * k])
-      .clipExtent([[x + 0.03899 * k, y + 0.08179 * k],[x + 0.04787 * k, y + 0.09672 * k]])
+      .translate([x - 0.078 * k, y + 0.085 * k])
+      .clipExtent([[x - 0.08401 * k, y + 0.07679 * k],[x - 0.07512 * k, y + 0.09172 * k]])
       .stream(pointStream).point;
 
   return conicConformalFrance;
