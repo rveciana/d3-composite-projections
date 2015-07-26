@@ -333,13 +333,25 @@ conicConformalEurope.stream = function(stream) {
 
   conicConformalEurope.getCompositionBorders = function() {
 
-    var ulCanaryIslands = continent([-13.0, 35.3]);
-    var ldCanaryIslands = continent([-6.4, 34.0]);
     
-    console.info("M"+ulCanaryIslands[0]+" "+ulCanaryIslands[1]+"L"+ldCanaryIslands[0]+" "+ulCanaryIslands[1]+
-      "L"+ldCanaryIslands[0]+" "+ldCanaryIslands[1]);
+    var uc = continent([53.0, 58.0]);
+    var lc = continent([53.0, 42.0]);
+    var l1 = continent([35.0, 55.5]);
+    var l2 = continent([35.0, 53.0]);
+    var r1 = continent([57.0, 53.5]);
+    var r2 = continent([54.5, 51.0]);
+    var r3 = continent([54.5, 46.0]);
 
-    return "M0 0L500 500";
+    return "M"+uc[0]+" "+uc[1]+"L"+uc[0]+" "+lc[1]
+      +"M"+uc[0]+" "+l1[1]+"L"+l1[0]+" "+l1[1]
+      +"M"+uc[0]+" "+l2[1]+"L"+l1[0]+" "+l2[1]
+      +"M"+uc[0]+" "+r1[1]+"L"+r1[0]+" "+r1[1]
+      +"M"+uc[0]+" "+r2[1]+"L"+r1[0]+" "+r2[1]
+      +"M"+uc[0]+" "+r3[1]+"L"+r1[0]+" "+r3[1]
+      +"M"+l1[0]+" "+uc[1]+"L"+r1[0]+" "+uc[1]
+      +"M"+l1[0]+" "+uc[1]+"L"+l1[0]+" "+lc[1]
+      +"M"+l1[0]+" "+lc[1]+"L"+r1[0]+" "+lc[1]
+      +"M"+r1[0]+" "+lc[1]+"L"+r1[0]+" "+uc[1];
 
  };
 
