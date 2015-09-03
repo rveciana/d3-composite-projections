@@ -73,23 +73,28 @@ conicConformalEurope.invert = function(coordinates) {
 
       /*
       //How are the return values calculated:
-      var c0 = canaryIslands(canaryIslandsBbox[0]);
+      var c0 = guadeloupe(guadeloupeBbox[0]);
       x0 = (c0[0] - t[0]) / k;
       y0 = (c0[1] - t[1]) / k;
 
       console.info(x0 + ' - ' + y0);
 
 
-      var c1 = canaryIslands(canaryIslandsBbox[1]);
+      var c1 = guadeloupe(guadeloupeBbox[1]);
       x1 = (c1[0] - t[0]) / k;
       y1 = (c1[1] - t[1]) / k;
 
       console.info(x1 + ' - ' + y1);
       */
 
-    /*return (y >= -0.10779 && y < 0.067673 && x >= -0.1866 && x < 0.0255 ? canaryIslands
-        : continent).invert(coordinates);*/
-        return continent.invert(coordinates);
+        return (y >= -0.1474747 && y < -0.063727 && x >= -0.07551 && x < -0.009317 ? azores
+            : y >= -0.064887 && y < -0.014785 && x >= -0.057865 && x < -0.014816 ? madeira
+            : y >= -0.10779 && y < 0.067673 && x >= -0.1866 && x < 0.0255 ? canaryIslands
+            : y >= -0.05932 && y < -0.000399 && x >= 0.05412 && x < 0.0981 ? guyane
+            : y >= 0.0163 && y < 0.046589 && x >= 0.05394 && x < 0.08707 ? reunion
+            : y >= -0.09887 && y < -0.078675 && x >= 0.061618 && x < 0.079896 ? martinique
+            : y >= -0.14517 && y < -0.11634 && x >= 0.05418 && x < 0.091114 ? guadeloupe
+            : continent).invert(coordinates);
   };
 
 
@@ -125,7 +130,7 @@ conicConformalEurope.stream = function(stream) {
         guyaneStream.sphere();
         reunionStream.sphere();
       },
-      
+
       lineStart: function() {
         continentStream.lineStart();
         canaryIslandsStream.lineStart();
@@ -333,7 +338,7 @@ conicConformalEurope.stream = function(stream) {
 
   conicConformalEurope.getCompositionBorders = function() {
 
-    
+
     var uc = continent([53.0, 58.0]);
     var lc = continent([53.0, 42.0]);
     var l1 = continent([35.0, 55.5]);

@@ -75,7 +75,8 @@ gulp.task('get_sample_data', function(){
   var dataFiles = ["https://cdn.rawgit.com/rveciana/5919944/raw//provincias.json",
       "http://bl.ocks.org/mbostock/raw/4090846/us.json",
       "https://cdn.rawgit.com/mbostock/4090846/raw//world-50m.json",
-      "https://gist.githubusercontent.com/rveciana/5919944/raw/b1f826319231c3e06d6e8548bc947ca2c29dc9e8/france.json"];
+      "https://gist.githubusercontent.com/rveciana/5919944/raw/b1f826319231c3e06d6e8548bc947ca2c29dc9e8/france.json",
+      "https://gist.githubusercontent.com/rveciana/5919944/raw/19dc3e37a6ca5ebb05d3a2d96a1f499d6cc3411c/nuts0.json"];
   var filesToDownload = [];
   for (i = 0; i < dataFiles.length; i++){
     if(! fs.existsSync(outDir + "/" + dataFiles[i].split('/').reverse()[0])) {

@@ -8,6 +8,9 @@ describe('Composite Projections', function(){
     it('All projections must be defined', function(){
         assert.equal(typeof d3.geo.albersUsa , 'function');
         assert.equal(typeof d3.geo.conicConformalSpain , 'function');
+        assert.equal(typeof d3.geo.conicConformalPortugal , 'function');
+        assert.equal(typeof d3.geo.conicConformalFrance , 'function');
+        assert.equal(typeof d3.geo.conicConformalEurope , 'function');
 
     });
   });
@@ -149,6 +152,69 @@ describe('Composite Projections', function(){
     });
   });
 
+  describe('Europe', function(){
+    it('Projection results should be correct', function(){
+
+        var proj = d3.geo.conicConformalEurope();
+        assert.equal(750, proj.scale());
+
+
+        var barcelona = [2.0, 41.0];
+        var las_palmas = [-15.0, 28.0];
+
+        var lisboa = [-9.15, 38.7];
+        var ponta_delgada = [-25.7, 37.7];
+        var funchal = [-16.91, 32.667];
+
+        var cayenne = [-52.3, 4.91];
+        var saintDenis = [55.45, -20.88];
+        var fortDeFrance = [-61.0589, 14.607];
+        var pointeAPitre = [-61.5353, 16.2448];
+
+        var inv_barcelona = proj.invert(proj(barcelona));
+        var inv_las_palmas = proj.invert(proj(las_palmas));
+
+        var inv_lisboa = proj.invert(proj(lisboa));
+        var inv_ponta_delgada = proj.invert(proj(ponta_delgada));
+        var inv_funchal = proj.invert(proj(funchal));
+
+        var inv_cayenne = proj.invert(proj(cayenne));
+        var inv_saintDenis = proj.invert(proj(saintDenis));
+        var inv_fortDeFrance = proj.invert(proj(fortDeFrance));
+        var inv_pointeAPitre = proj.invert(proj(pointeAPitre));
+
+        assert.ok((inv_barcelona[0] - barcelona[0]) < 0.0001);
+        assert.ok((inv_barcelona[1] - barcelona[1]) < 0.0001);
+
+        assert.ok((inv_las_palmas[0] - las_palmas[0]) < 0.0001, "Las Palmas should be properly reprojected");
+        assert.ok((inv_las_palmas[1] - las_palmas[1]) < 0.0001);
+
+        assert.ok((inv_lisboa[0] - lisboa[0]) < 0.0001);
+        assert.ok((inv_lisboa[1] - lisboa[1]) < 0.0001);
+
+
+        assert.ok((inv_ponta_delgada[0] - ponta_delgada[0]) < 0.0001, "Ponta Delgada must be translated");
+        assert.ok((inv_ponta_delgada[1] - ponta_delgada[1]) < 0.0001);
+
+        assert.ok((inv_funchal[0] - funchal[0]) < 0.0001, "Funchal must be translated");
+        assert.ok((inv_funchal[1] - funchal[1]) < 0.0001);
+
+        assert.ok((inv_cayenne[0] - cayenne[0]) < 0.0001, "Cayenne should be properly reprojected");
+        assert.ok((inv_cayenne[1] - cayenne[1]) < 0.0001);
+
+        assert.ok((inv_saintDenis[0] - saintDenis[0]) < 0.0001, "saintDenis should be properly reprojected");
+        assert.ok((inv_saintDenis[1] - saintDenis[1]) < 0.0001);
+
+        assert.ok((inv_fortDeFrance[0] - fortDeFrance[0]) < 0.0001, "fortDeFrance should be properly reprojected");
+        assert.ok((inv_fortDeFrance[1] - fortDeFrance[1]) < 0.0001);
+
+        assert.ok((inv_pointeAPitre[0] - pointeAPitre[0]) < 0.0001, "pointeAPitre should be properly reprojected");
+        assert.ok((inv_pointeAPitre[1] - pointeAPitre[1]) < 0.0001);
+
+    });
+  });
+
+
   describe('Create sample SVGs', function(){
     /* I still have to test something, but simply generating the SVG can htlp to see visually is everything works
     The test is outside each projection to make easy to skip, since it takes its time*/
@@ -169,6 +235,11 @@ describe('Composite Projections', function(){
 
     it('France SVG sample', function(){
         createSvgSample.createSvgSample("france.json", "conicConformalFrance", "conicConformalFrance.svg", "regions");
+
+    });
+
+    it('Europe SVG sample', function(){
+        createSvgSample.createSvgSample("nuts0.json", "conicConformalEurope", "conicConformalEurope.svg", "nuts0");
 
     });
   });
