@@ -962,9 +962,8 @@ conicConformalSpain.invert = function(coordinates) {
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
 
-      
-            
-    return (y >= -0.10779 && y < 0.067673 && x >= -0.1866 && x < 0.0255 ? canaryIslands
+
+          return (y >= -0.10779 && y < 0.067673 && x >= -0.1866 && x < 0.0255 ? canaryIslands
         : iberianPeninsule).invert(coordinates);
   };
 
@@ -1004,7 +1003,7 @@ conicConformalSpain.stream = function(stream) {
   conicConformalSpain.precision = function(_) {
     if (!arguments.length) return iberianPeninsule.precision();
     iberianPeninsule.precision(_);
-    canaryIslandsPeninsule.precision(_);
+    canaryIslands.precision(_);
 
     return conicConformalSpain;
   };
@@ -1041,7 +1040,7 @@ conicConformalSpain.stream = function(stream) {
 
     var ulCanaryIslands = iberianPeninsule([-13.0, 35.3]);
     var ldCanaryIslands = iberianPeninsule([-6.4, 34.0]);
-    
+
     return "M"+ulCanaryIslands[0]+" "+ulCanaryIslands[1]+"L"+ldCanaryIslands[0]+" "+ulCanaryIslands[1]+
       "L"+ldCanaryIslands[0]+" "+ldCanaryIslands[1];
 
