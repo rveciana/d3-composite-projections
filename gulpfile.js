@@ -17,7 +17,7 @@ var fs = require('fs');
 
 
 //Test depends on build so is run after the new version is ready
-gulp.task('test', ['build', 'get_sample_data'], function(){
+gulp.task('test', ['build', 'build_separated', 'get_sample_data'], function(){
     return gulp.src('./test/test.js', {read: false})
         .pipe(gp_mocha({reporter: 'nyan'}));
 });
@@ -67,6 +67,19 @@ gulp.task('build', function(){
         .pipe(gulp.dest('./'));
 });
 
+gulp.task('build_separated', function(){
+
+    return gulp.src(['./src/*.js'])
+        .pipe(gp_newer({dest: './', map: function(name){
+          return name.replace('.js','.min.js');}
+        }))
+        .pipe(gp_strip())
+        .pipe(gp_rename(function (path) {
+          path.extname = ".min.js";
+        }))
+        .pipe(gp_uglify())
+        .pipe(gulp.dest('./'));
+});
 
 
 gulp.task('get_sample_data', function(){
@@ -95,4 +108,5 @@ gulp.task('get_sample_data', function(){
 
 
 
-gulp.task('default', ['lint','build','test','license_year'], function(){});
+gulp.task('default', ['lint','build', 'build_separated','test','license_year'], function(){});
+//gulp.task('default', ['build', 'build_separated'], function(){});
