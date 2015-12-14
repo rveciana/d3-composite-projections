@@ -1,7 +1,10 @@
 var assert = require("assert")
+var execfile = require("./execfile.js");
 var d3 = require('../node_modules/d3/d3.js');
-var composite_projection = require('../composite-projections.js');
+var composite_projection = execfile(__dirname+"/../composite-projections.js", {d3: d3});
 var createSvgSample = require('./createSvgSample.js');
+
+
 describe('Composite Projections', function(){
 
   describe('Methods', function(){
@@ -216,8 +219,9 @@ describe('Composite Projections', function(){
 
 
   describe('Create sample SVGs', function(){
-    /* I still have to test something, but simply generating the SVG can htlp to see visually is everything works
-    The test is outside each projection to make easy to skip, since it takes its time*/
+
+    // I still have to test something, but simply generating the SVG can help to see visually is everything works
+    // The test is outside each projection to make easy to skip, since it takes its time
     it('Spain SVG sample', function(){
         createSvgSample.createSvgSample("provincias.json", "conicConformalSpain", "conicConformalSpain.svg", "provincias");
 

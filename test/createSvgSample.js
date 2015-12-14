@@ -1,4 +1,4 @@
-var jsdom = require('jsdom'); // Must be 3.x version, not 4.x, which doesn't work on nodejs npm install jsdom@3
+var jsdom = require('jsdom');
 var fs = require('fs');
 var d3 = require('d3');
 var topojson = require('topojson');
@@ -19,6 +19,7 @@ jsdom.env({
     var width = 900,
     height = 500;
 
+    //console.info( window["d3"]["geo"]);
     var projection = window["d3"]["geo"][projFuncName]();
 
     //var projection = window.d3.geo.conicConformalSpain();
@@ -40,7 +41,7 @@ jsdom.env({
         .style("fill","#aca")
         .style("stroke","#000")
         .attr("d", path);
-        
+
 
         /*
         svg.append("path")
@@ -54,7 +55,7 @@ jsdom.env({
             .style("fill","none")
             .style("stroke","#000")
             .attr("d", projection.getCompositionBorders());
-        
+
       if (!fs.existsSync(__dirname +'/sample_files')) {
             fs.mkdirSync(__dirname +'/sample_files',0744);
         }

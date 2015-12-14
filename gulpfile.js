@@ -109,4 +109,3 @@ gulp.task('get_sample_data', function(){
 
 
 gulp.task('default', ['lint','build', 'build_separated','test','license_year'], function(){});
-//gulp.task('default', ['build', 'build_separated'], function(){});

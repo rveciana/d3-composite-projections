@@ -1,19 +1,16 @@
 (function() {
 
-
-
-
 d3.geo.albersUsa = function() {
 
   var lower48 = d3.geo.albers();
 
- 
+
   var alaska = d3.geo.conicEqualArea()
       .rotate([154, 0])
       .center([-2, 58.5])
       .parallels([55, 65]);
 
- 
+
   var hawaii = d3.geo.conicEqualArea()
       .rotate([157, 0])
       .center([-3, 19.9])
@@ -46,9 +43,9 @@ d3.geo.albersUsa = function() {
         : lower48).invert(coordinates);
   };
 
- 
- 
- 
+
+
+
   albersUsa.stream = function(stream) {
     var lower48Stream = lower48.stream(stream),
         alaskaStream = alaska.stream(stream),
@@ -130,7 +127,7 @@ d3.geo.albersUsa = function() {
     var hawaii2 = lower48([-104.0, 27.5]);
     var hawaii3 = lower48([-108.0, 29.1]);
     var hawaii4 = lower48([-110.0, 29.1]);
-    
+
     var alaska1 = lower48([-110.0, 26.7]);
     var alaska2 = lower48([-112.8, 27.6]);
     var alaska3 = lower48([-114.3, 30.6]);
@@ -151,7 +148,7 @@ d3.geo.albersUsa = function() {
 })();
 
 (function() {
- 
+
 d3.geo.conicConformalEurope = function() {
 
   var continent = d3.geo.conicConformal()
@@ -664,7 +661,7 @@ conicConformalFrance.stream = function(stream) {
     var k = europe.scale(), x = +_[0], y = +_[1];
 
 
-   
+
 
     var c0 = europe(europeBbox[0]);
    x0 = (x - c0[0]) / k;
@@ -674,7 +671,7 @@ conicConformalFrance.stream = function(stream) {
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
-   
+
    europePoint = europe
        .translate(_)
        .clipExtent([[x - 0.249 * k, y - 0.1215 * k],[x + 0.0987 * k, y + 0.06201 * k]])
