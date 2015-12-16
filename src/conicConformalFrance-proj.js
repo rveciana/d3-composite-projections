@@ -65,14 +65,16 @@ d3.geo.conicConformalFrance = function() {
 
 
   function conicConformalFrance(coordinates) {
+    /*jshint -W030 */
     var x = coordinates[0], y = coordinates[1];
     point = null;
-
-    polynesiePoint(x,y); guyanePoint(x, y); reunionPoint(x, y);
-    mayottePoint(x, y); martiniquePoint(x, y);
-    guadeloupePoint(x, y); wallisFutunaPoint(x, y);
-    stPierreMichelonPoint(x, y); saintBarthlemyPoint(x, y);
-    nouvelleCaledoniePoint(x, y);europePoint(x, y);
+    
+    (polynesiePoint(x,y), point) || (guyanePoint(x, y), point) ||
+    (reunionPoint(x, y), point) || (mayottePoint(x, y), point) ||
+    (martiniquePoint(x, y), point) || (guadeloupePoint(x, y), point) ||
+    (wallisFutunaPoint(x, y), point) || (stPierreMichelonPoint(x, y), point) ||
+    (saintBarthlemyPoint(x, y), point) || (nouvelleCaledoniePoint(x, y), point) ||
+    europePoint(x, y);
 
     return point;
   }
@@ -581,17 +583,17 @@ conicConformalFrance.stream = function(stream) {
     var s8 = europe([4.7, 38.2]);
 
 
-    return "M"+ur[0]+" "+ur[1]+"L"+ul[0]+" "+ur[1]
-    +"M"+ur[0]+" "+lr[1]+"L"+ul[0]+" "+lr[1]
-    +"M"+ur[0]+" "+llr[1]+"L"+ul[0]+" "+llr[1]
-    +"M"+s1[0]+" "+lr[1]+"L"+s1[0]+" "+ur[1]
-    +"M"+s2[0]+" "+lr[1]+"L"+s2[0]+" "+ur[1]
-    +"M"+s3[0]+" "+lr[1]+"L"+s3[0]+" "+ur[1]
-    +"M"+s4[0]+" "+lr[1]+"L"+s4[0]+" "+ur[1]
-    +"M"+s5[0]+" "+lr[1]+"L"+s5[0]+" "+ur[1]
-    +"M"+s6[0]+" "+llr[1]+"L"+s6[0]+" "+lr[1]
-    +"M"+s7[0]+" "+llr[1]+"L"+s7[0]+" "+lr[1]
-    +"M"+s8[0]+" "+llr[1]+"L"+s8[0]+" "+lr[1];
+    return "M"+ur[0]+" "+ur[1]+"L"+ul[0]+" "+ur[1]+
+    "M"+ur[0]+" "+lr[1]+"L"+ul[0]+" "+lr[1]+
+    "M"+ur[0]+" "+llr[1]+"L"+ul[0]+" "+llr[1]+
+    "M"+s1[0]+" "+lr[1]+"L"+s1[0]+" "+ur[1]+
+    "M"+s2[0]+" "+lr[1]+"L"+s2[0]+" "+ur[1]+
+    "M"+s3[0]+" "+lr[1]+"L"+s3[0]+" "+ur[1]+
+    "M"+s4[0]+" "+lr[1]+"L"+s4[0]+" "+ur[1]+
+    "M"+s5[0]+" "+lr[1]+"L"+s5[0]+" "+ur[1]+
+    "M"+s6[0]+" "+llr[1]+"L"+s6[0]+" "+lr[1]+
+    "M"+s7[0]+" "+llr[1]+"L"+s7[0]+" "+lr[1]+
+    "M"+s8[0]+" "+llr[1]+"L"+s8[0]+" "+lr[1];
 
  };
 

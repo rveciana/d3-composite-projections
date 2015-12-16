@@ -1,4 +1,7 @@
 # d3-composite-projections
+
+[![Build Status](https://travis-ci.org/rveciana/d3-composite-projections.svg?branch=master)](https://travis-ci.org/rveciana/d3-composite-projections)
+
 Set of d3 projections for showing countries' distant lands together
 
 ![conicConformalFrance](/src/conicConformalFrance.png "Conic Conformal France example")

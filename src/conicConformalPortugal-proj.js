@@ -26,6 +26,7 @@ d3.geo.conicConformalPortugal = function() {
       azoresPoint;
 
   function conicConformalPortugal(coordinates) {
+    /*jshint -W030 */
     var x = coordinates[0], y = coordinates[1];
     point = null;
 

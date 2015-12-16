@@ -47,17 +47,14 @@ d3.geo.conicConformalEurope = function() {
       reunionPoint;
 
   function conicConformalEurope(coordinates) {
+    /*jshint -W030 */
     var x = coordinates[0], y = coordinates[1];
     point = null;
 
-    continentPoint(x, y);
-    canaryIslandsPoint(x, y);
-    madeiraPoint(x, y);
-    azoresPoint(x, y);
-    guadeloupePoint(x, y);
-    martiniquePoint(x, y);
-    guyanePoint(x, y);
-    reunionPoint(x, y);
+    (continentPoint(x, y), point) || (canaryIslandsPoint(x, y), point) ||
+    (madeiraPoint(x, y), point) || (azoresPoint(x, y), point) ||
+    (guadeloupePoint(x, y), point) || (martiniquePoint(x, y), point) ||
+    (guyanePoint(x, y), point) || reunionPoint(x, y);
 
     return point;
   }
@@ -347,16 +344,16 @@ conicConformalEurope.stream = function(stream) {
     var r2 = continent([54.5, 51.0]);
     var r3 = continent([54.5, 46.0]);
 
-    return "M"+uc[0]+" "+uc[1]+"L"+uc[0]+" "+lc[1]
-      +"M"+uc[0]+" "+l1[1]+"L"+l1[0]+" "+l1[1]
-      +"M"+uc[0]+" "+l2[1]+"L"+l1[0]+" "+l2[1]
-      +"M"+uc[0]+" "+r1[1]+"L"+r1[0]+" "+r1[1]
-      +"M"+uc[0]+" "+r2[1]+"L"+r1[0]+" "+r2[1]
-      +"M"+uc[0]+" "+r3[1]+"L"+r1[0]+" "+r3[1]
-      +"M"+l1[0]+" "+uc[1]+"L"+r1[0]+" "+uc[1]
-      +"M"+l1[0]+" "+uc[1]+"L"+l1[0]+" "+lc[1]
-      +"M"+l1[0]+" "+lc[1]+"L"+r1[0]+" "+lc[1]
-      +"M"+r1[0]+" "+lc[1]+"L"+r1[0]+" "+uc[1];
+    return "M"+uc[0]+" "+uc[1]+"L"+uc[0]+" "+lc[1]+
+      "M"+uc[0]+" "+l1[1]+"L"+l1[0]+" "+l1[1]+
+      "M"+uc[0]+" "+l2[1]+"L"+l1[0]+" "+l2[1]+
+      "M"+uc[0]+" "+r1[1]+"L"+r1[0]+" "+r1[1]+
+      "M"+uc[0]+" "+r2[1]+"L"+r1[0]+" "+r2[1]+
+      "M"+uc[0]+" "+r3[1]+"L"+r1[0]+" "+r3[1]+
+      "M"+l1[0]+" "+uc[1]+"L"+r1[0]+" "+uc[1]+
+      "M"+l1[0]+" "+uc[1]+"L"+l1[0]+" "+lc[1]+
+      "M"+l1[0]+" "+lc[1]+"L"+r1[0]+" "+lc[1]+
+      "M"+r1[0]+" "+lc[1]+"L"+r1[0]+" "+uc[1];
 
  };
 
