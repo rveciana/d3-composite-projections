@@ -9,9 +9,11 @@ var gp_replace = require('gulp-replace');
 var gp_strip = require('gulp-strip-comments');
 
 var gp_newer = require('gulp-newer');
-var gp_download = require("gulp-download");
-
-
+var gp_download = require('gulp-download');
+var gp_tagversion = require('gulp-tag-version');
+var gp_git = require('gulp-git'),
+var gp_bump = require('gulp-bump'),
+var gp_filter = require('gulp-filter'),
 
 var fs = require('fs');
 
@@ -105,7 +107,17 @@ gulp.task('get_sample_data', function(){
     return true;
 });
 
+function inc(importance) {
+  return gulp.src(['./package.json', './bower.json'])
+  .pipe(gp_bump({type: importance}))
+  .pipe(gulp.dest('./'))
+  .pipe(gp_git.commit('Creating new package version'))
+  .pipe(gp_filter('package.json'))
+  .pipe(gp_tag_version());
+};
 
-
+gulp.task('patch', function() { return inc('patch'); })
+gulp.task('feature', function() { return inc('minor'); })
+gulp.task('release', function() { return inc('major'); })
 
 gulp.task('default', ['lint','build', 'build_separated','test','license_year'], function(){});
