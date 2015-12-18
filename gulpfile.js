@@ -11,9 +11,9 @@ var gp_strip = require('gulp-strip-comments');
 var gp_newer = require('gulp-newer');
 var gp_download = require('gulp-download');
 var gp_tagversion = require('gulp-tag-version');
-var gp_git = require('gulp-git'),
-var gp_bump = require('gulp-bump'),
-var gp_filter = require('gulp-filter'),
+var gp_git = require('gulp-git');
+var gp_bump = require('gulp-bump');
+var gp_filter = require('gulp-filter');
 
 var fs = require('fs');
 
@@ -92,7 +92,7 @@ gulp.task('get_sample_data', function(){
       "https://cdn.rawgit.com/mbostock/4090846/raw//world-50m.json",
       "https://gist.githubusercontent.com/rveciana/5919944/raw/b1f826319231c3e06d6e8548bc947ca2c29dc9e8/france.json",
       "https://gist.githubusercontent.com/rveciana/5919944/raw/19dc3e37a6ca5ebb05d3a2d96a1f499d6cc3411c/nuts0.json",
-      "https://gist.githubusercontent.com/rveciana/5919944/raw/b1f826319231c3e06d6e8548bc947ca2c29dc9e8/japan.json"];
+      "https://gist.githubusercontent.com/rveciana/5919944/raw/a3d0f29d851893e15dcf6194997453086c408fd3/japan.json"];
   var filesToDownload = [];
   for (i = 0; i < dataFiles.length; i++){
     if(! fs.existsSync(outDir + "/" + dataFiles[i].split('/').reverse()[0])) {
@@ -107,17 +107,25 @@ gulp.task('get_sample_data', function(){
     return true;
 });
 
+//Functions to tag easily the versions so npm and bower go together
 function inc(importance) {
   return gulp.src(['./package.json', './bower.json'])
   .pipe(gp_bump({type: importance}))
   .pipe(gulp.dest('./'))
   .pipe(gp_git.commit('Creating new package version'))
   .pipe(gp_filter('package.json'))
-  .pipe(gp_tag_version());
+  .pipe(gp_tagversion());
 };
 
 gulp.task('patch', function() { return inc('patch'); })
 gulp.task('feature', function() { return inc('minor'); })
 gulp.task('release', function() { return inc('major'); })
+gulp.task('push', function(){
+  git.push('origin', 'master', {args: " --follow-tags"}, function (err) {
+    if (err) throw err;
+  });
+});
+
+
 
 gulp.task('default', ['lint','build', 'build_separated','test','license_year'], function(){});

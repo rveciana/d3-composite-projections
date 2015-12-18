@@ -34,6 +34,7 @@ jsdom.env({
     var data = JSON.parse(fs.readFileSync(__dirname +'/data_files/'+dataFile, 'utf8'));
 
     var land = topojson.feature(data, data.objects[layerName]);
+
       svg
         .datum(land)
         .append("path")
@@ -41,14 +42,6 @@ jsdom.env({
         .style("fill","#aca")
         .style("stroke","#000")
         .attr("d", path);
-
-
-        /*
-        svg.append("path")
-            .datum(projection.getCompositionBorders())
-              .style("fill","none")
-              .style("stroke","#000")
-              .attr("d", path);*/
 
         svg
           .append("path")

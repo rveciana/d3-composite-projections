@@ -22,7 +22,7 @@ The projection is available for:
 * Portugal: [conicConformalPortugal](http://bl.ocks.org/rveciana/aec08199d43759e98afe)
 * Spain: [conicConformalSpain](http://bl.ocks.org/rveciana/472b7749352554ca4b68)
 * Europe: [conicConformalEurope](http://bl.ocks.org/rveciana/4bcc5750c776c22ffda6) (thought for Eurostat data)
-
+* Japan: [conicEquidistantJapan](http://bl.ocks.org/rveciana/72987a139a9886ed6a87)
 
 To draw the borders between the projection zones, use `getCompositionBorders()`:
 

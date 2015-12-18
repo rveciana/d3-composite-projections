@@ -1,15 +1,22 @@
 language: node_js
 node_js:
-  - "5.2.0"
+- 5.2.0
 before_script:
-  - npm install -g gulp
+- npm install -g gulp
 script: gulp
-
 env:
-  - CXX=g++-4.8
+- CXX=g++-4.8
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
+deploy:
+  provider: npm
+  email: rveciana@gmail.com
+  api_key:
+    secure: zBYMqf1YhdPR3u2412bWyJ9144uzFPtGBLnG0HRo60an4LF0e1M6hvrCU+bvIuuAsR/hfgdxRX7OgmftXia4SRfuf8gWwzeZCDx6QJZRdJc+4tyceQkDMTD4m5tXddktHz1hEjZelxcGvFpqo/AUjTUtS6x1dR7rFpbMRtxqqAwMjiyOGiuxzI5t5iwrSN7hg8+0Amp814dDbV1utBQrgj2LOu89CpY0B+m9hmy7hGi+WLz6zbebvlWyALuevVrgt8+P9AA7OSg4OUY6J5xw76NYGXXRP/etjFLds6X4qnp4MlFbi0iwlwWn9TXllLYuqOqV9uLWwn+IDhrjsfgWyULyQ9vwy5byrXtvKPjl7b+K4X1kFidX+llVQf0pPY1VqKVeaxGUbuwGqE+7pcXKqZ9BvM+0WaIQfzIfSuUuug728SIQ0gGMVSNI6AAC+xxheun5uJ03XkZ45XTY9VSYGPlLLzW/WiXggWThKUur4k2IVeGYb27bZ/oTf1HVc8RMQuhE4T2kXgaLEJz64tgyI58QhMUFu5erlxFIi8sO0iu0dab5hOOIBwQpuag1ViYNJWSQpYcpvji/UXcprhP0mTYs1fcPvf4vhw+iZBPEXIoNSqhxA6F5UMZQm5WFEci6t5GHD2Ov0hClxQhmtObyv1nigAhWaJVLqlJ9ZUd7VDM=
+  on:
+    tags: true
+    repo: rveciana/d3-composite-projections

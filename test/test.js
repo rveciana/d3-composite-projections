@@ -217,14 +217,41 @@ describe('Composite Projections', function(){
     });
   });
 
+  describe('Japan', function(){
+    it('Projection results should be correct', function(){
+      var proj = d3.geo.conicEquidistantJapan();
+      assert.equal(2228, proj.scale());
+
+
+      var fuji_mount = [138.73, 35.36];
+      var kitami = [143.896, 43.8039];
+      var naha = [127.68, 26.2];
+
+
+      var inv_fuji_mount = proj.invert(proj(fuji_mount));
+      var inv_kitami = proj.invert(proj(kitami));
+      var inv_naha = proj.invert(proj(naha));
+
+      assert.ok((inv_fuji_mount[0] - fuji_mount[0]) < 0.0001);
+      assert.ok((inv_fuji_mount[1] - fuji_mount[1]) < 0.0001);
+
+      assert.ok((inv_kitami[0] - kitami[0]) < 0.0001, "kitami must be translated");
+      assert.ok((inv_kitami[1] - kitami[1]) < 0.0001);
+
+      assert.ok((inv_naha[0] - naha[0]) < 0.0001, "Naha must be translated");
+      assert.ok((inv_naha[1] - naha[1]) < 0.0001);
+
+    });
+    });
+
 
   describe('Create sample SVGs', function(){
 
     // I still have to test something, but simply generating the SVG can help to see visually is everything works
     // The test is outside each projection to make easy to skip, since it takes its time
+
     it('Spain SVG sample', function(){
         createSvgSample.createSvgSample("provincias.json", "conicConformalSpain", "conicConformalSpain.svg", "provincias");
-
     });
 
     it('USA SVG sample', function(){
@@ -244,6 +271,11 @@ describe('Composite Projections', function(){
 
     it('Europe SVG sample', function(){
         createSvgSample.createSvgSample("nuts0.json", "conicConformalEurope", "conicConformalEurope.svg", "nuts0");
+
+    });
+
+    it('Japan SVG sample', function(){
+        createSvgSample.createSvgSample("japan.json", "conicEquidistantJapan", "conicEquidistantJapan.svg", "japan");
 
     });
   });
