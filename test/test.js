@@ -1,7 +1,8 @@
 var assert = require("assert")
 var execfile = require("./execfile.js");
 var d3 = require('../node_modules/d3/d3.js');
-var composite_projection = execfile(__dirname+"/../composite-projections.js", {d3: d3});
+var composite_projection = execfile(__dirname+"/../composite-projections.js",
+    {d3: d3, console: console});
 var createSvgSample = require('./createSvgSample.js');
 
 
