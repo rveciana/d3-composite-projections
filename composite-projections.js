@@ -973,10 +973,7 @@ conicConformalSpain.invert = function(coordinates) {
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
 
-
-      
-
-    return (y >= -0.10779 && y < 0.067673 && x >= -0.1866 && x < 0.0255 ? canaryIslands
+    return (y >= 0.025779 && y < 0.067673 && x >= -0.1866 && x < -0.1 ? canaryIslands
         : iberianPeninsule).invert(coordinates);
   };
 
