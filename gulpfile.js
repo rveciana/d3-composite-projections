@@ -121,7 +121,7 @@ gulp.task('patch', function() { return inc('patch'); })
 gulp.task('feature', function() { return inc('minor'); })
 gulp.task('release', function() { return inc('major'); })
 gulp.task('push', function(){
-  gp_git.push('origin', 'master', {args: " --follow-tags"}, function (err) {
+  gp_git.push('origin', 'master', {args: " --all"}, function (err) {
     if (err) throw err;
   });
 });
