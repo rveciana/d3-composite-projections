@@ -121,7 +121,10 @@ gulp.task('patch', function() { return inc('patch'); })
 gulp.task('feature', function() { return inc('minor'); })
 gulp.task('release', function() { return inc('major'); })
 gulp.task('push', function(){
-  gp_git.push('origin', 'master', {args: " --all"}, function (err) {
+  gp_git.push('origin', 'master', function (err) {
+    if (err) throw err;
+  });
+  gp_git.push('origin', 'master', {args: " --tags"}, function (err) {
     if (err) throw err;
   });
 });
