@@ -123,9 +123,9 @@ gulp.task('release', function() { return inc('major'); })
 gulp.task('push', function(){
   gp_git.push('origin', 'master', function (err) {
     if (err) throw err;
-  });
-  gp_git.push('origin', 'master', {args: " --tags"}, function (err) {
-    if (err) throw err;
+    gp_git.push('origin', 'master', {args: " --tags"}, function (err) {
+      if (err) throw err;
+    });
   });
 });
 
