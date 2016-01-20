@@ -50,7 +50,7 @@ gulp.task('license_year', function() {
     create = true;
   }
 
-  if (create == true){
+  if (create === true){
     return gulp.src(['./src/LICENSE'])
         .pipe(gp_replace(/<YEAR>/g, year))
         .pipe(gulp.dest('./'));
@@ -115,7 +115,7 @@ function inc(importance) {
   .pipe(gp_git.commit('Creating new package version'))
   .pipe(gp_filter('package.json'))
   .pipe(gp_tagversion());
-};
+}
 
 gulp.task('patch', function() { return inc('patch'); })
 gulp.task('feature', function() { return inc('minor'); })
@@ -128,4 +128,4 @@ gulp.task('push', function(){
 
 
 
-gulp.task('default', ['lint','build', 'build_separated','test','license_year'], function(){});
+gulp.task('default', ['lint', 'build', 'build_separated','test','license_year'], function(){});

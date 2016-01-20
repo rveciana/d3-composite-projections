@@ -27,7 +27,11 @@ jsdom.env({
     var path = d3.geo.path()
         .projection(projection);
 
-    var svg = window.d3.select("body").append("svg")
+    var container = window.d3.select("body")
+      .append("div")
+      .attr("id","container");
+
+    var svg = container.append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -52,8 +56,7 @@ jsdom.env({
       if (!fs.existsSync(__dirname +'/sample_files')) {
             fs.mkdirSync(__dirname +'/sample_files',0744);
         }
-
-      fs.writeFileSync(__dirname +'/sample_files/'+outFile, window.d3.select("body").html());
+      fs.writeFileSync(__dirname +'/sample_files/'+outFile, window.d3.select("#container").html());
       }
     });
 };
