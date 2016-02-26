@@ -43,9 +43,12 @@ You can get the files just by cloning the repository:
 
 or downloading the *composite-projections.js* or *composite-projections.min.js* files.
 
-Of course, you can link the files from your script:
+Using cdnjs
+-----------
 
-    <script src="https://raw.githubusercontent.com/rveciana/d3-composite-projections/master/composite-projections.min.js"></script>
+You can link the files from your web page to [cdnjs](https://cdnjs.com/libraries/d3-composite-projections):
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/0.3.5/composite-projections.min.js"></script>
 
 Using bower
 -----------
