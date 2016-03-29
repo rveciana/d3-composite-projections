@@ -51,7 +51,7 @@ conicConformalSpain.invert = function(coordinates) {
       console.info(x1 + ' - ' + y1);
       */
 
-    return (y >= -0.10779 && y < 0.067673 && x >= -0.1866 && x < 0.0255 ? canaryIslands
+    return (y >= 0.025779 && y < 0.067673 && x >= -0.1866 && x < -0.1 ? canaryIslands
         : iberianPeninsule).invert(coordinates);
   };
 

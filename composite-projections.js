@@ -1,19 +1,13 @@
 (function() {
-
-
-
-
 d3.geo.albersUsa = function() {
 
   var lower48 = d3.geo.albers();
 
-  
   var alaska = d3.geo.conicEqualArea()
       .rotate([154, 0])
       .center([-2, 58.5])
       .parallels([55, 65]);
 
-  
   var hawaii = d3.geo.conicEqualArea()
       .rotate([157, 0])
       .center([-3, 19.9])
@@ -26,7 +20,6 @@ d3.geo.albersUsa = function() {
       hawaiiPoint;
 
   function albersUsa(coordinates) {
-    
     var x = coordinates[0], y = coordinates[1];
     point = null;
 
@@ -46,9 +39,6 @@ d3.geo.albersUsa = function() {
         : lower48).invert(coordinates);
   };
 
-  
-  
-  
   albersUsa.stream = function(stream) {
     var lower48Stream = lower48.stream(stream),
         alaskaStream = alaska.stream(stream),
@@ -151,7 +141,6 @@ d3.geo.albersUsa = function() {
 })();
 
 (function() {
-  
 d3.geo.conicConformalEurope = function() {
 
   var continent = d3.geo.conicConformal()
@@ -199,7 +188,6 @@ d3.geo.conicConformalEurope = function() {
       reunionPoint;
 
   function conicConformalEurope(coordinates) {
-    
     var x = coordinates[0], y = coordinates[1];
     point = null;
 
@@ -220,7 +208,6 @@ conicConformalEurope.invert = function(coordinates) {
         y = (coordinates[1] - t[1]) / k;
 
 
-      
 
         return (y >= -0.1474747 && y < -0.063727 && x >= -0.07551 && x < -0.009317 ? azores
             : y >= -0.064887 && y < -0.014785 && x >= -0.057865 && x < -0.014816 ? madeira
@@ -345,7 +332,6 @@ conicConformalEurope.stream = function(stream) {
 
     var k = continent.scale(), x = +_[0], y = +_[1];
 
-    
 
    continentPoint = continent
        .translate(_)
@@ -488,11 +474,10 @@ d3.geo.conicConformalFrance = function() {
 
 
   function conicConformalFrance(coordinates) {
-    
     var x = coordinates[0], y = coordinates[1];
     point = null;
-    
-    (polynesiePoint(x,y), point) || (guyanePoint(x, y), point) ||
+
+        (polynesiePoint(x,y), point) || (guyanePoint(x, y), point) ||
     (reunionPoint(x, y), point) || (mayottePoint(x, y), point) ||
     (martiniquePoint(x, y), point) || (guadeloupePoint(x, y), point) ||
     (wallisFutunaPoint(x, y), point) || (stPierreMichelonPoint(x, y), point) ||
@@ -511,7 +496,6 @@ conicConformalFrance.invert = function(coordinates) {
         y = (coordinates[1] - t[1]) / k;
 
 
-      
     return (y >= 0.04034 && y < 0.0698 && x >= -0.1209 && x < -0.0989 ? guyane
         : y >= 0.04586 && y < 0.066059 && x >= -0.0867 && x < -0.064618 ? reunion
         : y >= 0.04847 && y < 0.061225 && x >= -0.0994 && x < -0.08776 ? mayotte
@@ -668,7 +652,6 @@ conicConformalFrance.stream = function(stream) {
     var k = europe.scale(), x = +_[0], y = +_[1];
 
 
-    
 
     var c0 = europe(europeBbox[0]);
    x0 = (x - c0[0]) / k;
@@ -678,7 +661,6 @@ conicConformalFrance.stream = function(stream) {
    x1 = (x - c1[0]) / k;
    y1 = (y - c1[1]) / k;
 
-   
 
 
    europePoint = europe
@@ -804,7 +786,6 @@ d3.geo.conicConformalPortugal = function() {
       azoresPoint;
 
   function conicConformalPortugal(coordinates) {
-    
     var x = coordinates[0], y = coordinates[1];
     point = null;
 
@@ -822,7 +803,6 @@ conicConformalPortugal.invert = function(coordinates) {
         y = (coordinates[1] - t[1]) / k;
 
 
-      
     return (y >= -0.059983 && y < -0.004151 && x >= -0.1186717 && x < -0.07454468 ? azores
         : y >= 0.0131739727 && y < 0.04100812 && x >= -0.084925 && x < -0.06100898 ? madeira
         : iberianPeninsule).invert(coordinates);
@@ -894,7 +874,6 @@ conicConformalPortugal.stream = function(stream) {
 
     var k = iberianPeninsule.scale(), x = +_[0], y = +_[1];
 
-   
 
    iberianPeninsulePoint = iberianPeninsule
        .translate(_)
@@ -956,7 +935,6 @@ d3.geo.conicConformalSpain = function() {
       canaryIslandsPoint;
 
   function conicConformalSpain(coordinates) {
-    
     var x = coordinates[0], y = coordinates[1];
     point = null;
 
@@ -972,6 +950,8 @@ conicConformalSpain.invert = function(coordinates) {
         t = iberianPeninsule.translate(),
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
+
+
 
     return (y >= 0.025779 && y < 0.067673 && x >= -0.1866 && x < -0.1 ? canaryIslands
         : iberianPeninsule).invert(coordinates);
@@ -1032,7 +1012,6 @@ conicConformalSpain.stream = function(stream) {
 
     var k = iberianPeninsule.scale(), x = +_[0], y = +_[1];
 
-   
 
    iberianPeninsulePoint = iberianPeninsule
        .translate(_)
@@ -1093,7 +1072,6 @@ d3.geo.conicEquidistantJapan = function() {
 
 
   function conicEquidistantJapan(coordinates) {
-    
     var x = coordinates[0], y = coordinates[1];
     point = null;
 
@@ -1113,7 +1091,6 @@ d3.geo.conicEquidistantJapan = function() {
         y = (coordinates[1] - t[1]) / k;
 
 
-        
 
     return (y >= -0.11056 && y < -0.02793 && x >= -0.141448 && x < -0.00305 ? hokkaido
         : y >= 0.041035 && y < 0.1134101 && x >= -0.10997 && x < 0.018914 ? okinawa
@@ -1190,7 +1167,6 @@ d3.geo.conicEquidistantJapan = function() {
 
     var k = mainland.scale(), x = +_[0], y = +_[1];
 
-    
 
 
    mainlandPoint = mainland
