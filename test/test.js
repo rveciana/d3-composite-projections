@@ -65,7 +65,7 @@ describe('Composite Projections', function(){
         var inv_lisboa = proj.invert(proj(lisboa));
         var inv_ponta_delgada = proj.invert(proj(ponta_delgada));
         var inv_funchal = proj.invert(proj(funchal));
-
+        
         assert.ok((inv_lisboa[0] - lisboa[0]) < 0.0001);
         assert.ok((inv_lisboa[1] - lisboa[1]) < 0.0001);
 
@@ -246,7 +246,34 @@ describe('Composite Projections', function(){
     });
     });
 
+  describe('Ecuador', function(){
+    it('Projection results should be correct', function(){
 
+      var proj = d3.geo.mercatorEcuador();
+      assert.equal(3500, proj.scale());
+
+      var quito = [-78.473, -0.1846];
+      var puertoBaquerizo = [-89.606278, -0.916553];
+      var puertoVillamil = [-90.969, -0.9553];
+
+
+      var inv_quito = proj.invert(proj(quito));
+      var inv_puertoBaquerizo = proj.invert(proj(puertoBaquerizo));
+      var inv_puertoVillamil = proj.invert(proj(puertoVillamil));
+      
+      assert.ok((inv_quito[0] - quito[0]) < 0.0001);
+      assert.ok((inv_quito[1] - quito[1]) < 0.0001);
+
+      assert.ok((inv_puertoBaquerizo[0] - puertoBaquerizo[0]) < 0.0001, "puertoBaquerizo must be translated");
+      assert.ok((inv_puertoBaquerizo[1] - puertoBaquerizo[1]) < 0.0001);
+
+      assert.ok((inv_puertoVillamil[0] - puertoVillamil[0]) < 0.0001, "puertoVillamil must be translated");
+      assert.ok((inv_puertoVillamil[1] - puertoVillamil[1]) < 0.0001);
+
+    });
+    });
+
+  
   describe('Create sample SVGs', function(){
 
     // I still have to test something, but simply generating the SVG can help to see visually is everything works
@@ -278,6 +305,11 @@ describe('Composite Projections', function(){
 
     it('Japan SVG sample', function(){
         createSvgSample.createSvgSample("japan.json", "conicEquidistantJapan", "conicEquidistantJapan.svg", "japan");
+
+    });
+
+    it('Ecuador SVG sample', function(){
+        createSvgSample.createSvgSample("world-50m.json", "mercatorEcuador", "mercatorEcuador.svg", "countries");
 
     });
   });
