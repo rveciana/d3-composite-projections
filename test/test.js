@@ -42,11 +42,11 @@ describe('Composite Projections', function(){
         var inv_barcelona = proj.invert(proj(barcelona));
         var inv_las_palmas = proj.invert(proj(las_palmas));
 
-        assert.ok((inv_barcelona[0] - barcelona[0]) < 0.0001);
-        assert.ok((inv_barcelona[1] - barcelona[1]) < 0.0001);
+        assert.ok(Math.abs(inv_barcelona[0] - barcelona[0]) < 0.0001);
+        assert.ok(Math.abs(inv_barcelona[1] - barcelona[1]) < 0.0001);
 
-        assert.ok((inv_las_palmas[0] - las_palmas[0]) < 0.0001, "Las Palmas should be properly reprojected");
-        assert.ok((inv_las_palmas[1] - las_palmas[1]) < 0.0001);
+        assert.ok(Math.abs(inv_las_palmas[0] - las_palmas[0]) < 0.0001, "Las Palmas should be properly reprojected");
+        assert.ok(Math.abs(inv_las_palmas[1] - las_palmas[1]) < 0.0001);
 
 
     });
@@ -66,14 +66,14 @@ describe('Composite Projections', function(){
         var inv_ponta_delgada = proj.invert(proj(ponta_delgada));
         var inv_funchal = proj.invert(proj(funchal));
         
-        assert.ok((inv_lisboa[0] - lisboa[0]) < 0.0001);
-        assert.ok((inv_lisboa[1] - lisboa[1]) < 0.0001);
+        assert.ok(Math.abs(inv_lisboa[0] - lisboa[0]) < 0.0001);
+        assert.ok(Math.abs(inv_lisboa[1] - lisboa[1]) < 0.0001);
 
-        assert.ok((inv_ponta_delgada[0] - ponta_delgada[0]) < 0.0001, "Ponta Delgada must be translated");
-        assert.ok((inv_ponta_delgada[1] - ponta_delgada[1]) < 0.0001);
+        assert.ok(Math.abs(inv_ponta_delgada[0] - ponta_delgada[0]) < 0.0001, "Ponta Delgada must be transformed");
+        assert.ok(Math.abs(inv_ponta_delgada[1] - ponta_delgada[1]) < 0.0001);
 
-        assert.ok((inv_funchal[0] - funchal[0]) < 0.0001, "Funchal must be translated");
-        assert.ok((inv_funchal[1] - funchal[1]) < 0.0001);
+        assert.ok(Math.abs(inv_funchal[0] - funchal[0]) < 0.0001, "Funchal must be transformed");
+        assert.ok(Math.abs(inv_funchal[1] - funchal[1]) < 0.0001);
 
     });
   });
@@ -120,39 +120,39 @@ describe('Composite Projections', function(){
         var inv_stPierre = proj.invert(proj(stPierre));
         var inv_gustavia = proj.invert(proj(gustavia));
 
-        assert.ok((inv_paris[0] - paris[0]) < 0.0001);
-        assert.ok((inv_paris[1] - paris[1]) < 0.0001);
+        assert.ok(Math.abs(inv_paris[0] - paris[0]) < 0.0001);
+        assert.ok(Math.abs(inv_paris[1] - paris[1]) < 0.0001);
 
-        assert.ok((inv_cayenne[0] - cayenne[0]) < 0.0001, "Cayenne should be properly reprojected");
-        assert.ok((inv_cayenne[1] - cayenne[1]) < 0.0001);
+        assert.ok(Math.abs(inv_cayenne[0] - cayenne[0]) < 0.0001, "Cayenne should be properly reprojected");
+        assert.ok(Math.abs(inv_cayenne[1] - cayenne[1]) < 0.0001);
 
-        assert.ok((inv_saintDenis[0] - saintDenis[0]) < 0.0001, "saintDenis should be properly reprojected");
-        assert.ok((inv_saintDenis[1] - saintDenis[1]) < 0.0001);
+        assert.ok(Math.abs(inv_saintDenis[0] - saintDenis[0]) < 0.0001, "saintDenis should be properly reprojected");
+        assert.ok(Math.abs(inv_saintDenis[1] - saintDenis[1]) < 0.0001);
 
-        assert.ok((inv_mamoudzou[0] - mamoudzou[0]) < 0.0001, "mamoudzou should be properly reprojected");
-        assert.ok((inv_mamoudzou[1] - mamoudzou[1]) < 0.0001);
+        assert.ok(Math.abs(inv_mamoudzou[0] - mamoudzou[0]) < 0.0001, "mamoudzou should be properly reprojected");
+        assert.ok(Math.abs(inv_mamoudzou[1] - mamoudzou[1]) < 0.0001);
 
-        assert.ok((inv_fortDeFrance[0] - fortDeFrance[0]) < 0.0001, "fortDeFrance should be properly reprojected");
-        assert.ok((inv_fortDeFrance[1] - fortDeFrance[1]) < 0.0001);
+        assert.ok(Math.abs(inv_fortDeFrance[0] - fortDeFrance[0]) < 0.0001, "fortDeFrance should be properly reprojected");
+        assert.ok(Math.abs(inv_fortDeFrance[1] - fortDeFrance[1]) < 0.0001);
 
-        assert.ok((inv_pointeAPitre[0] - pointeAPitre[0]) < 0.0001, "pointeAPitre should be properly reprojected");
-        assert.ok((inv_pointeAPitre[1] - pointeAPitre[1]) < 0.0001);
+        assert.ok(Math.abs(inv_pointeAPitre[0] - pointeAPitre[0]) < 0.0001, "pointeAPitre should be properly reprojected");
+        assert.ok(Math.abs(inv_pointeAPitre[1] - pointeAPitre[1]) < 0.0001);
 
-        assert.ok((inv_noumea[0] - noumea[0]) < 0.0001, "noumea should be properly reprojected");
-        assert.ok((inv_noumea[1] - noumea[1]) < 0.0001);
+        assert.ok(Math.abs(inv_noumea[0] - noumea[0]) < 0.0001, "noumea should be properly reprojected");
+        assert.ok(Math.abs(inv_noumea[1] - noumea[1]) < 0.0001);
 
 
-        assert.ok((inv_papeete[0] - papeete[0]) < 0.0001, "papeete should be properly reprojected");
-        assert.ok((inv_papeete[1] - papeete[1]) < 0.0001);
+        assert.ok(Math.abs(inv_papeete[0] - papeete[0]) < 0.0001, "papeete should be properly reprojected");
+        assert.ok(Math.abs(inv_papeete[1] - papeete[1]) < 0.0001);
 
-        assert.ok((inv_kolotai[0] - kolotai[0]) < 0.0001, "kolotai should be properly reprojected");
-        assert.ok((inv_kolotai[1] - kolotai[1]) < 0.0001);
+        assert.ok(Math.abs(inv_kolotai[0] - kolotai[0]) < 0.0001, "kolotai should be properly reprojected");
+        assert.ok(Math.abs(inv_kolotai[1] - kolotai[1]) < 0.0001);
 
-        assert.ok((inv_stPierre[0] - stPierre[0]) < 0.0001, "stPierre should be properly reprojected");
-        assert.ok((inv_stPierre[1] - stPierre[1]) < 0.0001);
+        assert.ok(Math.abs(inv_stPierre[0] - stPierre[0]) < 0.0001, "stPierre should be properly reprojected");
+        assert.ok(Math.abs(inv_stPierre[1] - stPierre[1]) < 0.0001);
 
-        assert.ok((inv_gustavia[0] - gustavia[0]) < 0.0001, "gustavia should be properly reprojected");
-        assert.ok((inv_gustavia[1] - gustavia[1]) < 0.0001);
+        assert.ok(Math.abs(inv_gustavia[0] - gustavia[0]) < 0.0001, "gustavia should be properly reprojected");
+        assert.ok(Math.abs(inv_gustavia[1] - gustavia[1]) < 0.0001);
 
     });
   });
@@ -188,33 +188,33 @@ describe('Composite Projections', function(){
         var inv_fortDeFrance = proj.invert(proj(fortDeFrance));
         var inv_pointeAPitre = proj.invert(proj(pointeAPitre));
 
-        assert.ok((inv_barcelona[0] - barcelona[0]) < 0.0001);
-        assert.ok((inv_barcelona[1] - barcelona[1]) < 0.0001);
+        assert.ok(Math.abs(inv_barcelona[0] - barcelona[0]) < 0.0001);
+        assert.ok(Math.abs(inv_barcelona[1] - barcelona[1]) < 0.0001);
 
-        assert.ok((inv_las_palmas[0] - las_palmas[0]) < 0.0001, "Las Palmas should be properly reprojected");
-        assert.ok((inv_las_palmas[1] - las_palmas[1]) < 0.0001);
+        assert.ok(Math.abs(inv_las_palmas[0] - las_palmas[0]) < 0.0001, "Las Palmas should be properly reprojected");
+        assert.ok(Math.abs(inv_las_palmas[1] - las_palmas[1]) < 0.0001);
 
-        assert.ok((inv_lisboa[0] - lisboa[0]) < 0.0001);
-        assert.ok((inv_lisboa[1] - lisboa[1]) < 0.0001);
+        assert.ok(Math.abs(inv_lisboa[0] - lisboa[0]) < 0.0001);
+        assert.ok(Math.abs(inv_lisboa[1] - lisboa[1]) < 0.0001);
 
 
-        assert.ok((inv_ponta_delgada[0] - ponta_delgada[0]) < 0.0001, "Ponta Delgada must be translated");
-        assert.ok((inv_ponta_delgada[1] - ponta_delgada[1]) < 0.0001);
+        assert.ok(Math.abs(inv_ponta_delgada[0] - ponta_delgada[0]) < 0.0001, "Ponta Delgada must be transformed");
+        assert.ok(Math.abs(inv_ponta_delgada[1] - ponta_delgada[1]) < 0.0001);
 
-        assert.ok((inv_funchal[0] - funchal[0]) < 0.0001, "Funchal must be translated");
-        assert.ok((inv_funchal[1] - funchal[1]) < 0.0001);
+        assert.ok(Math.abs(inv_funchal[0] - funchal[0]) < 0.0001, "Funchal must be transformed");
+        assert.ok(Math.abs(inv_funchal[1] - funchal[1]) < 0.0001);
 
-        assert.ok((inv_cayenne[0] - cayenne[0]) < 0.0001, "Cayenne should be properly reprojected");
-        assert.ok((inv_cayenne[1] - cayenne[1]) < 0.0001);
+        assert.ok(Math.abs(inv_cayenne[0] - cayenne[0]) < 0.0001, "Cayenne should be properly reprojected");
+        assert.ok(Math.abs(inv_cayenne[1] - cayenne[1]) < 0.0001);
 
-        assert.ok((inv_saintDenis[0] - saintDenis[0]) < 0.0001, "saintDenis should be properly reprojected");
-        assert.ok((inv_saintDenis[1] - saintDenis[1]) < 0.0001);
+        assert.ok(Math.abs(inv_saintDenis[0] - saintDenis[0]) < 0.0001, "saintDenis should be properly reprojected");
+        assert.ok(Math.abs(inv_saintDenis[1] - saintDenis[1]) < 0.0001);
 
-        assert.ok((inv_fortDeFrance[0] - fortDeFrance[0]) < 0.0001, "fortDeFrance should be properly reprojected");
-        assert.ok((inv_fortDeFrance[1] - fortDeFrance[1]) < 0.0001);
+        assert.ok(Math.abs(inv_fortDeFrance[0] - fortDeFrance[0]) < 0.0001, "fortDeFrance should be properly reprojected");
+        assert.ok(Math.abs(inv_fortDeFrance[1] - fortDeFrance[1]) < 0.0001);
 
-        assert.ok((inv_pointeAPitre[0] - pointeAPitre[0]) < 0.0001, "pointeAPitre should be properly reprojected");
-        assert.ok((inv_pointeAPitre[1] - pointeAPitre[1]) < 0.0001);
+        assert.ok(Math.abs(inv_pointeAPitre[0] - pointeAPitre[0]) < 0.0001, "pointeAPitre should be properly reprojected");
+        assert.ok(Math.abs(inv_pointeAPitre[1] - pointeAPitre[1]) < 0.0001);
 
     });
   });
@@ -234,14 +234,14 @@ describe('Composite Projections', function(){
       var inv_kitami = proj.invert(proj(kitami));
       var inv_naha = proj.invert(proj(naha));
 
-      assert.ok((inv_fuji_mount[0] - fuji_mount[0]) < 0.0001);
-      assert.ok((inv_fuji_mount[1] - fuji_mount[1]) < 0.0001);
+      assert.ok(Math.abs(inv_fuji_mount[0] - fuji_mount[0]) < 0.0001);
+      assert.ok(Math.abs(inv_fuji_mount[1] - fuji_mount[1]) < 0.0001);
 
-      assert.ok((inv_kitami[0] - kitami[0]) < 0.0001, "kitami must be translated");
-      assert.ok((inv_kitami[1] - kitami[1]) < 0.0001);
+      assert.ok(Math.abs(inv_kitami[0] - kitami[0]) < 0.0001, "kitami must be transformed");
+      assert.ok(Math.abs(inv_kitami[1] - kitami[1]) < 0.0001);
 
-      assert.ok((inv_naha[0] - naha[0]) < 0.0001, "Naha must be translated");
-      assert.ok((inv_naha[1] - naha[1]) < 0.0001);
+      assert.ok(Math.abs(inv_naha[0] - naha[0]) < 0.0001, "Naha must be transformed");
+      assert.ok(Math.abs(inv_naha[1] - naha[1]) < 0.0001);
 
     });
     });
@@ -261,14 +261,47 @@ describe('Composite Projections', function(){
       var inv_puertoBaquerizo = proj.invert(proj(puertoBaquerizo));
       var inv_puertoVillamil = proj.invert(proj(puertoVillamil));
       
-      assert.ok((inv_quito[0] - quito[0]) < 0.0001);
-      assert.ok((inv_quito[1] - quito[1]) < 0.0001);
+      assert.ok(Math.abs(inv_quito[0] - quito[0]) < 0.0001);
+      assert.ok(Math.abs(inv_quito[1] - quito[1]) < 0.0001);
 
-      assert.ok((inv_puertoBaquerizo[0] - puertoBaquerizo[0]) < 0.0001, "puertoBaquerizo must be translated");
-      assert.ok((inv_puertoBaquerizo[1] - puertoBaquerizo[1]) < 0.0001);
+      assert.ok(Math.abs(inv_puertoBaquerizo[0] - puertoBaquerizo[0]) < 0.0001, "puertoBaquerizo must be transformed");
+      assert.ok(Math.abs(inv_puertoBaquerizo[1] - puertoBaquerizo[1]) < 0.0001);
 
-      assert.ok((inv_puertoVillamil[0] - puertoVillamil[0]) < 0.0001, "puertoVillamil must be translated");
-      assert.ok((inv_puertoVillamil[1] - puertoVillamil[1]) < 0.0001);
+      assert.ok(Math.abs(inv_puertoVillamil[0] - puertoVillamil[0]) < 0.0001, "puertoVillamil must be transformed");
+      assert.ok(Math.abs(inv_puertoVillamil[1] - puertoVillamil[1]) < 0.0001);
+
+    });
+    });
+
+  describe('Chile', function(){
+    it('Projection results should be correct', function(){
+
+      var proj = d3.geo.transverseMercatorChile();
+      assert.equal(1000, proj.scale());
+
+      var santiago = [-70.6, -33.5];
+      var hangaRoa = [-109.4, -27.15];
+      var sanJuanBautista = [-78.83, -33.636];
+      var villaLasEstrellas = [-58.96, -62.2];
+
+
+      var inv_santiago = proj.invert(proj(santiago));
+      var inv_hangaRoa = proj.invert(proj(hangaRoa));
+      var inv_sanJuanBautista = proj.invert(proj(sanJuanBautista));
+      var inv_villaLasEstrellas = proj.invert(proj(villaLasEstrellas));
+
+      
+      assert.ok(Math.abs(inv_santiago[0] - santiago[0]) < 0.0001);
+      assert.ok(Math.abs(inv_santiago[1] - santiago[1]) < 0.0001);
+
+      assert.ok(Math.abs(inv_hangaRoa[0] - hangaRoa[0]) < 0.0001, "hangaRoa must be transformed");
+      assert.ok(Math.abs(inv_hangaRoa[1] - hangaRoa[1]) < 0.0001);
+
+      assert.ok(Math.abs(inv_sanJuanBautista[0] - sanJuanBautista[0]) < 0.0001, "sanJuanBautista must be transformed");
+      assert.ok(Math.abs(inv_sanJuanBautista[1] - sanJuanBautista[1]) < 0.0001);
+      
+      assert.ok(Math.abs(inv_villaLasEstrellas[0] - villaLasEstrellas[0]) < 0.0001, "villaLasEstrellas must be transformed");
+      assert.ok(Math.abs(inv_villaLasEstrellas[1] - villaLasEstrellas[1]) < 0.0001);
 
     });
     });
@@ -310,6 +343,11 @@ describe('Composite Projections', function(){
 
     it('Ecuador SVG sample', function(){
         createSvgSample.createSvgSample("world-50m.json", "mercatorEcuador", "mercatorEcuador.svg", "countries");
+
+    });
+
+    it('Chile SVG sample', function(){
+        createSvgSample.createSvgSample("chile.json", "transverseMercatorChile", "transverseMercatorChile.svg", "chile");
 
     });
   });
