@@ -1,3 +1,8 @@
+version v0.4.0
+--------------
+  * mercatorEcuador projection added
+  * transverseMercatorChile projection added
+
 version v0.3.0
 --------------
   * conicEquidistantJapan projection added

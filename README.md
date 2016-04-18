@@ -23,6 +23,8 @@ The projection is available for:
 * Spain: [conicConformalSpain](http://bl.ocks.org/rveciana/472b7749352554ca4b68)
 * Europe: [conicConformalEurope](http://bl.ocks.org/rveciana/4bcc5750c776c22ffda6) (thought for Eurostat data)
 * Japan: [conicEquidistantJapan](http://bl.ocks.org/rveciana/72987a139a9886ed6a87)
+* Ecuador: [mercatorEcuador](http://bl.ocks.org/rveciana/f00299fdacf079ecf3a60aca63eef66d)
+* Chile: [transverseMercatorChile](http://bl.ocks.org/rveciana/eaf7bce2b2cc8f90d2ac9142659962ed), including the [Chilean Antarctic Territory](https://en.wikipedia.org/wiki/Chilean_Antarctic_Territory)
 
 To draw the borders between the projection zones, use `getCompositionBorders()`:
 
