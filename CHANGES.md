@@ -1,3 +1,9 @@
+version v1.0.0
+--------------
+  * All the library changed to make it as d3 4.0
+  * Tests aren't done with moka but with tape
+  * Gulp isn't used anymore ([read here why](https://bost.ocks.org/mike/d3-plugin/))
+  
 version v0.4.0
 --------------
   * mercatorEcuador projection added

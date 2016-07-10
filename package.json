@@ -1,48 +1,34 @@
 {
   "name": "d3-composite-projections",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Like the AlbersUsa projection, adds several d3 projections to show the countries that are far from the mainland close to it.",
-  "main": "composite-projections.js",
-  "directories": {
-    "test": "test"
+  "homepage": "http://geoexamples.com/d3-composite-projections/",
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Roger Veciana i Rovira",
+    "url": "http://geoexamples.com"
   },
-  "dependencies": {
-    "d3": "3.5.13"
-  },
-  "devDependencies": {
-    "gulp": "3.9.1",
-    "gulp-bump": "2.1.0",
-    "gulp-changed": "1.3.0",
-    "gulp-concat": "2.6.0",
-    "gulp-download": "0.0.1",
-    "gulp-download-stream": "0.0.13",
-    "gulp-filter": "4.0.0",
-    "gulp-git": "1.7.0",
-    "gulp-jshint": "2.0.0",
-    "gulp-mocha": "2.2.0",
-    "gulp-newer": "1.1.0",
-    "gulp-rename": "1.2.2",
-    "gulp-replace": "0.5.4",
-    "gulp-strip-comments": "2.2.1",
-    "gulp-tag-version": "1.3.0",
-    "gulp-uglify": "1.5.3",
-    "jsdom": "8.3.0",
-    "jshint": "2.9.1",
-    "topojson": "1.6.24"
-  },
-  "scripts": {},
+  "main": "build/d3-composite-projections.js",
+  "jsnext:main": "index",
   "repository": {
     "type": "git",
     "url": "https://github.com/rveciana/d3-composite-projections.git"
   },
-  "keywords": [
-    "d3",
-    "projection"
-  ],
-  "author": "Roger Veciana i Rovira",
-  "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/rveciana/d3-composite-projections/issues"
+  "scripts": {
+    "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3-array:d3 -n d3 -o build/d3-composite-projections.js -- index.js",
+    "test": "tape 'test/*-test.js' && eslint index.js src"
   },
-  "homepage": "http://geoexamples.com/d3-composite-projections/"
+  "dependencies": {
+    "d3-array": "1",
+    "d3-geo": "1.0.0"
+  },
+  "devDependencies": {
+    "canvas": "1",
+    "eslint": "2",
+    "package-preamble": "0.0",
+    "rollup": "0.33",
+    "tape": "4",
+    "topojson": "1",
+    "uglify-js": "2"
+  }
 }
