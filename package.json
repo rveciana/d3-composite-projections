@@ -16,7 +16,7 @@
   },
   "scripts": {
     "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3-array:d3 -n d3 -o build/d3-composite-projections.js -- index.js",
-    "test": "tape 'test/*-test.js' && eslint index.js src"
+    "test": "tape 'test/*-test.js' && mkdir -p test/output && test/compare-images && eslint index.js src"
   },
   "dependencies": {
     "d3-array": "1",
