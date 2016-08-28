@@ -84,5 +84,25 @@ export default function() {
     return albersUsa;
   };
 
+  albersUsa.getCompositionBorders = function() {
+    var hawaii1 = lower48([-102.91, 26.3]);
+    var hawaii2 = lower48([-104.0, 27.5]);
+    var hawaii3 = lower48([-108.0, 29.1]);
+    var hawaii4 = lower48([-110.0, 29.1]);
+
+    var alaska1 = lower48([-110.0, 26.7]);
+    var alaska2 = lower48([-112.8, 27.6]);
+    var alaska3 = lower48([-114.3, 30.6]);
+    var alaska4 = lower48([-119.3, 30.1]);
+
+    return "M"+hawaii1[0]+" "+hawaii1[1]+"L"+hawaii2[0]+" "+hawaii2[1]+
+      "L"+hawaii3[0]+" "+hawaii3[1]+"L"+hawaii4[0]+" "+hawaii4[1]+
+      "M"+alaska1[0]+" "+alaska1[1]+"L"+alaska2[0]+" "+alaska2[1]+
+      "L"+alaska3[0]+" "+alaska3[1]+"L"+alaska4[0]+" "+alaska4[1];
+
+
+  };
+
+
   return albersUsa.scale(1070);
 }

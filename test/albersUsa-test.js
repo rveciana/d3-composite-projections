@@ -24,3 +24,11 @@ tape("geoAlbersUsa.invert(point) returns the expected result", function(test) {
   test.inDelta(albersUsa.invert([298.5, 451.0]), [-157.8583, 21.3069], 0.1); // Honolulu, HI
   test.end();
 });
+
+tape("geoAlbersUsa.getCompositionBorders() returns the expected result", function(test) {
+  var albersUsa = d3.geoAlbersUsa();
+  var borders = albersUsa.getCompositionBorders();
+  test.equal((borders.match(/L/g) || []).length, 6, "Number of border lines must be 6");
+  test.equal((borders.match(/M/g) || []).length, 2, "Number of borders must be 2");
+  test.end();
+});
