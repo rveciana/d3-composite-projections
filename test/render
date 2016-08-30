@@ -6,7 +6,6 @@ var width = 960,
     topojsonName = process.argv[3],
     layerName = process.argv[4],
     projectionSymbol = "geo" + projectionName[0].toUpperCase() + projectionName.slice(1);
-console.info("----> ",  projectionName);
 if (!/^[a-z0-9]+$/i.test(projectionName)) {throw new Error();}
 
 var fs = require("fs"),
