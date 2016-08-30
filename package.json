@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "d3-array": "1",
-    "d3-geo": "1.0.0"
+    "d3-geo": "1.0.0",
+    "d3-path": "^1.0.1"
   },
   "devDependencies": {
     "canvas": "1",

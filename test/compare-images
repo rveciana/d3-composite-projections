@@ -1,8 +1,12 @@
 #!/bin/bash
+projections=("albersUsa" "conicConformalSpain")
+topojsons=("./data/us.json" "./data/provincias.json")
+fields=("states" "provincias")
 
-for i in \
-  albersUsa; do
-    test/render $i \
-       && [ "$(compare -metric rmse test/samples/$i.png test/output/$i.png null: 2>&1)" = "0 (0)" ] \
- || echo "✗ test/output/$i.png and test/samples/$i.png differ"
+tLen=${#projections[@]}
+
+for (( i=0; i<${tLen}; i++ )) do
+    test/render ${projections[$i]} ${topojsons[$i]} ${fields[$i]}\
+       && [ "$(compare -metric rmse test/samples/${projections[$i]}.png test/output/${projections[$i]}.png null: 2>&1)" = "0 (0)" ] \
+ || echo "✗ test/output/${projections[$i]}.png and test/samples/${projections[$i]}.png differ"
 done

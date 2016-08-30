@@ -1,6 +1,7 @@
 import {epsilon} from "./math";
 import {geoAlbers as albers} from "d3-geo";
 import {geoConicEqualArea as conicEqualArea} from "d3-geo";
+import {path} from "d3-path";
 
 // The projections must have mutually exclusive clip regions on the sphere,
 // as this will avoid emitting interleaving lines and polygons.
@@ -83,8 +84,8 @@ export default function() {
 
     return albersUsa;
   };
-
-  albersUsa.getCompositionBorders = function() {
+  
+  albersUsa.drawCompositionBorders = function(context) {
     var hawaii1 = lower48([-102.91, 26.3]);
     var hawaii2 = lower48([-104.0, 27.5]);
     var hawaii3 = lower48([-108.0, 29.1]);
@@ -95,11 +96,21 @@ export default function() {
     var alaska3 = lower48([-114.3, 30.6]);
     var alaska4 = lower48([-119.3, 30.1]);
 
-    return "M"+hawaii1[0]+" "+hawaii1[1]+"L"+hawaii2[0]+" "+hawaii2[1]+
-      "L"+hawaii3[0]+" "+hawaii3[1]+"L"+hawaii4[0]+" "+hawaii4[1]+
-      "M"+alaska1[0]+" "+alaska1[1]+"L"+alaska2[0]+" "+alaska2[1]+
-      "L"+alaska3[0]+" "+alaska3[1]+"L"+alaska4[0]+" "+alaska4[1];
+    context.moveTo(hawaii1[0], hawaii1[1]);
+    context.lineTo(hawaii2[0], hawaii2[1]);
+    context.lineTo(hawaii3[0], hawaii3[1]);
+    context.lineTo(hawaii4[0], hawaii4[1]);
 
+    context.moveTo(alaska1[0], alaska1[1]);
+    context.lineTo(alaska2[0], alaska2[1]);
+    context.lineTo(alaska3[0], alaska3[1]);
+    context.lineTo(alaska4[0], alaska4[1]);
+
+  };
+  albersUsa.getCompositionBorders = function() {
+    var context = path();
+    this.drawCompositionBorders(context);
+    return context.toString();
 
   };
 

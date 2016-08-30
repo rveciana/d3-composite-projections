@@ -3,9 +3,11 @@
 var width = 960,
     height = 500,
     projectionName = process.argv[2],
+    topojsonName = process.argv[3],
+    layerName = process.argv[4],
     projectionSymbol = "geo" + projectionName[0].toUpperCase() + projectionName.slice(1);
-
-if (!/^[a-z0-9]+$/i.test(projectionName)) throw new Error;
+console.info("----> ",  projectionName);
+if (!/^[a-z0-9]+$/i.test(projectionName)) {throw new Error();}
 
 var fs = require("fs"),
     topojson = require("topojson"),
@@ -16,7 +18,7 @@ var fs = require("fs"),
 var canvas = new Canvas(width, height),
     context = canvas.getContext("2d");
 
-var world = require("./data/us-10m.json"),
+var data = require(topojsonName),
     graticule = d3_geo.geoGraticule(),
 outline = {type: "Sphere"};
 
@@ -29,9 +31,12 @@ context.fillRect(0, 0, width, height);
 context.save();
 
 context.beginPath();
-path(topojson.feature(world, world.objects.land));
-context.fillStyle = "#000";
+path(topojson.feature(data, data.objects[layerName]));
+context.fillStyle = "#aca";
+context.strokeStyle = "#000";
 context.fill();
+context.stroke();
+
 
 context.beginPath();
 path(graticule());
@@ -45,11 +50,11 @@ context.beginPath();
 path(outline);
 context.strokeStyle = "#00F";
 context.stroke();
-/*
+
 context.beginPath();
 context.strokeStyle = "#F00";
-path(d3_composite[projectionSymbol]().getCompositionBorders());
-context.stroke();*/
+d3_composite[projectionSymbol]().drawCompositionBorders(context);
+context.stroke();
 
 console.warn("↳ test/output/" + projectionName + ".png");
 canvas.pngStream().pipe(fs.createWriteStream("test/output/" + projectionName + ".png"));
