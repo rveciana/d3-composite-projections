@@ -3,11 +3,13 @@ var tape = require("tape"),
 
 require("./inDelta");
 
-tape("geoConicConformalPortugal(point) returns the expected result", function(test) {
-  var proj = d3.geoConicConformalPortugal();
-  var locations = [{name:'lisboa', coords:[-9.15, 38.7]},
-        {name:'ponta_delgada', coords:[-25.7, 37.7]},
-        {name:'funchal', coords:[-16.91, 32.667]},
+tape("geoMercatorEcuador(point) returns the expected result", function(test) {
+
+  var proj = d3.geoMercatorEcuador();
+
+  var locations = [{name:'Quito', coords:[-78.473, -0.1846]},
+        {name:'Puerto Baquerizo', coords:[-89.606278, -0.916553]},
+        {name:'Puerto Villamil', coords:[-90.969, -0.9553]},
         ];
   locations.forEach(function (location){
     console.info("testing", location.name);
@@ -20,11 +22,11 @@ tape("geoConicConformalPortugal(point) returns the expected result", function(te
 
   test.end();
 });
-
+/*
 tape("geoConicConformalPortugal.getCompositionBorders() returns the expected result", function(test) {
 
   var borders = d3.geoConicConformalPortugal().getCompositionBorders();
   test.equal((borders.match(/L/g) || []).length, 8, "Number of border lines must be 8");
   test.equal((borders.match(/M/g) || []).length, 2, "Number of borders must be 2");
   test.end();
-});
+});*/

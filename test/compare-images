@@ -1,8 +1,7 @@
 #!/bin/bash
-projections=("albersUsa" "conicConformalSpain" "conicConformalPortugal")
-topojsons=("./data/us.json" "./data/provincias.json" "./data/world-50m.json")
-fields=("states" "provincias" "countries")
-
+projections=("albersUsa" "conicConformalSpain" "conicConformalPortugal" "mercatorEcuador")
+topojsons=("./data/us.json" "./data/provincias.json" "./data/world-50m.json" "./data/world-50m.json")
+fields=("states" "provincias" "countries" "countries")
 
 tLen=${#projections[@]}
 

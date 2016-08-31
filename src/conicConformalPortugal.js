@@ -17,7 +17,7 @@ function multiplex(streams) {
   };
 }
 
-// A composite projection for Spain, configured by default for 960×500.
+// A composite projection for Portugal, configured by default for 960×500.
 export default function() {
   var cache,
       cacheStream,
