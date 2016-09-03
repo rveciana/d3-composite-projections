@@ -22,11 +22,11 @@ tape("geoMercatorEcuador(point) returns the expected result", function(test) {
 
   test.end();
 });
-/*
+
 tape("geoConicConformalPortugal.getCompositionBorders() returns the expected result", function(test) {
 
   var borders = d3.geoConicConformalPortugal().getCompositionBorders();
   test.equal((borders.match(/L/g) || []).length, 8, "Number of border lines must be 8");
   test.equal((borders.match(/M/g) || []).length, 2, "Number of borders must be 2");
   test.end();
-});*/
+});
