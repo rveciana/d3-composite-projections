@@ -202,17 +202,17 @@ export default function() {
 
     alaskaPoint = alaska
         .translate([x - 0.307 * k, y + 0.201 * k])
-        .clipExtent([[x - 0.425 * k + epsilon, y + 0.120 * k + epsilon], [x - 0.214 * k - epsilon, y + 0.234 * k - epsilon]])
+        .clipExtent([[x - 0.425 * k + epsilon, y + 0.120 * k + epsilon], [x - 0.214 * k - epsilon, y + 0.233 * k - epsilon]])
         .stream(pointStream);
 
     hawaiiPoint = hawaii
         .translate([x - 0.205 * k, y + 0.212 * k])
-        .clipExtent([[x - 0.214 * k + epsilon, y + 0.166 * k + epsilon], [x - 0.115 * k - epsilon, y + 0.234 * k - epsilon]])
+        .clipExtent([[x - 0.214 * k + epsilon, y + 0.166 * k + epsilon], [x - 0.115 * k - epsilon, y + 0.233 * k - epsilon]])
         .stream(pointStream);
 
     puertoRicoPoint = puertoRico
         .translate([x + 0.350 * k, y + 0.224 * k])
-        .clipExtent([[x + 0.312 * k + epsilon, y + 0.2064 * k + epsilon],[x + 0.385 * k - epsilon, y + 0.2413 * k - epsilon]])
+        .clipExtent([[x + 0.312 * k + epsilon, y + 0.2064 * k + epsilon],[x + 0.385 * k - epsilon, y + 0.233 * k - epsilon]])
         .stream(pointStream);
 
     samoaPoint = samoa
@@ -230,6 +230,7 @@ export default function() {
   };
 
   albersUsa.drawCompositionBorders = function(context) {
+
     /*
     console.info("CLIP EXTENT hawaii: ", hawaii.clipExtent());
     console.info("UL BBOX:", lower48.invert([hawaii.clipExtent()[0][0], hawaii.clipExtent()[0][1]]));
@@ -265,18 +266,19 @@ export default function() {
 
     var ulhawaii = lower48([-110.4641, 28.2805]);
     var urhawaii = lower48([-104.0597, 28.9528]);
-    var ldhawaii = lower48([-103.6999, 25.0452]);
-    var llhawaii = lower48([-109.8247, 24.3956]);
+    var ldhawaii = lower48([-103.7049, 25.1031]);
+    var llhawaii = lower48([-109.8337, 24.4531]);
 
     var ulalaska = lower48([ -124.4745, 28.1407]);
     var uralaska = lower48([ -110.931, 30.8844]);
-    var ldalaska = lower48([ -109.8247, 24.3956]);
-    var llalaska = lower48([ -122.4462, 21.7998]);
+    var ldalaska = lower48([-109.8337, 24.4531]);
+    var llalaska = lower48([-122.4628, 21.8562]);
 
     var ulpuertoRico = lower48([-76.8579, 25.1544]);
     var urpuertoRico = lower48([-72.429, 24.2097]);
-    var ldpuertoRico = lower48([-72.9479, 22.2342]);
-    var llpuertoRico = lower48([-77.285, 23.1647]);
+    var ldpuertoRico = lower48([-72.8265, 22.7056]);
+    var llpuertoRico = lower48([-77.1852, 23.6392]);
+
 
     var ulsamoa = lower48([-125.0093, 29.7791]);
     var ursamoa = lower48([-118.5193, 31.3262]);

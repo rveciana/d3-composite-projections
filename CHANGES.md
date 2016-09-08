@@ -4,6 +4,8 @@ version v1.0.0
   * Tests aren't done with moka but with tape
   * Gulp isn't used anymore ([read here why](https://bost.ocks.org/mike/d3-plugin/))
   * getCompositionBorders is only practical with SVG, so a drawCompositionBorders has been added to use Canvas without using Canvas2D, not always available
+  * albersUsaTerritories projection added
+
 version v0.4.0
 --------------
   * mercatorEcuador projection added
