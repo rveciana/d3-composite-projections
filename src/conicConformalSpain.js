@@ -22,8 +22,8 @@ export default function() {
   var cache,
       cacheStream,
 
-      iberianPeninsule = conicConformal().rotate([5, -38.6]), iberianPeninsulePoint,
-      canaryIslands = conicConformal().rotate([5, -38.6]), canaryIslandsPoint,
+      iberianPeninsule = conicConformal().rotate([5, -38.6]).parallels([0,60]), iberianPeninsulePoint,
+      canaryIslands = conicConformal().rotate([5, -38.6]).parallels([0,60]), canaryIslandsPoint,
 
       point, pointStream = {point: function(x, y) { point = [x, y]; }};
 

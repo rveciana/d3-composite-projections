@@ -21,9 +21,9 @@ function multiplex(streams) {
 export default function() {
   var cache,
       cacheStream,
-      iberianPeninsule = conicConformal().rotate([10, -39.3]), iberianPeninsulePoint,
-      madeira = conicConformal().rotate([17, -32.7]), madeiraPoint,
-      azores = conicConformal().rotate([27.8, -38.6]), azoresPoint,
+      iberianPeninsule = conicConformal().rotate([10, -39.3]).parallels([0, 60]), iberianPeninsulePoint,
+      madeira = conicConformal().rotate([17, -32.7]).parallels([0, 60]), madeiraPoint,
+      azores = conicConformal().rotate([27.8, -38.6]).parallels([0, 60]), azoresPoint,
 
       point, pointStream = {point: function(x, y) { point = [x, y]; }};
 
