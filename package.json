@@ -19,7 +19,7 @@
     "test": "tape 'test/*-test.js' && mkdir -p test/output && test/compare-images && eslint index.js src"
   },
   "dependencies": {
-    "d3-geo": "1.0.0",
+    "d3-geo": "1.2.4",
     "d3-path": "^1.0.1"
   },
   "devDependencies": {
