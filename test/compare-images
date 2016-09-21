@@ -1,7 +1,7 @@
 #!/bin/bash
-projections=("albersUsa" "albersUsaTerritories" "conicConformalSpain" "conicConformalPortugal" "mercatorEcuador" "transverseMercatorChile" "conicEquidistantJapan" "conicConformalFrance")
-topojsons=("./data/us.json" "./data/us_territories.json" "./data/provincias.json" "./data/world-50m.json" "./data/world-50m.json" "./data/chile.json" "./data/japan.json" "./data/france.json")
-fields=("states" "us" "provincias" "countries" "countries" "chile" "japan" "regions")
+projections=("albersUsa" "albersUsaTerritories" "conicConformalSpain" "conicConformalPortugal" "mercatorEcuador" "transverseMercatorChile" "conicEquidistantJapan" "conicConformalFrance" "conicConformalEurope")
+topojsons=("./data/us.json" "./data/us_territories.json" "./data/provincias.json" "./data/world-50m.json" "./data/world-50m.json" "./data/chile.json" "./data/japan.json" "./data/france.json" "./data/nuts0.json")
+fields=("states" "us" "provincias" "countries" "countries" "chile" "japan" "regions" "nuts0")
 
 tLen=${#projections[@]}
 
