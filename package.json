@@ -1,6 +1,6 @@
 {
   "name": "d3-composite-projections",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Like the AlbersUsa projection, adds several d3 projections to show the countries that are far from the mainland close to it.",
   "homepage": "http://geoexamples.com/d3-composite-projections/",
   "license": "BSD-3-Clause",
