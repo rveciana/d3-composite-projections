@@ -99,7 +99,10 @@ margin: 0 auto;
   </head>
 
 	<body>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
 
+    <script src="composite-projections.min.js"></script>
 		<header>
 			<h1>d3-composite-projections</h1>
 			<h2>Set of d3 projections for showing countries' distant lands together</h2>
@@ -108,13 +111,10 @@ margin: 0 auto;
       <img id="france_example" src="./conicConformalFrance.svg" alt="France Conic Conformal"/>
     </section>
     <h2 class="subtitle">Drawing choropleth maps is difficult in some countries when parts of them are far away from the mainland</h2>
-
         <section class="github">
           <span>View on <a href="https://github.com/rveciana/d3-composite-projections">Github</a></span>
         </section>
-			<section class="white-section">
-				This library works with d3js v4. The old version worked with d3js v3, <a href="index_v3.html">check it here.</a>
-			</section>
+
       <section class="light-section"><h2>Using the projection</h2>
       <h3>Use the composite projections as any other D3 projection. They are based in the included <a href="https://github.com/mbostock/d3/wiki/Geo-Projections#albersUsa">AlbersUsa</a>:</h3>
       <pre><code>var projection = d3.geo.conicConformalFrance();</code></pre>
@@ -153,137 +153,71 @@ or downloading the <i>composite-projections.js</i> or <i>composite-projections.m
 
 <h3>Using cdnjs</h3>
 <div>You can link the files from your web page to <a href="https://cdnjs.com/libraries/d3-composite-projections">cdnjs</a>:</div>
-<pre><code>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/1.0.1/composite-projections.min.js"&gt;&lt;/script&gt;</code></pre>
-<div>Or unpkg:</div>
-<pre><code>&lt;script src="https://unpkg.com/d3-composite-projections@1.0.1"&gt;&lt;/script&gt;</code></pre>
+<pre><code>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/0.3.5/composite-projections.min.js"&gt;&lt;/script&gt;</code></pre>
+
+<h3>Using bower</h3>
+<div>The bower package will install the production files, without tests or building options:</div>
+
+<pre><code>bower install d3-composite-projections</code></pre>
 
 <h3>Using NPM</h3>
 
 <div>To install the projections with npm so you can run the tests, use it with node, etc, just run:</div>
 
-<pre><code>npm install d3-composite-projections</code></pre>
+<pre><code>npm install d3-composite-projections
 
+npm install -g gulp
 
+gulp</code></pre>
+
+<div>This will download all the dependencies, the test files, and build and run the tests.</div>
 
       </section>
       <section class="white-section">
       <h2>Example</h2>
       <div id="example_map"></div>
-      <h3><a href="http://bl.ocks.org/rveciana/0ff189b15449330828605fe4e118a716">Code using node:</a></h3>
-      <pre><code>var d3_composite = require("d3-composite-projections");
-var d3_geo = require("d3-geo");
-var d3_request = require("d3-request");
-var d3_selection = require("d3-selection");
-var d3_transition = require("d3-transition");
-var topojson = require("topojson");
+      <h3>Code:</h3>
+      <pre><code>var width = 900,
+height = 500;
+var projection = d3.geo.conicConformalFrance();
 
-var width = 960;
-var height = 500;
-
-var projection = d3_composite.geoConicConformalFrance();
-
-var path = d3_geo.geoPath()
-    .projection(projection);
-
-var svg = d3_selection.select("#example_map").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-var t = d3_transition.transition()
-  .on("interrupt", function(d,i){
-    console.info(i);
-  });
-
-d3_request.json("france.json", function(error, topojsonData) {
-    var us = topojson.feature(topojsonData, topojsonData.objects.regions);
-
-    svg.selectAll(".region")
-      .data(us.features)
-      .enter()
-      .append("path")
-      .attr("d", path)
-      .attr("class","region")
-      .style("fill", "#aca")
-      .style("stroke", "#000")
-      .style("stroke-width", "0.5px")
-      .on("mouseover", function(d,i) {
-        d3_selection.select(this)
-          .transition(t)
-          .style("fill", "red");
-        })
-      .on("mouseout", function(d,i) {
-        d3_selection.select(this).interrupt();
-        d3_selection.select(this)
-          .transition(t)
-          .style("fill", "#aca");
-        });
-
-      svg
-        .append("path")
-          .style("fill","none")
-          .style("stroke","#f00")
-          .attr("d", projection.getCompositionBorders());
-
-});
-</code></pre>
-<div>Create an index.html file:</div>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;meta charset="utf-8"&gt;
-
-&lt;body&gt;
-&lt;div id="map"&gt;&lt;/div&gt;
-
-&lt;script src="bundle.js"&gt;&lt;/script&gt;
-</code></pre>
-<div>Then, use browserify to use it from the browser:</div>
-<pre><code>browserify draw.js > bundle.js</code></pre>
-
-<h3><a href="http://bl.ocks.org/rveciana/bf9ff81544da5fe8ee54a2ba4ef45e9c">Code linking d3js directly:</a></h3>
-<pre><code>var width = 960,
-    height = 500;
-
-var projection = d3.geoConicConformalFrance();
-var path = d3.geoPath()
+var path = d3.geo.path()
     .projection(projection);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-    var t = d3.transition();
-d3.json("france.json", function(error, france) {
-  var france = topojson.feature(france, france.objects.regions);
-  svg.selectAll(".region")
-      .data(france.features)
-      .enter()
-      .append("path")
-      .attr("class", "region")
-      .attr("d", path)
-      .style("fill", "#aca")
-      .style("stroke", "#000")
-      .style("stroke-width", "0.5px")
-      .on("mouseover", function(d,i) {
-        d3.select(this).interrupt();
-        d3.select(this)
-          .transition(t)
-          .style("fill", "red");
-        })
-      .on("mouseout", function(d,i) {
-        d3.select(this).interrupt();
-        d3.select(this)
-          .transition(t)
-          .style("fill", "#aca");
-        });;
+d3.json("france.json", function(error, regions) {
+  var land = topojson.feature(regions, regions.objects.regions);
 
-  svg
-    .append("path")
-      .style("fill","none")
-      .style("stroke","#f00")
-      .attr("d", projection.getCompositionBorders());
+svg.selectAll("path")
+  .data(land.features)
+  .enter()
+  .append("path")
+  .attr("d", path)
+  .style("stroke","#000")
+  .style("stroke-width",".5px")
+  .style("fill","#aca")
+  .on("mouseover", function(d,i) {
+    d3.select(this)
+      .transition()
+      .style("fill", "red");
+    })
+  .on("mouseout", function(d,i) {
+    d3.select(this)
+      .transition()
+      .style("fill", "#aca");
+    });
+
+svg
+.append("path")
+  .style("fill","none")
+  .style("stroke","#000")
+  .attr("d", projection.getCompositionBorders());
 
 });</code></pre>
-
-</section>
+      </section>
 
 			<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -295,8 +229,53 @@ d3.json("france.json", function(error, france) {
   ga('send', 'pageview');
 
 </script>
-<script src="bundle.js"></script>
-  </body>
 
+  </body>
+  <script>
+
+  var width = 900,
+      height = 500;
+
+  var projection = d3.geo.conicConformalFrance();
+  var path = d3.geo.path()
+      .projection(projection);
+
+  var svg = d3.select("#example_map").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  d3.json("france.json", function(error, regions) {
+  var land = topojson.feature(regions, regions.objects.regions);
+
+  svg.selectAll("path")
+    .data(land.features)
+    .enter()
+    .append("path")
+    .attr("d", path)
+    .style("stroke","#000")
+    .style("stroke-width",".5px")
+    .style("fill","#aca")
+    .on("mouseover", function(d,i) {
+      d3.select(this)
+        .transition()
+        .style("fill", "red");
+      })
+    .on("mouseout", function(d,i) {
+      d3.select(this)
+        .transition()
+        .style("fill", "#aca");
+      });
+
+
+  svg
+    .append("path")
+      .style("fill","none")
+      .style("stroke","#000")
+      .attr("d", projection.getCompositionBorders());
+
+
+});
+
+</script>
 
 </html>
