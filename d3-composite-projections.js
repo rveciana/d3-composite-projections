@@ -1,4 +1,4 @@
-// http://geoexamples.com/d3-composite-projections/ Version 1.0.0. Copyright 2016 Roger Veciana i Rovira.
+// http://geoexamples.com/d3-composite-projections/ Version 1.0.1. Copyright 2016 Roger Veciana i Rovira.
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-geo'), require('d3-path')) :
   typeof define === 'function' && define.amd ? define(['exports', 'd3-geo', 'd3-path'], factory) :
@@ -559,7 +559,7 @@
      */
       iberianPeninsulePoint = iberianPeninsule
           .translate(_)
-          .clipExtent([[x - 0.06857 * k, y - 0.1288 * k],[x + 0.13249 * k, y + 0.05292 * k]])
+          .clipExtent([[x - 0.06857 * k, y - 0.1288 * k],[x + 0.13249 * k, y + 0.06 * k]])
           .stream(pointStream);
 
       canaryIslandsPoint = canaryIslands
@@ -578,9 +578,9 @@
       console.info("LD BBOX:", iberianPeninsule.invert([canaryIslands.clipExtent()[1][0], canaryIslands.clipExtent()[1][1]]));
       */
 
-      var ulCanaryIslands = iberianPeninsule([-14.0346750522884, 34.96500729877966]);
-      var urCanaryIslands = iberianPeninsule([-7.4208899681602025, 35.53698899616862]);
-      var ldCanaryIslands = iberianPeninsule([-7.314827535125545, 33.54359498636456]);
+      var ulCanaryIslands = iberianPeninsule([-14.0346750, 34.965007]);
+      var urCanaryIslands = iberianPeninsule([-7.4208899, 35.536988]);
+      var ldCanaryIslands = iberianPeninsule([-7.3148275, 33.54359]);
 
       context.moveTo(ulCanaryIslands[0], ulCanaryIslands[1]);
       context.lineTo(urCanaryIslands[0], urCanaryIslands[1]);
