@@ -1,4 +1,4 @@
-// http://geoexamples.com/d3-composite-projections/ Version 1.0.1. Copyright 2016 Roger Veciana i Rovira.
+// http://geoexamples.com/d3-composite-projections/ Version 1.0.2. Copyright 2017 Roger Veciana i Rovira.
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-geo'), require('d3-path')) :
   typeof define === 'function' && define.amd ? define(['exports', 'd3-geo', 'd3-path'], factory) :
@@ -1508,7 +1508,7 @@
     };
   }
 
-  // A composite projection for Portugal, configured by default for 960×500.
+  // A composite projection for France, configured by default for 960×500.
   function conicConformalFrance() {
     var cache,
         cacheStream,
@@ -1516,8 +1516,8 @@
         guyane = d3Geo.geoMercator().center([-53.2, 3.9]), guyanePoint,
         martinique = d3Geo.geoMercator().center([-61.03, 14.67]), martiniquePoint,
         guadeloupe = d3Geo.geoMercator().center([-61.46, 16.14]), guadeloupePoint,
-        saintBarthlemy = d3Geo.geoMercator().center([-62.85, 17.92]), saintBarthlemyPoint,
-        stPierreMichelon = d3Geo.geoMercator().center([-56.23, 46.93]), stPierreMichelonPoint,
+        saintBarthelemy = d3Geo.geoMercator().center([-62.85, 17.92]), saintBarthelemyPoint,
+        stPierreMiquelon = d3Geo.geoMercator().center([-56.23, 46.93]), stPierreMiquelonPoint,
         mayotte = d3Geo.geoMercator().center([45.16, -12.8]), mayottePoint,
         reunion = d3Geo.geoMercator().center([55.52, -21.13]), reunionPoint,
         nouvelleCaledonie = d3Geo.geoMercator().center([165.8, -21.07]), nouvelleCaledoniePoint,
@@ -1539,8 +1539,8 @@
           (guyanePoint.point(x, y), point) ||
           (martiniquePoint.point(x, y), point) ||
           (guadeloupePoint.point(x, y), point) ||
-          (saintBarthlemyPoint.point(x, y), point) ||
-          (stPierreMichelonPoint.point(x, y), point) ||
+          (saintBarthelemyPoint.point(x, y), point) ||
+          (stPierreMiquelonPoint.point(x, y), point) ||
           (mayottePoint.point(x, y), point) ||
           (reunionPoint.point(x, y), point) ||
           (nouvelleCaledoniePoint.point(x, y), point) ||
@@ -1558,8 +1558,8 @@
           return (y >= 0.029 && y< 0.0864 && x >= -0.14 && x < -0.0996 ? guyane
               : y >= 0 && y< 0.029 && x >= -0.14 && x < -0.0996 ? martinique
               : y >= -0.032 && y< 0 && x >= -0.14 && x < -0.0996 ? guadeloupe
-              : y >= -0.052 && y< -0.032 && x >= -0.14 && x < -0.0996 ? saintBarthlemy
-              : y >= -0.076 && y< 0.052 && x >= -0.14 && x < -0.0996 ? stPierreMichelon
+              : y >= -0.052 && y< -0.032 && x >= -0.14 && x < -0.0996 ? saintBarthelemy
+              : y >= -0.076 && y< 0.052 && x >= -0.14 && x < -0.0996 ? stPierreMiquelon
               : y >= -0.076 && y< -0.052 && x >= 0.0967 && x < 0.1371 ? mayotte
               : y >= -0.052 && y< -0.02 && x >= 0.0967 && x < 0.1371 ? reunion
               : y >= -0.02 && y< 0.012 && x >= 0.0967 && x < 0.1371 ? nouvelleCaledonie
@@ -1569,7 +1569,7 @@
     };
 
     conicConformalFrance.stream = function(stream) {
-      return cache && cacheStream === stream ? cache : cache = multiplex$7([europe.stream(cacheStream = stream), guyane.stream(stream), martinique.stream(stream), guadeloupe.stream(stream), saintBarthlemy.stream(stream), stPierreMichelon.stream(stream), mayotte.stream(stream), reunion.stream(stream), nouvelleCaledonie.stream(stream), wallisFutuna.stream(stream), polynesie.stream(stream), polynesie2.stream(stream)]);
+      return cache && cacheStream === stream ? cache : cache = multiplex$7([europe.stream(cacheStream = stream), guyane.stream(stream), martinique.stream(stream), guadeloupe.stream(stream), saintBarthelemy.stream(stream), stPierreMiquelon.stream(stream), mayotte.stream(stream), reunion.stream(stream), nouvelleCaledonie.stream(stream), wallisFutuna.stream(stream), polynesie.stream(stream), polynesie2.stream(stream)]);
     };
 
     conicConformalFrance.precision = function(_) {
@@ -1578,8 +1578,8 @@
       guyane.precision(_);
       martinique.precision(_);
       guadeloupe.precision(_);
-      saintBarthlemy.precision(_);
-      stPierreMichelon.precision(_);
+      saintBarthelemy.precision(_);
+      stPierreMiquelon.precision(_);
       mayotte.precision(_);
       reunion.precision(_);
       nouvelleCaledonie.precision(_);
@@ -1595,8 +1595,8 @@
       guyane.scale(_ * 0.6);
       martinique.scale(_ * 1.6);
       guadeloupe.scale(_ * 1.4);
-      saintBarthlemy.scale(_ * 5);
-      stPierreMichelon.scale(_ * 1.3);
+      saintBarthelemy.scale(_ * 5);
+      stPierreMiquelon.scale(_ * 1.3);
       mayotte.scale(_ * 1.6);
       reunion.scale(_ * 1.2);
       nouvelleCaledonie.scale(_ * 0.3);
@@ -1631,12 +1631,12 @@
           .clipExtent([[x - 0.14 * k + epsilon, y - 0.032 * k + epsilon],[x - 0.0996 * k - epsilon, y + 0 * k - epsilon]])
           .stream(pointStream);
 
-      saintBarthlemyPoint = saintBarthlemy
+      saintBarthelemyPoint = saintBarthelemy
           .translate([x - 0.12 * k, y - 0.044 * k])
           .clipExtent([[x - 0.14 * k + epsilon, y - 0.052 * k + epsilon],[x - 0.0996 * k - epsilon, y - 0.032 * k - epsilon]])
           .stream(pointStream);
 
-      stPierreMichelonPoint = stPierreMichelon
+      stPierreMiquelonPoint = stPierreMiquelon
           .translate([x - 0.12 * k, y - 0.065 * k])
           .clipExtent([[x - 0.14 * k + epsilon, y - 0.076 * k + epsilon],[x - 0.0996 * k - epsilon, y - 0.052 * k - epsilon]])
           .stream(pointStream);
@@ -1680,7 +1680,7 @@
 
       /*
       console.log("var ul, ur, ld, ll;");
-      var projs = [guyane, martinique, guadeloupe, saintBarthlemy, stPierreMichelon, mayotte, reunion, nouvelleCaledonie, wallisFutuna, polynesie, polynesie2];
+      var projs = [guyane, martinique, guadeloupe, saintBarthelemy, stPierreMiquelon, mayotte, reunion, nouvelleCaledonie, wallisFutuna, polynesie, polynesie2];
       for (var i in projs){
         var ul = europe.invert([projs[i].clipExtent()[0][0], projs[i].clipExtent()[0][1]]);
         var ur = europe.invert([projs[i].clipExtent()[1][0], projs[i].clipExtent()[0][1]]);
