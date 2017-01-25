@@ -130,7 +130,7 @@ export default function() {
 
     peninsularPoint = peninsular
         .translate([x - 0.0 * k, y - 0.0 * k])
-        .clipExtent([[x - 0.1334 * k + epsilon, y - 0.06956 * k + epsilon],[x - 0.0415 * k - epsilon, y + 0.0695 * k - epsilon]])
+        .clipExtent([[x - 0.1334 * k + epsilon, y - 0.0695 * k + epsilon],[x - 0.0415 * k - epsilon, y + 0.0695 * k - epsilon]])
         .stream(pointStream);
 
     return mercatorMalaysia;
