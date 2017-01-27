@@ -1,5 +1,6 @@
 import {epsilon} from "./math";
 import {geoConicConformal as conicConformal} from "d3-geo";
+import {fitExtent, fitSize} from "./fit";
 import {path} from "d3-path";
 
 
@@ -44,21 +45,7 @@ export default function() {
         t = iberianPeninsule.translate(),
         x = (coordinates[0] - t[0]) / k,
         y = (coordinates[1] - t[1]) / k;
-        /*
-        //How are the return values calculated:
-        var c0 = canaryIslands(canaryIslandsBbox[0]);
-        var x0 = (c0[0] - t[0]) / k;
-        var y0 = (c0[1] - t[1]) / k;
 
-        console.info("p0 canary islands", x0 + ' - ' + y0);
-
-
-        var c1 = canaryIslands(canaryIslandsBbox[1]);
-        var x1 = (c1[0] - t[0]) / k;
-        var y1 = (c1[1] - t[1]) / k;
-
-        console.info("p1 canary islands", x1 + ' - ' + y1);
-        */
         return (y >= 0.05346 && y< 0.0897 && x >= -0.13388 && x < -0.0322 ? canaryIslands
             : iberianPeninsule).invert(coordinates);
   };
@@ -71,7 +58,7 @@ export default function() {
     if (!arguments.length) {return iberianPeninsule.precision();}
     iberianPeninsule.precision(_);
     canaryIslands.precision(_);
-    return conicConformalSpain;
+    return reset();
   };
 
   conicConformalSpain.scale = function(_) {
@@ -115,8 +102,21 @@ export default function() {
         .clipExtent([[x - 0.1331 * k + epsilon, y + 0.053457 * k + epsilon],[x  - 0.0354 * k - epsilon, y + 0.08969 * k - epsilon]])
         .stream(pointStream);
 
-    return conicConformalSpain;
+    return reset();
   };
+
+  conicConformalSpain.fitExtent = function(extent, object) {
+    return fitExtent(conicConformalSpain, extent, object);
+  };
+
+  conicConformalSpain.fitSize = function(size, object) {
+    return fitSize(conicConformalSpain, size, object);
+  };
+
+  function reset() {
+    cache = cacheStream = null;
+    return conicConformalSpain;
+  }
 
   conicConformalSpain.drawCompositionBorders = function(context) {
     /*

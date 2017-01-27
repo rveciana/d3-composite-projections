@@ -455,6 +455,35 @@
     return albersUsa.scale(1070);
   }
 
+  function fitExtent(projection, extent, object) {
+    var w = extent[1][0] - extent[0][0],
+        h = extent[1][1] - extent[0][1],
+        clip = projection.clipExtent && projection.clipExtent();
+
+    projection
+        .scale(150)
+        .translate([0, 0]);
+
+    if (clip != null) projection.clipExtent(null);
+
+    d3Geo.geoStream(object, projection.stream(d3Geo.boundsStream));
+
+    var b = d3Geo.boundsStream.result(),
+        k = Math.min(w / (b[1][0] - b[0][0]), h / (b[1][1] - b[0][1])),
+        x = +extent[0][0] + (w - k * (b[1][0] + b[0][0])) / 2,
+        y = +extent[0][1] + (h - k * (b[1][1] + b[0][1])) / 2;
+
+    if (clip != null) projection.clipExtent(clip);
+
+    return projection
+        .scale(k * 150)
+        .translate([x, y]);
+  }
+
+  function fitSize(projection, size, object) {
+    return fitExtent(projection, [[0, 0], size], object);
+  }
+
   // The projections must have mutually exclusive clip regions on the sphere,
   // as this will avoid emitting interleaving lines and polygons.
   function multiplex$2(streams) {
@@ -496,21 +525,7 @@
           t = iberianPeninsule.translate(),
           x = (coordinates[0] - t[0]) / k,
           y = (coordinates[1] - t[1]) / k;
-          /*
-          //How are the return values calculated:
-          var c0 = canaryIslands(canaryIslandsBbox[0]);
-          var x0 = (c0[0] - t[0]) / k;
-          var y0 = (c0[1] - t[1]) / k;
 
-          console.info("p0 canary islands", x0 + ' - ' + y0);
-
-
-          var c1 = canaryIslands(canaryIslandsBbox[1]);
-          var x1 = (c1[0] - t[0]) / k;
-          var y1 = (c1[1] - t[1]) / k;
-
-          console.info("p1 canary islands", x1 + ' - ' + y1);
-          */
           return (y >= 0.05346 && y< 0.0897 && x >= -0.13388 && x < -0.0322 ? canaryIslands
               : iberianPeninsule).invert(coordinates);
     };
@@ -523,7 +538,7 @@
       if (!arguments.length) {return iberianPeninsule.precision();}
       iberianPeninsule.precision(_);
       canaryIslands.precision(_);
-      return conicConformalSpain;
+      return reset();
     };
 
     conicConformalSpain.scale = function(_) {
@@ -567,8 +582,21 @@
           .clipExtent([[x - 0.1331 * k + epsilon, y + 0.053457 * k + epsilon],[x  - 0.0354 * k - epsilon, y + 0.08969 * k - epsilon]])
           .stream(pointStream);
 
-      return conicConformalSpain;
+      return reset();
     };
+
+    conicConformalSpain.fitExtent = function(extent, object) {
+      return fitExtent(conicConformalSpain, extent, object);
+    };
+
+    conicConformalSpain.fitSize = function(size, object) {
+      return fitSize(conicConformalSpain, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return conicConformalSpain;
+    }
 
     conicConformalSpain.drawCompositionBorders = function(context) {
       /*
