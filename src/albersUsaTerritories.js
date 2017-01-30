@@ -2,6 +2,7 @@ import {epsilon} from "./math";
 import {geoAlbers as albers} from "d3-geo";
 import {geoConicEqualArea as conicEqualArea} from "d3-geo";
 import {geoEquirectangular as equirectangular} from "d3-geo";
+import {fitExtent, fitSize} from "./fit";
 import {path} from "d3-path";
 
 // The projections must have mutually exclusive clip regions on the sphere,
@@ -118,7 +119,7 @@ export default function() {
     puertoRico.precision(_);
     samoa.precision(_);
     guam.precision(_);
-    return albersUsa;
+    return reset();
   };
 
   albersUsa.scale = function(_) {
@@ -226,8 +227,21 @@ export default function() {
         .stream(pointStream);
 
 
-    return albersUsa;
+    return reset();
   };
+
+  albersUsa.fitExtent = function(extent, object) {
+    return fitExtent(albersUsa, extent, object);
+  };
+
+  albersUsa.fitSize = function(size, object) {
+    return fitSize(albersUsa, size, object);
+  };
+
+  function reset() {
+    cache = cacheStream = null;
+    return albersUsa;
+  }
 
   albersUsa.drawCompositionBorders = function(context) {
 

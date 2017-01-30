@@ -1,5 +1,6 @@
 import {epsilon} from "./math";
 import {geoConicConformal as conicConformal} from "d3-geo";
+import {fitExtent, fitSize} from "./fit";
 import {path} from "d3-path";
 
 
@@ -90,7 +91,7 @@ export default function() {
     iberianPeninsule.precision(_);
     madeira.precision(_);
     azores.precision(_);
-    return conicConformalPortugal;
+    return reset();
   };
 
   conicConformalPortugal.scale = function(_) {
@@ -178,8 +179,21 @@ export default function() {
         .clipExtent([[x - 0.0778 * k + epsilon, y - 0.0413 * k + epsilon],[x - 0.0117 * k - epsilon, y + 0.0091 * k - epsilon]])
         .stream(pointStream);
 
-    return conicConformalPortugal;
+    return reset();
   };
+
+  conicConformalPortugal.fitExtent = function(extent, object) {
+    return fitExtent(conicConformalPortugal, extent, object);
+  };
+
+  conicConformalPortugal.fitSize = function(size, object) {
+    return fitSize(conicConformalPortugal, size, object);
+  };
+
+  function reset() {
+    cache = cacheStream = null;
+    return conicConformalPortugal;
+  }
 
   conicConformalPortugal.drawCompositionBorders = function(context) {
     /*

@@ -1,6 +1,7 @@
 import {epsilon} from "./math";
 import {geoAlbers as albers} from "d3-geo";
 import {geoConicEqualArea as conicEqualArea} from "d3-geo";
+import {fitExtent, fitSize} from "./fit";
 import {path} from "d3-path";
 
 // The projections must have mutually exclusive clip regions on the sphere,
@@ -18,8 +19,9 @@ function multiplex(streams) {
 }
 
 // A composite projection for the United States, configured by default for
-// 960×500. Also works quite well at 960×600 with scale 1285. The set of
-// standard parallels for each region comes from USGS, which is published here:
+// 960×500. The projection also works quite well at 960×600 if you change the
+// scale to 1285 and adjust the translate accordingly. The set of standard
+// parallels for each region comes from USGS, which is published here:
 // http://egsc.usgs.gov/isb/pubs/MapProjections/projections.html#albers
 export default function() {
   var cache,
@@ -54,7 +56,7 @@ export default function() {
   albersUsa.precision = function(_) {
     if (!arguments.length) return lower48.precision();
     lower48.precision(_), alaska.precision(_), hawaii.precision(_);
-    return albersUsa;
+    return reset();
   };
 
   albersUsa.scale = function(_) {
@@ -82,9 +84,22 @@ export default function() {
         .clipExtent([[x - 0.214 * k + epsilon, y + 0.166 * k + epsilon], [x - 0.115 * k - epsilon, y + 0.234 * k - epsilon]])
         .stream(pointStream);
 
-    return albersUsa;
+    return reset();
   };
-  
+
+  albersUsa.fitExtent = function(extent, object) {
+    return fitExtent(albersUsa, extent, object);
+  };
+
+  albersUsa.fitSize = function(size, object) {
+    return fitSize(albersUsa, size, object);
+  };
+
+  function reset() {
+    cache = cacheStream = null;
+    return albersUsa;
+}
+
   albersUsa.drawCompositionBorders = function(context) {
     var hawaii1 = lower48([-102.91, 26.3]);
     var hawaii2 = lower48([-104.0, 27.5]);

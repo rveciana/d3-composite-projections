@@ -1,6 +1,7 @@
 import {epsilon} from "./math";
 import {geoConicConformal as conicConformal} from "d3-geo";
 import {geoMercator as mercator} from "d3-geo";
+import {fitExtent, fitSize} from "./fit";
 import {path} from "d3-path";
 
 
@@ -96,7 +97,8 @@ export default function() {
     wallisFutuna.precision(_);
     polynesie.precision(_);
     polynesie2.precision(_);
-    return conicConformalFrance;
+
+    return reset();
   };
 
   conicConformalFrance.scale = function(_) {
@@ -182,9 +184,21 @@ export default function() {
         .stream(pointStream);
 
 
-
-    return conicConformalFrance;
+    return reset();
   };
+
+  conicConformalFrance.fitExtent = function(extent, object) {
+    return fitExtent(conicConformalFrance, extent, object);
+  };
+
+  conicConformalFrance.fitSize = function(size, object) {
+    return fitSize(conicConformalFrance, size, object);
+  };
+
+  function reset() {
+    cache = cacheStream = null;
+    return conicConformalFrance;
+  }
 
   conicConformalFrance.drawCompositionBorders = function(context) {
 

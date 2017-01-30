@@ -2,6 +2,7 @@ import {epsilon} from "./math";
 import {geoTransverseMercator as transverseMercator} from "d3-geo";
 import {geoStereographic as stereographic} from "d3-geo";
 import {geoMercator as mercator} from "d3-geo";
+import {fitExtent, fitSize} from "./fit";
 import {path} from "d3-path";
 
 
@@ -108,7 +109,7 @@ export default function() {
     antarctic.precision(_);
     juanFernandez.precision(_);
     pascua.precision(_);
-    return transverseMercatorChile;
+    return reset();
   };
 
   transverseMercatorChile.scale = function(_) {
@@ -221,8 +222,21 @@ export default function() {
         .clipExtent([[x - 0.089 * k + epsilon, y + 0.0154 * k + epsilon],[x - 0.0588 * k - epsilon, y + 0.0391 * k - epsilon]])
         .stream(pointStream);
 
-    return transverseMercatorChile;
+    return reset();
   };
+
+  transverseMercatorChile.fitExtent = function(extent, object) {
+    return fitExtent(transverseMercatorChile, extent, object);
+  };
+
+  transverseMercatorChile.fitSize = function(size, object) {
+    return fitSize(transverseMercatorChile, size, object);
+  };
+
+  function reset() {
+    cache = cacheStream = null;
+    return transverseMercatorChile;
+  }
 
   transverseMercatorChile.drawCompositionBorders = function(context) {
     /*

@@ -7,6 +7,35 @@
 
   var epsilon = 1e-6;
 
+  function fitExtent(projection, extent, object) {
+    var w = extent[1][0] - extent[0][0],
+        h = extent[1][1] - extent[0][1],
+        clip = projection.clipExtent && projection.clipExtent();
+
+    projection
+        .scale(150)
+        .translate([0, 0]);
+
+    if (clip != null) projection.clipExtent(null);
+
+    d3Geo.geoStream(object, projection.stream(d3Geo.boundsStream));
+
+    var b = d3Geo.boundsStream.result(),
+        k = Math.min(w / (b[1][0] - b[0][0]), h / (b[1][1] - b[0][1])),
+        x = +extent[0][0] + (w - k * (b[1][0] + b[0][0])) / 2,
+        y = +extent[0][1] + (h - k * (b[1][1] + b[0][1])) / 2;
+
+    if (clip != null) projection.clipExtent(clip);
+
+    return projection
+        .scale(k * 150)
+        .translate([x, y]);
+  }
+
+  function fitSize(projection, size, object) {
+    return fitExtent(projection, [[0, 0], size], object);
+  }
+
   // The projections must have mutually exclusive clip regions on the sphere,
   // as this will avoid emitting interleaving lines and polygons.
   function multiplex(streams) {
@@ -22,8 +51,9 @@
   }
 
   // A composite projection for the United States, configured by default for
-  // 960×500. Also works quite well at 960×600 with scale 1285. The set of
-  // standard parallels for each region comes from USGS, which is published here:
+  // 960×500. The projection also works quite well at 960×600 if you change the
+  // scale to 1285 and adjust the translate accordingly. The set of standard
+  // parallels for each region comes from USGS, which is published here:
   // http://egsc.usgs.gov/isb/pubs/MapProjections/projections.html#albers
   function albersUsa() {
     var cache,
@@ -58,7 +88,7 @@
     albersUsa.precision = function(_) {
       if (!arguments.length) return lower48.precision();
       lower48.precision(_), alaska.precision(_), hawaii.precision(_);
-      return albersUsa;
+      return reset();
     };
 
     albersUsa.scale = function(_) {
@@ -86,9 +116,22 @@
           .clipExtent([[x - 0.214 * k + epsilon, y + 0.166 * k + epsilon], [x - 0.115 * k - epsilon, y + 0.234 * k - epsilon]])
           .stream(pointStream);
 
-      return albersUsa;
+      return reset();
     };
-    
+
+    albersUsa.fitExtent = function(extent, object) {
+      return fitExtent(albersUsa, extent, object);
+    };
+
+    albersUsa.fitSize = function(size, object) {
+      return fitSize(albersUsa, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return albersUsa;
+  }
+
     albersUsa.drawCompositionBorders = function(context) {
       var hawaii1 = lower48([-102.91, 26.3]);
       var hawaii2 = lower48([-104.0, 27.5]);
@@ -236,7 +279,7 @@
       puertoRico.precision(_);
       samoa.precision(_);
       guam.precision(_);
-      return albersUsa;
+      return reset();
     };
 
     albersUsa.scale = function(_) {
@@ -344,8 +387,21 @@
           .stream(pointStream);
 
 
-      return albersUsa;
+      return reset();
     };
+
+    albersUsa.fitExtent = function(extent, object) {
+      return fitExtent(albersUsa, extent, object);
+    };
+
+    albersUsa.fitSize = function(size, object) {
+      return fitSize(albersUsa, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return albersUsa;
+    }
 
     albersUsa.drawCompositionBorders = function(context) {
 
@@ -453,35 +509,6 @@
 
 
     return albersUsa.scale(1070);
-  }
-
-  function fitExtent(projection, extent, object) {
-    var w = extent[1][0] - extent[0][0],
-        h = extent[1][1] - extent[0][1],
-        clip = projection.clipExtent && projection.clipExtent();
-
-    projection
-        .scale(150)
-        .translate([0, 0]);
-
-    if (clip != null) projection.clipExtent(null);
-
-    d3Geo.geoStream(object, projection.stream(d3Geo.boundsStream));
-
-    var b = d3Geo.boundsStream.result(),
-        k = Math.min(w / (b[1][0] - b[0][0]), h / (b[1][1] - b[0][1])),
-        x = +extent[0][0] + (w - k * (b[1][0] + b[0][0])) / 2,
-        y = +extent[0][1] + (h - k * (b[1][1] + b[0][1])) / 2;
-
-    if (clip != null) projection.clipExtent(clip);
-
-    return projection
-        .scale(k * 150)
-        .translate([x, y]);
-  }
-
-  function fitSize(projection, size, object) {
-    return fitExtent(projection, [[0, 0], size], object);
   }
 
   // The projections must have mutually exclusive clip regions on the sphere,
@@ -710,7 +737,7 @@
       iberianPeninsule.precision(_);
       madeira.precision(_);
       azores.precision(_);
-      return conicConformalPortugal;
+      return reset();
     };
 
     conicConformalPortugal.scale = function(_) {
@@ -798,8 +825,21 @@
           .clipExtent([[x - 0.0778 * k + epsilon, y - 0.0413 * k + epsilon],[x - 0.0117 * k - epsilon, y + 0.0091 * k - epsilon]])
           .stream(pointStream);
 
-      return conicConformalPortugal;
+      return reset();
     };
+
+    conicConformalPortugal.fitExtent = function(extent, object) {
+      return fitExtent(conicConformalPortugal, extent, object);
+    };
+
+    conicConformalPortugal.fitSize = function(size, object) {
+      return fitSize(conicConformalPortugal, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return conicConformalPortugal;
+    }
 
     conicConformalPortugal.drawCompositionBorders = function(context) {
       /*
@@ -918,7 +958,7 @@
       if (!arguments.length) {return mainland.precision();}
       mainland.precision(_);
       galapagos.precision(_);
-      return mercatorEcuador;
+      return reset();
     };
 
     mercatorEcuador.scale = function(_) {
@@ -980,8 +1020,21 @@
           .clipExtent([[x - 0.0857 * k + epsilon, y - 0.0676 * k + epsilon],[x - 0.0263 * k - epsilon, y - 0.026 * k - epsilon]])
           .stream(pointStream);
 
-      return mercatorEcuador;
+      return reset();
     };
+
+    mercatorEcuador.fitExtent = function(extent, object) {
+      return fitExtent(mercatorEcuador, extent, object);
+    };
+
+    mercatorEcuador.fitSize = function(size, object) {
+      return fitSize(mercatorEcuador, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return mercatorEcuador;
+    }
 
     mercatorEcuador.drawCompositionBorders = function(context) {
       /*
@@ -1116,7 +1169,7 @@
       antarctic.precision(_);
       juanFernandez.precision(_);
       pascua.precision(_);
-      return transverseMercatorChile;
+      return reset();
     };
 
     transverseMercatorChile.scale = function(_) {
@@ -1229,8 +1282,21 @@
           .clipExtent([[x - 0.089 * k + epsilon, y + 0.0154 * k + epsilon],[x - 0.0588 * k - epsilon, y + 0.0391 * k - epsilon]])
           .stream(pointStream);
 
-      return transverseMercatorChile;
+      return reset();
     };
+
+    transverseMercatorChile.fitExtent = function(extent, object) {
+      return fitExtent(transverseMercatorChile, extent, object);
+    };
+
+    transverseMercatorChile.fitSize = function(size, object) {
+      return fitSize(transverseMercatorChile, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return transverseMercatorChile;
+    }
 
     transverseMercatorChile.drawCompositionBorders = function(context) {
       /*
@@ -1388,7 +1454,7 @@
       mainland.precision(_);
       hokkaido.precision(_);
       okinawa.precision(_);
-      return conicEquidistantJapan;
+      return reset();
     };
 
     conicEquidistantJapan.scale = function(_) {
@@ -1478,8 +1544,21 @@
           .clipExtent([[x - 0.0399 * k + epsilon, y + 0.0471 * k + epsilon],[x + 0.051 * k - epsilon, y + 0.1114 * k - epsilon]])
           .stream(pointStream);
 
-      return conicEquidistantJapan;
+      return reset();
     };
+
+    conicEquidistantJapan.fitExtent = function(extent, object) {
+      return fitExtent(conicEquidistantJapan, extent, object);
+    };
+
+    conicEquidistantJapan.fitSize = function(size, object) {
+      return fitSize(conicEquidistantJapan, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return conicEquidistantJapan;
+    }
 
     conicEquidistantJapan.drawCompositionBorders = function(context) {
       /*
@@ -1614,7 +1693,8 @@
       wallisFutuna.precision(_);
       polynesie.precision(_);
       polynesie2.precision(_);
-      return conicConformalFrance;
+
+      return reset();
     };
 
     conicConformalFrance.scale = function(_) {
@@ -1700,9 +1780,21 @@
           .stream(pointStream);
 
 
-
-      return conicConformalFrance;
+      return reset();
     };
+
+    conicConformalFrance.fitExtent = function(extent, object) {
+      return fitExtent(conicConformalFrance, extent, object);
+    };
+
+    conicConformalFrance.fitSize = function(size, object) {
+      return fitSize(conicConformalFrance, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return conicConformalFrance;
+    }
 
     conicConformalFrance.drawCompositionBorders = function(context) {
 
@@ -1866,11 +1958,11 @@
         mayotte = d3Geo.geoMercator().center([45.16, -12.8]), mayottePoint,
         reunion = d3Geo.geoMercator().center([55.52, -21.13]), reunionPoint,
         malta = d3Geo.geoConicConformal().rotate([-14.4, -35.95]).parallels([0, 60]), maltaPoint,
-                  
-        
-        
-        
-        
+
+
+
+
+
         point, pointStream = {point: function(x, y) { point = [x, y]; }};
 
         /*
@@ -1936,7 +2028,8 @@
       azores.precision(_);
       azores2.precision(_);
       azores3.precision(_);
-      return conicConformalEurope;
+
+      return reset();
     };
 
     conicConformalEurope.scale = function(_) {
@@ -1951,12 +2044,12 @@
       azores3.scale(_ * 2);
       madeira.scale(_ * 3);
       canaryIslands.scale(_);
-   
+
       mayotte.scale(_ * 5.5);
       malta.scale(_ * 6);
-      
-      
-      
+
+
+
       return conicConformalEurope.translate(europe.translate());
     };
 
@@ -1968,7 +2061,7 @@
           .translate([x - 0.08 * k, y])
           .clipExtent([[x - 0.51 * k, y - 0.33 * k],[x + 0.5 * k, y + 0.33 * k]])
           .stream(pointStream);
-      
+
       guadeloupePoint = guadeloupe
           .translate([x + 0.19 * k, y - 0.275 * k])
           .clipExtent([[x + 0.14 * k + epsilon, y - 0.31 * k + epsilon],[x + 0.24 * k - epsilon, y - 0.24 * k - epsilon]])
@@ -1992,7 +2085,7 @@
       azores3Point = azores3
           .translate([x + 0.153 * k, y - 0.15 * k])
           .clipExtent([[x + 0.14 * k + epsilon, y - 0.17 * k + epsilon],[x + 0.165 * k - epsilon, y - 0.14 * k - epsilon]])
-          .stream(pointStream);        
+          .stream(pointStream);
 
       madeiraPoint = madeira
           .translate([x + 0.19 * k, y - 0.065 * k])
@@ -2009,7 +2102,7 @@
           .clipExtent([[x + 0.24 * k + epsilon, y - 0.31 * k + epsilon],[x + 0.34 * k - epsilon, y - 0.24 * k - epsilon]])
           .stream(pointStream);
 
-      mayottePoint = mayotte        
+      mayottePoint = mayotte
           .translate([x + 0.29 * k, y - 0.205 * k])
           .clipExtent([[x + 0.24 * k + epsilon, y - 0.24 * k + epsilon],[x + 0.34 * k - epsilon, y - 0.17 * k - epsilon]])
           .stream(pointStream);
@@ -2018,16 +2111,29 @@
           .translate([x + 0.29 * k, y - 0.135 * k])
           .clipExtent([[x + 0.24 * k + epsilon, y - 0.17 * k + epsilon],[x + 0.34 * k - epsilon, y - 0.1 * k - epsilon]])
           .stream(pointStream);
-     
+
       maltaPoint = malta
           .translate([x + 0.29 * k, y - 0.065 * k])
           .clipExtent([[x + 0.24 * k + epsilon, y - 0.1 * k + epsilon],[x + 0.34 * k - epsilon, y - 0.03 * k - epsilon]])
           .stream(pointStream);
-      
 
 
-      return conicConformalEurope;
+
+      return reset();
     };
+
+    conicConformalEurope.fitExtent = function(extent, object) {
+      return fitExtent(conicConformalEurope, extent, object);
+    };
+
+    conicConformalEurope.fitSize = function(size, object) {
+      return fitSize(conicConformalEurope, size, object);
+    };
+
+    function reset() {
+      cache = cacheStream = null;
+      return conicConformalEurope;
+    }
 
     conicConformalEurope.drawCompositionBorders = function(context) {
 
@@ -2153,7 +2259,7 @@
       context.lineTo(ll[0], ll[1]);
       context.closePath();
 
-      
+
 
     };
     conicConformalEurope.getCompositionBorders = function() {

@@ -1,6 +1,7 @@
 import {epsilon} from "./math";
 import {geoConicConformal as conicConformal} from "d3-geo";
 import {geoMercator as mercator} from "d3-geo";
+import {fitExtent, fitSize} from "./fit";
 import {path} from "d3-path";
 
 
@@ -34,11 +35,11 @@ export default function() {
       mayotte = mercator().center([45.16, -12.8]), mayottePoint,
       reunion = mercator().center([55.52, -21.13]), reunionPoint,
       malta = conicConformal().rotate([-14.4, -35.95]).parallels([0, 60]), maltaPoint,
-                
-      
-      
-      
-      
+
+
+
+
+
       point, pointStream = {point: function(x, y) { point = [x, y]; }};
 
       /*
@@ -104,7 +105,8 @@ export default function() {
     azores.precision(_);
     azores2.precision(_);
     azores3.precision(_);
-    return conicConformalEurope;
+
+    return reset();
   };
 
   conicConformalEurope.scale = function(_) {
@@ -119,12 +121,12 @@ export default function() {
     azores3.scale(_ * 2);
     madeira.scale(_ * 3);
     canaryIslands.scale(_);
- 
+
     mayotte.scale(_ * 5.5);
     malta.scale(_ * 6);
-    
-    
-    
+
+
+
     return conicConformalEurope.translate(europe.translate());
   };
 
@@ -136,7 +138,7 @@ export default function() {
         .translate([x - 0.08 * k, y])
         .clipExtent([[x - 0.51 * k, y - 0.33 * k],[x + 0.5 * k, y + 0.33 * k]])
         .stream(pointStream);
-    
+
     guadeloupePoint = guadeloupe
         .translate([x + 0.19 * k, y - 0.275 * k])
         .clipExtent([[x + 0.14 * k + epsilon, y - 0.31 * k + epsilon],[x + 0.24 * k - epsilon, y - 0.24 * k - epsilon]])
@@ -160,7 +162,7 @@ export default function() {
     azores3Point = azores3
         .translate([x + 0.153 * k, y - 0.15 * k])
         .clipExtent([[x + 0.14 * k + epsilon, y - 0.17 * k + epsilon],[x + 0.165 * k - epsilon, y - 0.14 * k - epsilon]])
-        .stream(pointStream);        
+        .stream(pointStream);
 
     madeiraPoint = madeira
         .translate([x + 0.19 * k, y - 0.065 * k])
@@ -177,7 +179,7 @@ export default function() {
         .clipExtent([[x + 0.24 * k + epsilon, y - 0.31 * k + epsilon],[x + 0.34 * k - epsilon, y - 0.24 * k - epsilon]])
         .stream(pointStream);
 
-    mayottePoint = mayotte        
+    mayottePoint = mayotte
         .translate([x + 0.29 * k, y - 0.205 * k])
         .clipExtent([[x + 0.24 * k + epsilon, y - 0.24 * k + epsilon],[x + 0.34 * k - epsilon, y - 0.17 * k - epsilon]])
         .stream(pointStream);
@@ -186,16 +188,29 @@ export default function() {
         .translate([x + 0.29 * k, y - 0.135 * k])
         .clipExtent([[x + 0.24 * k + epsilon, y - 0.17 * k + epsilon],[x + 0.34 * k - epsilon, y - 0.1 * k - epsilon]])
         .stream(pointStream);
-   
+
     maltaPoint = malta
         .translate([x + 0.29 * k, y - 0.065 * k])
         .clipExtent([[x + 0.24 * k + epsilon, y - 0.1 * k + epsilon],[x + 0.34 * k - epsilon, y - 0.03 * k - epsilon]])
         .stream(pointStream);
-    
 
 
-    return conicConformalEurope;
+
+    return reset();
   };
+
+  conicConformalEurope.fitExtent = function(extent, object) {
+    return fitExtent(conicConformalEurope, extent, object);
+  };
+
+  conicConformalEurope.fitSize = function(size, object) {
+    return fitSize(conicConformalEurope, size, object);
+  };
+
+  function reset() {
+    cache = cacheStream = null;
+    return conicConformalEurope;
+  }
 
   conicConformalEurope.drawCompositionBorders = function(context) {
 
@@ -321,7 +336,7 @@ export default function() {
     context.lineTo(ll[0], ll[1]);
     context.closePath();
 
-    
+
 
   };
   conicConformalEurope.getCompositionBorders = function() {

@@ -1,5 +1,6 @@
 import {epsilon} from "./math";
 import {geoMercator as mercator} from "d3-geo";
+import {fitExtent, fitSize} from "./fit";
 import {path} from "d3-path";
 
 
@@ -71,7 +72,7 @@ export default function() {
     if (!arguments.length) {return mainland.precision();}
     mainland.precision(_);
     galapagos.precision(_);
-    return mercatorEcuador;
+    return reset();
   };
 
   mercatorEcuador.scale = function(_) {
@@ -133,8 +134,21 @@ export default function() {
         .clipExtent([[x - 0.0857 * k + epsilon, y - 0.0676 * k + epsilon],[x - 0.0263 * k - epsilon, y - 0.026 * k - epsilon]])
         .stream(pointStream);
 
-    return mercatorEcuador;
+    return reset();
   };
+
+  mercatorEcuador.fitExtent = function(extent, object) {
+    return fitExtent(mercatorEcuador, extent, object);
+  };
+
+  mercatorEcuador.fitSize = function(size, object) {
+    return fitSize(mercatorEcuador, size, object);
+  };
+
+  function reset() {
+    cache = cacheStream = null;
+    return mercatorEcuador;
+  }
 
   mercatorEcuador.drawCompositionBorders = function(context) {
     /*
