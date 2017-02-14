@@ -7,6 +7,32 @@
 
   var epsilon = 1e-6;
 
+  function noop() {}
+
+  var x0 = Infinity;
+  var y0 = x0;
+  var x1 = -x0;
+  var y1 = x1;
+  var boundsStream = {
+    point: boundsPoint,
+    lineStart: noop,
+    lineEnd: noop,
+    polygonStart: noop,
+    polygonEnd: noop,
+    result: function() {
+      var bounds = [[x0, y0], [x1, y1]];
+      x1 = y1 = -(y0 = x0 = Infinity);
+      return bounds;
+    }
+  };
+
+  function boundsPoint(x, y) {
+    if (x < x0) x0 = x;
+    if (x > x1) x1 = x;
+    if (y < y0) y0 = y;
+    if (y > y1) y1 = y;
+  }
+
   function fitExtent(projection, extent, object) {
     var w = extent[1][0] - extent[0][0],
         h = extent[1][1] - extent[0][1],
@@ -18,9 +44,9 @@
 
     if (clip != null) projection.clipExtent(null);
 
-    d3Geo.geoStream(object, projection.stream(d3Geo.boundsStream));
+    d3Geo.geoStream(object, projection.stream(boundsStream));
 
-    var b = d3Geo.boundsStream.result(),
+    var b = boundsStream.result(),
         k = Math.min(w / (b[1][0] - b[0][0]), h / (b[1][1] - b[0][1])),
         x = +extent[0][0] + (w - k * (b[1][0] + b[0][0])) / 2,
         y = +extent[0][1] + (h - k * (b[1][1] + b[0][1])) / 2;

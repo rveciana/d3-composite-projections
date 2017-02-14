@@ -1,7 +1,5 @@
 import {geoStream} from "d3-geo";
-//import boundsStream from "../path/bounds";
-import {boundsStream} from "d3-geo";
-
+import boundsStream from "./bounds";
 
 export function fitExtent(projection, extent, object) {
   var w = extent[1][0] - extent[0][0],
