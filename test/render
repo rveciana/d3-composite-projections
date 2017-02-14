@@ -20,8 +20,12 @@ var canvas = new Canvas(width, height),
 var data = require(topojsonName),
     graticule = d3_geo.geoGraticule(),
 outline = {type: "Sphere"};
-
+/*var jj = topojson.feature(data, data.objects[layerName]);
+var ppp = d3_composite[projectionSymbol]().precision(0.1);
+var s = ppp.scale();
+ppp.scale(s+300);*/
 var path = d3_geo.geoPath()
+    //.projection(d3_composite[projectionSymbol]().precision(0.1).fitSize([width, height], jj))
     .projection(d3_composite[projectionSymbol]().precision(0.1))
     .context(context);
 
