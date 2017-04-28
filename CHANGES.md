@@ -1,3 +1,12 @@
+version v1.2.0
+--------------
+  * MercatorMalaysia added
+  * MercatorEquatorialGuinea added
+
+version v1.1.0
+--------------
+  * *fitExtent* and *fitSize* added to all projections
+
 version v1.0.0
 --------------
   * All the library changed to make it d3 4.0 compatible
