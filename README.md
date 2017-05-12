@@ -68,11 +68,11 @@ Using cdnjs or unpkg
 
 You can link the files from your web page to [cdnjs](https://cdnjs.com/libraries/d3-composite-projections):
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/1.0.0/composite-projections.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/1.0.2/d3-composite-projections.min.js"></script>
 
 or
 
-    <script src="https://unpkg.com/d3-composite-projections@0.4.0"></script>
+    <script src="https://unpkg.com/d3-composite-projections@1.2.0"></script>
 
 Using NPM
 ---------
