@@ -10,11 +10,11 @@ if (!/^[a-z0-9]+$/i.test(projectionName)) {throw new Error();}
 
 var fs = require("fs"),
     topojson = require("topojson"),
-    Canvas = require("canvas"),
+    {createCanvas} = require("canvas"),
     d3_geo = require("d3-geo"),
     d3_composite = require("../");
 
-var canvas = new Canvas(width, height),
+var canvas = createCanvas(width, height),
     context = canvas.getContext("2d");
 
 var data = require(topojsonName),
