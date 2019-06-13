@@ -16,7 +16,7 @@
   },
   "scripts": {
     "pretest": "rollup --banner \"$(preamble)\" -f umd -g d3-geo:d3,d3-path:d3 -n d3 -o d3-composite-projections.js -- index.js",
-    "test": "tape 'test/*-test.js' && mkdir -p test/output && test/compare-images && eslint index.js src",
+    "test": "mkdir -p test/output && tape 'test/*-test.js' && eslint index.js src",
     "prepublish": "npm run test && uglifyjs --preamble \"$(preamble)\" d3-composite-projections.js -c -m -o d3-composite-projections.min.js",
     "postpublish": "git push && git push --tags"
   },
@@ -31,6 +31,8 @@
     "rollup": "1.14",
     "tape": "4",
     "topojson": "3",
-    "uglify-js": "3.6"
+    "uglify-js": "3.6",
+    "pixelmatch": "^5.0.2",
+    "pngjs": "^3.4.0"
   }
 }
