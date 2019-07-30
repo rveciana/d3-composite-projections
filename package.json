@@ -21,18 +21,18 @@
     "postpublish": "git push && git push --tags"
   },
   "dependencies": {
-    "d3-geo": "^1.11",
+    "d3-geo": "^1.11.6",
     "d3-path": "^1.0.7"
   },
   "devDependencies": {
     "canvas": "2",
-    "eslint": "5",
+    "eslint": "^6.1.0",
     "package-preamble": "0.1",
-    "rollup": "1.14",
-    "tape": "4",
-    "topojson": "3",
-    "uglify-js": "3.6",
     "pixelmatch": "^5.0.2",
-    "pngjs": "^3.4.0"
+    "pngjs": "^3.4.0",
+    "rollup": "^1.17.0",
+    "tape": "^4.11.0",
+    "topojson": "3",
+    "uglify-js": "3.6"
   }
 }
