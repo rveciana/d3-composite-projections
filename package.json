@@ -15,25 +15,23 @@
     "url": "https://github.com/rveciana/d3-composite-projections.git"
   },
   "scripts": {
-    "pretest": "rollup --banner \"$(preamble)\" -f umd -g d3-geo:d3,d3-path:d3 -n d3 -o d3-composite-projections.js -- index.js",
+    "pretest": "rollup -c",
     "test": "mkdir -p test/output && tape 'test/*-test.js' && eslint index.js src",
-    "prepublish": "npm run test && uglifyjs --preamble \"$(preamble)\" d3-composite-projections.js -c -m -o d3-composite-projections.min.js",
+    "prepublish": "npm run test",
     "postpublish": "git push && git push --tags"
   },
   "dependencies": {
     "d3-geo": "^1.11.9",
-    "d3-path": "^1.0.9",
-    "npm-check-updates": "^3.2.2"
+    "d3-path": "^1.0.9"
   },
   "devDependencies": {
     "canvas": "2",
     "eslint": "^6.7.1",
-    "package-preamble": "0.1",
     "pixelmatch": "^5.1.0",
     "pngjs": "^3.4.0",
     "rollup": "^1.27.5",
+    "rollup-plugin-terser": "^5.1.2",
     "tape": "^4.11.0",
-    "topojson": "3",
-    "uglify-js": "3.7"
+    "topojson": "3"
   }
 }
