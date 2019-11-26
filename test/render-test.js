@@ -8,7 +8,7 @@ const fs = require("fs"),
   PNG = require("pngjs").PNG,
   pixelmatch = require("pixelmatch");
 
-const projections2 = [
+const projections = [
   { name: "albersUsa", topojson: "./data/us.json", field: "states" },
   {
     name: "albersUsaTerritories",
@@ -52,10 +52,6 @@ const projections2 = [
   },
   { name: "mercatorMalaysia", topojson: "./data/malaysia.json", field: "land" },
   { name: "mercatorEquatorialGuinea", topojson: "./data/ge.json", field: "ge" },
-  { name: "albersUk", topojson: "./data/world-50m.json", field: "countries" }
-];
-
-const projections = [
   { name: "albersUk", topojson: "./data/uk-counties.json", field: "UK" }
 ];
 
