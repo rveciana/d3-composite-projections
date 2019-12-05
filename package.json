@@ -9,13 +9,16 @@
     "url": "http://geoexamples.com"
   },
   "main": "d3-composite-projections.js",
+  "unpkg": "d3-composite-projections.min.js",
+  "module": "./index.js",
   "jsnext:main": "index",
   "repository": {
     "type": "git",
     "url": "https://github.com/rveciana/d3-composite-projections.git"
   },
   "scripts": {
-    "pretest": "rollup -c",
+    "build": "rollup -c",
+    "pretest": "npm run build",
     "test": "mkdir -p test/output && tape 'test/*-test.js' && eslint index.js src",
     "prepublish": "npm run test",
     "postpublish": "git push && git push --tags"

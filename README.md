@@ -72,15 +72,33 @@ or
 
     <script src="https://unpkg.com/d3-composite-projections@1.2.0"></script>
 
-## Using NPM
+## As a module:
 
-[![NPM](https://nodei.co/npm/d3-composite-projections.png?downloads=true&stars=true)](https://nodei.co/npm/d3-composite-projections/)
+Install the library:
 
-    npm install d3-composite-projections
+    npm install --save d3-composite-projections
 
-This will download all the dependencies, the test files.
+Import it:
+
+    import { geoAlbersUk } from "d3-composite-projections";
+
+## In node:
+
+Install the library:
+
+    npm install --save d3-composite-projections
+
+Import it:
+
+    const d3cp = require("d3-composite-projections")
+
+    const projection = d3cp.geoAlbersUk();
 
 ## Running the tests
+
+Download the library bu cloning the git repo:
+
+    gir clone https://github.com/rveciana/d3-composite-projections.git
 
 The tests can be run using:
 
