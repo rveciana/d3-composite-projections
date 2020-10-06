@@ -7,6 +7,7 @@ export { default as geoTransverseMercatorChile } from "./src/transverseMercatorC
 export { default as geoConicEquidistantJapan } from "./src/conicEquidistantJapan";
 export { default as geoConicConformalFrance } from "./src/conicConformalFrance";
 export { default as geoConicConformalEurope } from "./src/conicConformalEurope";
+export { default as geoConicConformalNetherlands } from "./src/conicConformalNetherlands";
 export { default as geoMercatorMalaysia } from "./src/mercatorMalaysia";
 export { default as geoMercatorEquatorialGuinea } from "./src/mercatorEquatorialGuinea";
 export { default as geoAlbersUk } from "./src/albersUk";
