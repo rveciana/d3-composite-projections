@@ -750,8 +750,8 @@ function conicConformalPortugal() {
         console.info("p1 azores", x1 + ' - ' + y1);
         */
 
-        return (y >= 0.0093 && y < 0.03678 && x >= -0.03875 && x < -0.0116 ? madeira
-            : y >= -0.0412 && y < 0.0091 && x >= -0.07782 && x < -0.01166 ? azores
+        return (y >= 0.0093 && y< 0.03678 && x >= -0.03875 && x < -0.0116 ? madeira
+            : y >= -0.0412 && y< 0.0091 && x >= -0.07782 && x < -0.01166 ? azores
             : iberianPeninsule).invert(coordinates);
   };
 
@@ -1973,30 +1973,18 @@ function multiplex$8(streams) {
 function conicConformalEurope() {
   var cache,
       cacheStream,
-      europe = d3Geo.geoConicConformal().rotate([-10, -53]).parallels([0, 60]),
-      europePoint,
-      guadeloupe = d3Geo.geoMercator().center([-61.46, 16.14]),
-      guadeloupePoint,
-      guyane = d3Geo.geoMercator().center([-53.2, 3.9]),
-      guyanePoint,
-      azores = d3Geo.geoConicConformal().rotate([27.8, -38.9]).parallels([0, 60]),
-      azoresPoint,
-      azores2 = d3Geo.geoConicConformal().rotate([25.43, -37.398]).parallels([0, 60]),
-      azores2Point,
-      azores3 = d3Geo.geoConicConformal().rotate([31.17, -39.539]).parallels([0, 60]),
-      azores3Point,
-      madeira = d3Geo.geoConicConformal().rotate([17, -32.7]).parallels([0, 60]),
-      madeiraPoint,
-      canaryIslands = d3Geo.geoConicConformal().rotate([16, -28.5]).parallels([0,60]),
-      canaryIslandsPoint,
-      martinique = d3Geo.geoMercator().center([-61.03, 14.67]),
-      martiniquePoint,
-      mayotte = d3Geo.geoMercator().center([45.16, -12.8]),
-      mayottePoint,
-      reunion = d3Geo.geoMercator().center([55.52, -21.13]),
-      reunionPoint,
-      malta = d3Geo.geoConicConformal().rotate([-14.4, -35.95]).parallels([0, 60]),
-      maltaPoint,
+      europe = d3Geo.geoConicConformal().rotate([-10, -53]).parallels([0, 60]), europePoint,
+      guadeloupe = d3Geo.geoMercator().center([-61.46, 16.14]), guadeloupePoint,
+      guyane = d3Geo.geoMercator().center([-53.2, 3.9]), guyanePoint,
+      azores = d3Geo.geoConicConformal().rotate([27.8, -38.9]).parallels([0, 60]), azoresPoint,
+      azores2 = d3Geo.geoConicConformal().rotate([25.43, -37.398]).parallels([0, 60]), azores2Point,
+      azores3 = d3Geo.geoConicConformal().rotate([31.17, -39.539]).parallels([0, 60]), azores3Point,
+      madeira = d3Geo.geoConicConformal().rotate([17, -32.7]).parallels([0, 60]), madeiraPoint,
+      canaryIslands = d3Geo.geoConicConformal().rotate([16, -28.5]).parallels([0,60]), canaryIslandsPoint,
+      martinique = d3Geo.geoMercator().center([-61.03, 14.67]), martiniquePoint,
+      mayotte = d3Geo.geoMercator().center([45.16, -12.8]), mayottePoint,
+      reunion = d3Geo.geoMercator().center([55.52, -21.13]), reunionPoint,
+      malta = d3Geo.geoConicConformal().rotate([-14.4, -35.95]).parallels([0, 60]), maltaPoint,
 
 
 
@@ -2844,12 +2832,6 @@ function albersUk() {
         point = [x, y];
       }
     };
-
-  /* var shetlandBbox = [
-    [-2.1, 70],
-    [-0.7, 59.8]
-  ]; */
-  
   function albersUk(coordinates) {
     var x = coordinates[0],
       y = coordinates[1];
