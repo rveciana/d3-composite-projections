@@ -9,7 +9,11 @@ const fs = require("fs"),
   pixelmatch = require("pixelmatch");
 
 const projections = [
-  { name: "albersUsa", topojson: "./data/us.json", field: "states" },
+  { 
+    name: "albersUsa",
+    topojson: "./data/us.json",
+    field: "states"
+  },
   {
     name: "albersUsaTerritories",
     topojson: "./data/us_territories.json",
@@ -24,6 +28,11 @@ const projections = [
     name: "conicConformalPortugal",
     topojson: "./data/world-50m.json",
     field: "countries"
+  },
+  {
+    name: "conicConformalNetherlands",
+    topojson: "./data/netherlands.json",
+    field: "nederland"
   },
   {
     name: "mercatorEcuador",
@@ -50,9 +59,21 @@ const projections = [
     topojson: "./data/nuts0.json",
     field: "nuts0"
   },
-  { name: "mercatorMalaysia", topojson: "./data/malaysia.json", field: "land" },
-  { name: "mercatorEquatorialGuinea", topojson: "./data/ge.json", field: "ge" },
-  { name: "albersUk", topojson: "./data/uk-counties.json", field: "UK" }
+  {
+    name: "mercatorMalaysia",
+    topojson: "./data/malaysia.json",
+    field: "land"
+  },
+  {
+    name: "mercatorEquatorialGuinea",
+    topojson: "./data/ge.json",
+    field: "ge" 
+  },
+  {
+    name: "albersUk",
+    topojson: "./data/uk-counties.json",
+    field: "UK"
+   }
 ];
 
 tape("Checks the actual image outputs", async function(test) {
