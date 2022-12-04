@@ -1,7 +1,10 @@
-import {epsilon} from "./math";
-import {geoConicConformal as conicConformal, geoMercator as mercator} from "d3-geo";
-import {fitExtent, fitSize} from "./fit";
-import {path} from "d3-path";
+import { epsilon } from "./math.js";
+import {
+  geoConicConformal as conicConformal,
+  geoMercator as mercator,
+} from "d3-geo";
+import { fitExtent, fitSize } from "./fit.js";
+import { path } from "d3-path";
 
 // The projections must have mutually exclusive clip regions on the sphere,
 // as this will avoid emitting interleaving lines and polygons.
@@ -51,11 +54,13 @@ function multiplex(streams) {
 export default function () {
   var cache,
     cacheStream,
-    netherlandsMainland = conicConformal().rotate([-5.50, -52.20]).parallels([0, 60]),
+    netherlandsMainland = conicConformal()
+      .rotate([-5.5, -52.2])
+      .parallels([0, 60]),
     netherlandsMainlandPoint,
-    bonaire = mercator().center([-68.25, 12.20]),
+    bonaire = mercator().center([-68.25, 12.2]),
     bonairePoint,
-    sabaSintEustatius = mercator().center([-63.10, 17.50]),
+    sabaSintEustatius = mercator().center([-63.1, 17.5]),
     sabaSintEustatiusPoint,
     point,
     pointStream = {
@@ -66,7 +71,7 @@ export default function () {
 
   function conicConformalNetherlands(coordinates) {
     const [x, y] = coordinates;
-    
+
     return (
       (point = null),
       (netherlandsMainlandPoint.point(x, y), point) ||
@@ -81,11 +86,12 @@ export default function () {
       x = (coordinates[0] - t[0]) / k,
       y = (coordinates[1] - t[1]) / k;
 
-    return (y >= -0.0067 && y < 0.0015 && x >= -0.0232  && x < -0.0154
-      ? bonaire
-      : y >= -0.022 && y < -0.014 && x >= -0.023 && x < -0.014
-      ? sabaSintEustatius
-      : netherlandsMainland
+    return (
+      y >= -0.0067 && y < 0.0015 && x >= -0.0232 && x < -0.0154
+        ? bonaire
+        : y >= -0.022 && y < -0.014 && x >= -0.023 && x < -0.014
+        ? sabaSintEustatius
+        : netherlandsMainland
     ).invert(coordinates);
   };
 
@@ -127,8 +133,8 @@ export default function () {
     netherlandsMainlandPoint = netherlandsMainland
       .translate(_)
       .clipExtent([
-        [x - 0.0245 * k, y - 0.0260 * k],
-        [x + 0.0230 * k, y + 0.0260 * k],
+        [x - 0.0245 * k, y - 0.026 * k],
+        [x + 0.023 * k, y + 0.026 * k],
       ])
       .stream(pointStream);
 
@@ -165,7 +171,6 @@ export default function () {
   }
 
   conicConformalNetherlands.drawCompositionBorders = function (context) {
-
     /* 
     console.table({
       "Clip extent": ["Bonaire", bonaire.clipExtent()],
@@ -183,13 +188,13 @@ export default function () {
       "LL BBOX:": netherlandsMainland.invert([sabaSintEustatius.clipExtent()[0][0], sabaSintEustatius.clipExtent()[1][1]])
     }); 
     */
-    
+
     var ulbonaire = netherlandsMainland([3.30573, 52.5562]);
-    var urbonaire = netherlandsMainland([4.0430, 52.5720]);
+    var urbonaire = netherlandsMainland([4.043, 52.572]);
     var ldbonaire = netherlandsMainland([4.0646, 52.1017]);
     var llbonaire = netherlandsMainland([3.3382, 52.0861]);
 
-    var ulsabaSintEustatius = netherlandsMainland([3.2620, 53.4390]);
+    var ulsabaSintEustatius = netherlandsMainland([3.262, 53.439]);
     var ursabaSintEustatius = netherlandsMainland([4.1373, 53.4571]);
     var ldsabaSintEustatius = netherlandsMainland([4.1574, 52.9946]);
     var llsabaSintEustatius = netherlandsMainland([3.2951, 52.9768]);

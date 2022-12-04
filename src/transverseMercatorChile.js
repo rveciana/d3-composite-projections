@@ -1,37 +1,74 @@
-import {epsilon} from "./math";
-import {geoTransverseMercator as transverseMercator} from "d3-geo";
-import {geoStereographic as stereographic} from "d3-geo";
-import {geoMercator as mercator} from "d3-geo";
-import {fitExtent, fitSize} from "./fit";
-import {path} from "d3-path";
-
+import { epsilon } from "./math.js";
+import { geoTransverseMercator as transverseMercator } from "d3-geo";
+import { geoStereographic as stereographic } from "d3-geo";
+import { geoMercator as mercator } from "d3-geo";
+import { fitExtent, fitSize } from "./fit.js";
+import { path } from "d3-path";
 
 // The projections must have mutually exclusive clip regions on the sphere,
 // as this will avoid emitting interleaving lines and polygons.
 function multiplex(streams) {
   var n = streams.length;
   return {
-    point: function(x, y) { var i = -1; while (++i < n) {streams[i].point(x, y); }},
-    sphere: function() { var i = -1; while (++i < n) {streams[i].sphere(); }},
-    lineStart: function() { var i = -1; while (++i < n) {streams[i].lineStart(); }},
-    lineEnd: function() { var i = -1; while (++i < n) {streams[i].lineEnd(); }},
-    polygonStart: function() { var i = -1; while (++i < n) {streams[i].polygonStart(); }},
-    polygonEnd: function() { var i = -1; while (++i < n) {streams[i].polygonEnd(); }}
+    point: function (x, y) {
+      var i = -1;
+      while (++i < n) {
+        streams[i].point(x, y);
+      }
+    },
+    sphere: function () {
+      var i = -1;
+      while (++i < n) {
+        streams[i].sphere();
+      }
+    },
+    lineStart: function () {
+      var i = -1;
+      while (++i < n) {
+        streams[i].lineStart();
+      }
+    },
+    lineEnd: function () {
+      var i = -1;
+      while (++i < n) {
+        streams[i].lineEnd();
+      }
+    },
+    polygonStart: function () {
+      var i = -1;
+      while (++i < n) {
+        streams[i].polygonStart();
+      }
+    },
+    polygonEnd: function () {
+      var i = -1;
+      while (++i < n) {
+        streams[i].polygonEnd();
+      }
+    },
   };
 }
 
 // A composite projection for Chile, configured by default for 960×500.
-export default function() {
+export default function () {
   var cache,
-      cacheStream,
-      mainland = transverseMercator().rotate([72, 37]), mainlandPoint,
-      antarctic = stereographic().rotate([72, 0]), antarcticPoint,
-      juanFernandez = mercator().rotate([80, 33.5]), juanFernandezPoint,
-      pascua = mercator().rotate([110, 25]), pascuaPoint,
+    cacheStream,
+    mainland = transverseMercator().rotate([72, 37]),
+    mainlandPoint,
+    antarctic = stereographic().rotate([72, 0]),
+    antarcticPoint,
+    juanFernandez = mercator().rotate([80, 33.5]),
+    juanFernandezPoint,
+    pascua = mercator().rotate([110, 25]),
+    pascuaPoint,
+    point,
+    pointStream = {
+      point: function (x, y) {
+        point = [x, y];
+      },
+    };
 
-      point, pointStream = {point: function(x, y) { point = [x, y]; }};
-
-    /*
+  /*
     var mainlandBbox = [[-75.5, -15.0], [-32, -49.0]];
     var antarcticBbox = [[-91.0, -60.0], [-43.0, -90.0]];
     var juanFernandezBbox = [[-81.0, -33.0], [-78.5, -34.0]];
@@ -39,21 +76,24 @@ export default function() {
     */
 
   function transverseMercatorChile(coordinates) {
-    var x = coordinates[0], y = coordinates[1];
-    return point = null,
-        (mainlandPoint.point(x, y), point) ||
+    var x = coordinates[0],
+      y = coordinates[1];
+    return (
+      (point = null),
+      (mainlandPoint.point(x, y), point) ||
         (antarcticPoint.point(x, y), point) ||
         (juanFernandezPoint.point(x, y), point) ||
-        (pascuaPoint.point(x, y), point);
+        (pascuaPoint.point(x, y), point)
+    );
   }
 
-  transverseMercatorChile.invert = function(coordinates) {
+  transverseMercatorChile.invert = function (coordinates) {
     var k = mainland.scale(),
-        t = mainland.translate(),
-        x = (coordinates[0] - t[0]) / k,
-        y = (coordinates[1] - t[1]) / k;
+      t = mainland.translate(),
+      x = (coordinates[0] - t[0]) / k,
+      y = (coordinates[1] - t[1]) / k;
 
-        /*
+    /*
         //How are the return values calculated:
         console.info("******");
         var c0 = antarctic(antarcticBbox[0]);
@@ -93,18 +133,32 @@ export default function() {
         console.info("p1 pascua", x1 + ' - ' + y1);
         */
 
-        return (y >= 0.2582 && y< 0.32 && x >= -0.1036 && x < -0.087 ? antarctic
-            : y >= -0.01298 && y< 0.0133 && x >= -0.11396 && x < -0.05944 ? juanFernandez
-            : y >= 0.01539 && y< 0.03911 && x >= -0.089 && x < -0.0588 ? pascua
-            : mainland).invert(coordinates);
+    return (
+      y >= 0.2582 && y < 0.32 && x >= -0.1036 && x < -0.087
+        ? antarctic
+        : y >= -0.01298 && y < 0.0133 && x >= -0.11396 && x < -0.05944
+        ? juanFernandez
+        : y >= 0.01539 && y < 0.03911 && x >= -0.089 && x < -0.0588
+        ? pascua
+        : mainland
+    ).invert(coordinates);
   };
 
-  transverseMercatorChile.stream = function(stream) {
-    return cache && cacheStream === stream ? cache : cache = multiplex([mainland.stream(cacheStream = stream), antarctic.stream(stream), juanFernandez.stream(stream), pascua.stream(stream)]);
+  transverseMercatorChile.stream = function (stream) {
+    return cache && cacheStream === stream
+      ? cache
+      : (cache = multiplex([
+          mainland.stream((cacheStream = stream)),
+          antarctic.stream(stream),
+          juanFernandez.stream(stream),
+          pascua.stream(stream),
+        ]));
   };
 
-  transverseMercatorChile.precision = function(_) {
-    if (!arguments.length) {return mainland.precision();}
+  transverseMercatorChile.precision = function (_) {
+    if (!arguments.length) {
+      return mainland.precision();
+    }
     mainland.precision(_);
     antarctic.precision(_);
     juanFernandez.precision(_);
@@ -112,8 +166,10 @@ export default function() {
     return reset();
   };
 
-  transverseMercatorChile.scale = function(_) {
-    if (!arguments.length) {return mainland.scale();}
+  transverseMercatorChile.scale = function (_) {
+    if (!arguments.length) {
+      return mainland.scale();
+    }
     mainland.scale(_);
     antarctic.scale(_ * 0.15);
     juanFernandez.scale(_ * 1.5);
@@ -121,9 +177,13 @@ export default function() {
     return transverseMercatorChile.translate(mainland.translate());
   };
 
-  transverseMercatorChile.translate = function(_) {
-    if (!arguments.length) {return mainland.translate();}
-    var k = mainland.scale(), x = +_[0], y = +_[1];
+  transverseMercatorChile.translate = function (_) {
+    if (!arguments.length) {
+      return mainland.translate();
+    }
+    var k = mainland.scale(),
+      x = +_[0],
+      y = +_[1];
 
     /*
     var c0 = mainland(mainlandBbox[0]);
@@ -203,33 +263,45 @@ export default function() {
       ' * k - epsilon]])');
       */
     mainlandPoint = mainland
-        .translate(_)
-        .clipExtent([[x - 0.059 * k, y - 0.3835 * k],[x + 0.4498 * k, y + 0.3375 * k]])
-        .stream(pointStream);
+      .translate(_)
+      .clipExtent([
+        [x - 0.059 * k, y - 0.3835 * k],
+        [x + 0.4498 * k, y + 0.3375 * k],
+      ])
+      .stream(pointStream);
 
     antarcticPoint = antarctic
-        .translate([x - 0.087 * k, y + 0.17 * k])
-        .clipExtent([[x - 0.1166 * k + epsilon, y + 0.2582 * k + epsilon],[x - 0.06 * k - epsilon, y + 0.32 * k - epsilon]])
-        .stream(pointStream);
+      .translate([x - 0.087 * k, y + 0.17 * k])
+      .clipExtent([
+        [x - 0.1166 * k + epsilon, y + 0.2582 * k + epsilon],
+        [x - 0.06 * k - epsilon, y + 0.32 * k - epsilon],
+      ])
+      .stream(pointStream);
 
     juanFernandezPoint = juanFernandez
-        .translate([x - 0.092 * k, y - 0 * k])
-        .clipExtent([[x - 0.114 * k + epsilon, y - 0.013 * k + epsilon],[x - 0.0594 * k - epsilon, y + 0.0133 * k - epsilon]])
-        .stream(pointStream);
+      .translate([x - 0.092 * k, y - 0 * k])
+      .clipExtent([
+        [x - 0.114 * k + epsilon, y - 0.013 * k + epsilon],
+        [x - 0.0594 * k - epsilon, y + 0.0133 * k - epsilon],
+      ])
+      .stream(pointStream);
 
     pascuaPoint = pascua
-        .translate([x - 0.089 * k, y - 0.0265 * k])
-        .clipExtent([[x - 0.089 * k + epsilon, y + 0.0154 * k + epsilon],[x - 0.0588 * k - epsilon, y + 0.0391 * k - epsilon]])
-        .stream(pointStream);
+      .translate([x - 0.089 * k, y - 0.0265 * k])
+      .clipExtent([
+        [x - 0.089 * k + epsilon, y + 0.0154 * k + epsilon],
+        [x - 0.0588 * k - epsilon, y + 0.0391 * k - epsilon],
+      ])
+      .stream(pointStream);
 
     return reset();
   };
 
-  transverseMercatorChile.fitExtent = function(extent, object) {
+  transverseMercatorChile.fitExtent = function (extent, object) {
     return fitExtent(transverseMercatorChile, extent, object);
   };
 
-  transverseMercatorChile.fitSize = function(size, object) {
+  transverseMercatorChile.fitSize = function (size, object) {
     return fitSize(transverseMercatorChile, size, object);
   };
 
@@ -238,7 +310,7 @@ export default function() {
     return transverseMercatorChile;
   }
 
-  transverseMercatorChile.drawCompositionBorders = function(context) {
+  transverseMercatorChile.drawCompositionBorders = function (context) {
     /*
     console.info("CLIP EXTENT antarctic: ", antarctic.clipExtent());
     console.info("UL BBOX:", mainland.invert([antarctic.clipExtent()[0][0], antarctic.clipExtent()[0][1]]));
@@ -261,10 +333,10 @@ export default function() {
 
     var ulantarctic = mainland([-82.6999, -51.3043]);
     var urantarctic = mainland([-77.5442, -51.6631]);
-    var ldantarctic = mainland([-78.0254, -55.1860]);
+    var ldantarctic = mainland([-78.0254, -55.186]);
     var llantarctic = mainland([-83.6106, -54.7785]);
 
-    var uljuanFernandez = mainland([-80.0638, -35.9840]);
+    var uljuanFernandez = mainland([-80.0638, -35.984]);
     var urjuanFernandez = mainland([-76.2153, -36.1811]);
     var ldjuanFernandez = mainland([-76.2994, -37.6839]);
     var lljuanFernandez = mainland([-80.2231, -37.4757]);
@@ -294,10 +366,8 @@ export default function() {
     context.lineTo(ldpascua[0], ldpascua[1]);
     context.lineTo(llpascua[0], llpascua[1]);
     context.closePath();
-
-
   };
-  transverseMercatorChile.getCompositionBorders = function() {
+  transverseMercatorChile.getCompositionBorders = function () {
     var context = path();
     this.drawCompositionBorders(context);
     return context.toString();

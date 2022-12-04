@@ -1,121 +1,135 @@
-var tape = require("tape");
+import tape from "tape";
+import { readFileSync, createWriteStream } from "fs";
+import { geoPath, geoGraticule } from "d3-geo";
+import pixelmatch from "pixelmatch";
+import { createCanvas } from "canvas";
+import { PNG } from "pngjs";
+import topojson from "topojson-client";
 
-const fs = require("fs"),
-  topojson = require("topojson"),
-  { createCanvas } = require("canvas"),
-  d3_geo = require("d3-geo"),
-  d3_composite = require("../"),
-  PNG = require("pngjs").PNG,
-  pixelmatch = require("pixelmatch");
+import geoAlbersUsa from "../src/albersUsa.js";
+import geoAlbersUsaTerritoires from "../src/albersUsaTerritories.js";
+import geoConicConformalSpain from "../src/conicConformalSpain.js";
+import geoConicConformalPortugal from "../src/conicConformalPortugal.js";
+import geoConicConformalNetherlands from "../src/conicConformalNetherlands.js";
+import geoMercatorEcuador from "../src/mercatorEcuador.js";
+import geoTransverseMercatorChile from "../src/transverseMercatorChile.js";
+import geoConicEquidistantJapan from "../src/conicEquidistantJapan.js";
+import geoConicConformalFrance from "../src/conicConformalFrance.js";
+import geoConicConformalEurope from "../src/conicConformalEurope.js";
+import geoMercatorMalaysia from "../src/mercatorMalaysia.js";
+import geoMercatorEquatorialGuinea from "../src/mercatorEquatorialGuinea.js";
+import geoAlbersUk from "../src/albersUk.js";
 
 const projections = [
-  { 
+  {
     name: "albersUsa",
+    projection: geoAlbersUsa,
     topojson: "./data/us.json",
-    field: "states"
+    field: "states",
   },
   {
     name: "albersUsaTerritories",
+    projection: geoAlbersUsaTerritoires,
     topojson: "./data/us_territories.json",
-    field: "us"
+    field: "us",
   },
   {
     name: "conicConformalSpain",
+    projection: geoConicConformalSpain,
     topojson: "./data/provincias.json",
-    field: "provincias"
+    field: "provincias",
   },
   {
     name: "conicConformalPortugal",
+    projection: geoConicConformalPortugal,
     topojson: "./data/world-50m.json",
-    field: "countries"
+    field: "countries",
   },
   {
     name: "conicConformalNetherlands",
+    projection: geoConicConformalNetherlands,
     topojson: "./data/netherlands.json",
-    field: "nederland"
+    field: "nederland",
   },
   {
     name: "mercatorEcuador",
+    projection: geoMercatorEcuador,
     topojson: "./data/world-50m.json",
-    field: "countries"
+    field: "countries",
   },
   {
     name: "transverseMercatorChile",
+    projection: geoTransverseMercatorChile,
     topojson: "./data/chile.json",
-    field: "chile"
+    field: "chile",
   },
   {
     name: "conicEquidistantJapan",
+    projection: geoConicEquidistantJapan,
     topojson: "./data/japan.json",
-    field: "japan"
+    field: "japan",
   },
   {
     name: "conicConformalFrance",
+    projection: geoConicConformalFrance,
     topojson: "./data/france.json",
-    field: "regions"
+    field: "regions",
   },
   {
     name: "conicConformalEurope",
+    projection: geoConicConformalEurope,
     topojson: "./data/nuts0.json",
-    field: "nuts0"
+    field: "nuts0",
   },
   {
     name: "mercatorMalaysia",
+    projection: geoMercatorMalaysia,
     topojson: "./data/malaysia.json",
-    field: "land"
+    field: "land",
   },
   {
     name: "mercatorEquatorialGuinea",
+    projection: geoMercatorEquatorialGuinea,
     topojson: "./data/ge.json",
-    field: "ge" 
+    field: "ge",
   },
   {
     name: "albersUk",
+    projection: geoAlbersUk,
     topojson: "./data/uk-counties.json",
-    field: "UK"
-   }
+    field: "UK",
+  },
 ];
 
-tape("Checks the actual image outputs", async function(test) {
-  projections.forEach(async d => {
-    await render(d.name, d.topojson, d.field);
-    let img1 = PNG.sync.read(fs.readFileSync("test/output/" + d.name + ".png"));
-    let img2 = PNG.sync.read(
-      fs.readFileSync("test/samples/" + d.name + ".png")
-    );
+tape("Checks the actual image outputs", async function (test) {
+  for (const d of projections) {
+    await render(d.projection, d.name, d.topojson, d.field);
+    let img1 = PNG.sync.read(readFileSync("test/output/" + d.name + ".png"));
+    let img2 = PNG.sync.read(readFileSync("test/samples/" + d.name + ".png"));
     let diff = pixelmatch(img1.data, img2.data, null, img1.width, img1.height, {
-      threshold: 0.0
+      threshold: 0.0,
     });
 
     test.true(diff == 0, d.name + " matches the sample file");
-  });
+  }
+
   test.end();
 });
 
-function render(projectionName, topojsonName, layerName) {
+function render(projection, name, topojsonName, layerName) {
   const width = 960,
-    height = 500,
-    projectionSymbol =
-      "geo" + projectionName[0].toUpperCase() + projectionName.slice(1);
-  if (!/^[a-z0-9]+$/i.test(projectionName)) {
-    throw new Error();
-  }
+    height = 500;
+
   const canvas = createCanvas(width, height),
     context = canvas.getContext("2d");
 
-  const data = require(topojsonName),
-    graticule = d3_geo.geoGraticule(),
+  const data = JSON.parse(readFileSync(`./test/${topojsonName}`), "utf8"),
+    graticule = geoGraticule(),
     outline = { type: "Sphere" };
-
-  const path = d3_geo
-    .geoPath()
-    .projection(d3_composite[projectionSymbol]().precision(0.1))
+  const path = geoPath()
+    .projection(projection().precision(0.1))
     .context(context);
 
-  //   console.info("-------->");
-  //   var proj = d3_composite.geoAlbersUk();
-  //   var inv = proj.invert(proj([-1, 63]));
-  //   console.info("-----", inv);
   context.fillStyle = "#fff";
   context.fillRect(0, 0, width, height);
   context.save();
@@ -141,11 +155,11 @@ function render(projectionName, topojsonName, layerName) {
 
   context.beginPath();
   context.strokeStyle = "#F00";
-  d3_composite[projectionSymbol]().drawCompositionBorders(context);
+  projection().drawCompositionBorders(context);
   context.stroke();
 
-  return new Promise(resolve => {
-    const out = fs.createWriteStream("test/output/" + projectionName + ".png");
+  return new Promise((resolve) => {
+    const out = createWriteStream(`test/output/${name}.png`);
     canvas.createPNGStream().pipe(out);
     out.on("finish", () => resolve());
   });

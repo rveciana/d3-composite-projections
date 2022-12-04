@@ -1,21 +1,39 @@
-import {epsilon} from "./math";
-import {geoAlbers as albers} from "d3-geo";
-import {geoConicEqualArea as conicEqualArea} from "d3-geo";
-import {geoEquirectangular as equirectangular} from "d3-geo";
-import {fitExtent, fitSize} from "./fit";
-import {path} from "d3-path";
+import { epsilon } from "./math.js";
+import { geoAlbers as albers } from "d3-geo";
+import { geoConicEqualArea as conicEqualArea } from "d3-geo";
+import { geoEquirectangular as equirectangular } from "d3-geo";
+import { fitExtent, fitSize } from "./fit.js";
+import { path } from "d3-path";
 
 // The projections must have mutually exclusive clip regions on the sphere,
 // as this will avoid emitting interleaving lines and polygons.
 function multiplex(streams) {
   var n = streams.length;
   return {
-    point: function(x, y) { var i = -1; while (++i < n) streams[i].point(x, y); },
-    sphere: function() { var i = -1; while (++i < n) streams[i].sphere(); },
-    lineStart: function() { var i = -1; while (++i < n) streams[i].lineStart(); },
-    lineEnd: function() { var i = -1; while (++i < n) streams[i].lineEnd(); },
-    polygonStart: function() { var i = -1; while (++i < n) streams[i].polygonStart(); },
-    polygonEnd: function() { var i = -1; while (++i < n) streams[i].polygonEnd(); }
+    point: function (x, y) {
+      var i = -1;
+      while (++i < n) streams[i].point(x, y);
+    },
+    sphere: function () {
+      var i = -1;
+      while (++i < n) streams[i].sphere();
+    },
+    lineStart: function () {
+      var i = -1;
+      while (++i < n) streams[i].lineStart();
+    },
+    lineEnd: function () {
+      var i = -1;
+      while (++i < n) streams[i].lineEnd();
+    },
+    polygonStart: function () {
+      var i = -1;
+      while (++i < n) streams[i].polygonStart();
+    },
+    polygonEnd: function () {
+      var i = -1;
+      while (++i < n) streams[i].polygonEnd();
+    },
   };
 }
 
@@ -23,42 +41,64 @@ function multiplex(streams) {
 // 960×500. Also works quite well at 960×600 with scale 1285. The set of
 // standard parallels for each region comes from USGS, which is published here:
 // http://egsc.usgs.gov/isb/pubs/MapProjections/projections.html#albers
-export default function() {
+export default function () {
   var cache,
-      cacheStream,
-      lower48 = albers(), lower48Point,
-      alaska = conicEqualArea().rotate([154, 0]).center([-2, 58.5]).parallels([55, 65]), alaskaPoint, // EPSG:3338
-      hawaii = conicEqualArea().rotate([157, 0]).center([-3, 19.9]).parallels([8, 18]), hawaiiPoint, // ESRI:102007
-      puertoRico = conicEqualArea().rotate([66, 0]).center([0, 18]).parallels([8, 18]), puertoRicoPoint, //Taken from https://bl.ocks.org/mbostock/5629120
-      samoa = equirectangular().rotate([173, 14]), samoaPoint, // EPSG:4169
-      guam = equirectangular().rotate([-145, -16.8]), guamPoint,
-      point, pointStream = {point: function(x, y) { point = [x, y]; }};
+    cacheStream,
+    lower48 = albers(),
+    lower48Point,
+    alaska = conicEqualArea()
+      .rotate([154, 0])
+      .center([-2, 58.5])
+      .parallels([55, 65]),
+    alaskaPoint, // EPSG:3338
+    hawaii = conicEqualArea()
+      .rotate([157, 0])
+      .center([-3, 19.9])
+      .parallels([8, 18]),
+    hawaiiPoint, // ESRI:102007
+    puertoRico = conicEqualArea()
+      .rotate([66, 0])
+      .center([0, 18])
+      .parallels([8, 18]),
+    puertoRicoPoint, //Taken from https://bl.ocks.org/mbostock/5629120
+    samoa = equirectangular().rotate([173, 14]),
+    samoaPoint, // EPSG:4169
+    guam = equirectangular().rotate([-145, -16.8]),
+    guamPoint,
+    point,
+    pointStream = {
+      point: function (x, y) {
+        point = [x, y];
+      },
+    };
 
-      /*
+  /*
       var puertoRicoBbox = [[-68.3, 19], [-63.9, 17]];
       var samoaBbox = [[-171, -14], [-168, -14.8]];
       var guamBbox = [[144, 20.8], [146.5, 12.7]];
       */
 
   function albersUsa(coordinates) {
-    var x = coordinates[0], y = coordinates[1];
+    var x = coordinates[0],
+      y = coordinates[1];
 
-    return point = null,
-        (lower48Point.point(x, y), point) ||
-        (alaskaPoint.point(x, y), point)  ||
-        (hawaiiPoint.point(x, y), point)  ||
+    return (
+      (point = null),
+      (lower48Point.point(x, y), point) ||
+        (alaskaPoint.point(x, y), point) ||
+        (hawaiiPoint.point(x, y), point) ||
         (puertoRicoPoint.point(x, y), point) ||
-        (samoaPoint.point(x, y), point)   ||
-        (guamPoint.point(x, y), point);
+        (samoaPoint.point(x, y), point) ||
+        (guamPoint.point(x, y), point)
+    );
   }
 
-  albersUsa.invert = function(coordinates) {
-
+  albersUsa.invert = function (coordinates) {
     var k = lower48.scale(),
-        t = lower48.translate(),
-        x = (coordinates[0] - t[0]) / k,
-        y = (coordinates[1] - t[1]) / k;
-        /*
+      t = lower48.translate(),
+      x = (coordinates[0] - t[0]) / k,
+      y = (coordinates[1] - t[1]) / k;
+    /*
         //How are the return values calculated:
         console.info("******");
         var c0 = puertoRico(puertoRicoBbox[0]);
@@ -98,21 +138,38 @@ export default function() {
         console.info("p1 guam", x1 + ' - ' + y1);
         */
 
-    return (y >= 0.120 && y < 0.234 && x >= -0.425 && x < -0.214 ? alaska
-        : y >= 0.166 && y < 0.234 && x >= -0.214 && x < -0.115 ? hawaii
-        : y >= 0.2064 && y < 0.2413 && x >= 0.312 && x < 0.385 ? puertoRico
-        : y >= 0.09 && y < 0.1197 && x >= -0.4243 && x < -0.3232 ? samoa
-        : y >= -0.0518 && y < 0.0895 && x >= -0.4243 && x < -0.3824 ? guam
-        : lower48).invert(coordinates);
-
+    return (
+      y >= 0.12 && y < 0.234 && x >= -0.425 && x < -0.214
+        ? alaska
+        : y >= 0.166 && y < 0.234 && x >= -0.214 && x < -0.115
+        ? hawaii
+        : y >= 0.2064 && y < 0.2413 && x >= 0.312 && x < 0.385
+        ? puertoRico
+        : y >= 0.09 && y < 0.1197 && x >= -0.4243 && x < -0.3232
+        ? samoa
+        : y >= -0.0518 && y < 0.0895 && x >= -0.4243 && x < -0.3824
+        ? guam
+        : lower48
+    ).invert(coordinates);
   };
 
-  albersUsa.stream = function(stream) {
-    return cache && cacheStream === stream ? cache : cache = multiplex([lower48.stream(cacheStream = stream), alaska.stream(stream), hawaii.stream(stream), puertoRico.stream(stream), samoa.stream(stream), guam.stream(stream)]);
+  albersUsa.stream = function (stream) {
+    return cache && cacheStream === stream
+      ? cache
+      : (cache = multiplex([
+          lower48.stream((cacheStream = stream)),
+          alaska.stream(stream),
+          hawaii.stream(stream),
+          puertoRico.stream(stream),
+          samoa.stream(stream),
+          guam.stream(stream),
+        ]));
   };
 
-  albersUsa.precision = function(_) {
-    if (!arguments.length) {return lower48.precision();}
+  albersUsa.precision = function (_) {
+    if (!arguments.length) {
+      return lower48.precision();
+    }
     lower48.precision(_);
     alaska.precision(_);
     hawaii.precision(_);
@@ -122,20 +179,26 @@ export default function() {
     return reset();
   };
 
-  albersUsa.scale = function(_) {
-    if (!arguments.length) {return lower48.scale();}
+  albersUsa.scale = function (_) {
+    if (!arguments.length) {
+      return lower48.scale();
+    }
     lower48.scale(_);
     alaska.scale(_ * 0.35);
     hawaii.scale(_);
     puertoRico.scale(_);
-    samoa.scale(_* 2);
+    samoa.scale(_ * 2);
     guam.scale(_);
     return albersUsa.translate(lower48.translate());
   };
 
-  albersUsa.translate = function(_) {
-    if (!arguments.length) {return lower48.translate();}
-    var k = lower48.scale(), x = +_[0], y = +_[1];
+  albersUsa.translate = function (_) {
+    if (!arguments.length) {
+      return lower48.translate();
+    }
+    var k = lower48.scale(),
+      x = +_[0],
+      y = +_[1];
 
     /*
     var c0 = puertoRico.translate([x + 0.350 * k, y + 0.224 * k])(puertoRicoBbox[0]);
@@ -197,44 +260,61 @@ export default function() {
       */
 
     lower48Point = lower48
-        .translate(_)
-        .clipExtent([[x - 0.455 * k, y - 0.238 * k], [x + 0.455 * k, y + 0.238 * k]])
-        .stream(pointStream);
+      .translate(_)
+      .clipExtent([
+        [x - 0.455 * k, y - 0.238 * k],
+        [x + 0.455 * k, y + 0.238 * k],
+      ])
+      .stream(pointStream);
 
     alaskaPoint = alaska
-        .translate([x - 0.307 * k, y + 0.201 * k])
-        .clipExtent([[x - 0.425 * k + epsilon, y + 0.120 * k + epsilon], [x - 0.214 * k - epsilon, y + 0.233 * k - epsilon]])
-        .stream(pointStream);
+      .translate([x - 0.307 * k, y + 0.201 * k])
+      .clipExtent([
+        [x - 0.425 * k + epsilon, y + 0.12 * k + epsilon],
+        [x - 0.214 * k - epsilon, y + 0.233 * k - epsilon],
+      ])
+      .stream(pointStream);
 
     hawaiiPoint = hawaii
-        .translate([x - 0.205 * k, y + 0.212 * k])
-        .clipExtent([[x - 0.214 * k + epsilon, y + 0.166 * k + epsilon], [x - 0.115 * k - epsilon, y + 0.233 * k - epsilon]])
-        .stream(pointStream);
+      .translate([x - 0.205 * k, y + 0.212 * k])
+      .clipExtent([
+        [x - 0.214 * k + epsilon, y + 0.166 * k + epsilon],
+        [x - 0.115 * k - epsilon, y + 0.233 * k - epsilon],
+      ])
+      .stream(pointStream);
 
     puertoRicoPoint = puertoRico
-        .translate([x + 0.350 * k, y + 0.224 * k])
-        .clipExtent([[x + 0.312 * k + epsilon, y + 0.2064 * k + epsilon],[x + 0.385 * k - epsilon, y + 0.233 * k - epsilon]])
-        .stream(pointStream);
+      .translate([x + 0.35 * k, y + 0.224 * k])
+      .clipExtent([
+        [x + 0.312 * k + epsilon, y + 0.2064 * k + epsilon],
+        [x + 0.385 * k - epsilon, y + 0.233 * k - epsilon],
+      ])
+      .stream(pointStream);
 
     samoaPoint = samoa
-        .translate([x - 0.492 * k, y + 0.09 * k])
-        .clipExtent([[x - 0.4243 * k + epsilon, y + 0.0903 * k + epsilon],[x - 0.3233 * k - epsilon, y + 0.1197 * k - epsilon]])
-        .stream(pointStream);
+      .translate([x - 0.492 * k, y + 0.09 * k])
+      .clipExtent([
+        [x - 0.4243 * k + epsilon, y + 0.0903 * k + epsilon],
+        [x - 0.3233 * k - epsilon, y + 0.1197 * k - epsilon],
+      ])
+      .stream(pointStream);
 
     guamPoint = guam
-        .translate([x - 0.408 * k, y + 0.018 * k])
-        .clipExtent([[x - 0.4244 * k + epsilon, y - 0.0519 * k + epsilon],[x - 0.3824 * k - epsilon, y + 0.0895 * k - epsilon]])
-        .stream(pointStream);
-
+      .translate([x - 0.408 * k, y + 0.018 * k])
+      .clipExtent([
+        [x - 0.4244 * k + epsilon, y - 0.0519 * k + epsilon],
+        [x - 0.3824 * k - epsilon, y + 0.0895 * k - epsilon],
+      ])
+      .stream(pointStream);
 
     return reset();
   };
 
-  albersUsa.fitExtent = function(extent, object) {
+  albersUsa.fitExtent = function (extent, object) {
     return fitExtent(albersUsa, extent, object);
   };
 
-  albersUsa.fitSize = function(size, object) {
+  albersUsa.fitSize = function (size, object) {
     return fitSize(albersUsa, size, object);
   };
 
@@ -243,8 +323,7 @@ export default function() {
     return albersUsa;
   }
 
-  albersUsa.drawCompositionBorders = function(context) {
-
+  albersUsa.drawCompositionBorders = function (context) {
     /*
     console.info("CLIP EXTENT hawaii: ", hawaii.clipExtent());
     console.info("UL BBOX:", lower48.invert([hawaii.clipExtent()[0][0], hawaii.clipExtent()[0][1]]));
@@ -283,8 +362,8 @@ export default function() {
     var ldhawaii = lower48([-103.7049, 25.1031]);
     var llhawaii = lower48([-109.8337, 24.4531]);
 
-    var ulalaska = lower48([ -124.4745, 28.1407]);
-    var uralaska = lower48([ -110.931, 30.8844]);
+    var ulalaska = lower48([-124.4745, 28.1407]);
+    var uralaska = lower48([-110.931, 30.8844]);
     var ldalaska = lower48([-109.8337, 24.4531]);
     var llalaska = lower48([-122.4628, 21.8562]);
 
@@ -292,7 +371,6 @@ export default function() {
     var urpuertoRico = lower48([-72.429, 24.2097]);
     var ldpuertoRico = lower48([-72.8265, 22.7056]);
     var llpuertoRico = lower48([-77.1852, 23.6392]);
-
 
     var ulsamoa = lower48([-125.0093, 29.7791]);
     var ursamoa = lower48([-118.5193, 31.3262]);
@@ -338,15 +416,12 @@ export default function() {
     context.lineTo(ldguam[0], ldguam[1]);
     context.lineTo(llguam[0], llguam[1]);
     context.closePath();
-
   };
-  albersUsa.getCompositionBorders = function() {
+  albersUsa.getCompositionBorders = function () {
     var context = path();
     this.drawCompositionBorders(context);
     return context.toString();
-
   };
-
 
   return albersUsa.scale(1070);
 }
