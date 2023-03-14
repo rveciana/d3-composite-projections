@@ -10,7 +10,7 @@
   },
   "main": "d3-composite-projections.js",
   "unpkg": "d3-composite-projections.min.js",
-  "module": "./index.js",
+  "module": "./index.ts",
   "jsnext:main": "index",
   "type": "module",
   "repository": {
@@ -18,9 +18,9 @@
     "url": "https://github.com/rveciana/d3-composite-projections.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "rimraf out-tsc && tsc && rollup -c rollup.config.js",
     "pretest": "npm run build",
-    "test": "mkdir -p test/output && tape 'test/*-test.js' && eslint index.js src",
+    "test": "mkdir -p test/output && tape 'test/*-test.js' && eslint index.ts src",
     "prepublish": "npm run test",
     "postpublish": "git push && git push --tags"
   },
@@ -30,12 +30,15 @@
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.1.0",
+    "@types/d3-geo": "^3.0.3",
     "canvas": "2.10.2",
     "eslint": "^8.29.0",
     "pixelmatch": "^5.3.0",
     "pngjs": "^6.0.0",
-    "rollup": "^3.5.1",
+    "rimraf": "^4.4.0",
+    "rollup": "^3.19.1",
     "tape": "^5.6.1",
-    "topojson-client": "^3.1.0"
+    "topojson-client": "^3.1.0",
+    "typescript": "^4.9.5"
   }
 }

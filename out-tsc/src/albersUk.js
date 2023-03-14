@@ -1,52 +1,7 @@
-// http://geoexamples.com/d3-composite-projections/ v1.4.0 Copyright 2023 Roger Veciana i Rovira
-(function (global, factory) {
-typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-geo'), require('d3-path')) :
-typeof define === 'function' && define.amd ? define(['exports', 'd3-geo', 'd3-path'], factory) :
-(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.d3 = global.d3 || {}, global.d3, global.d3));
-})(this, (function (exports, d3Geo, d3Path) { 'use strict';
-
-var epsilon = 1e-6;
-
-function noop() { }
-var x0 = Infinity, y0 = x0, x1 = -x0, y1 = x1;
-var boundsStream = {
-    point: boundsPoint,
-    lineStart: noop,
-    lineEnd: noop,
-    polygonStart: noop,
-    polygonEnd: noop,
-    result: function () {
-        var bounds = [[x0, y0], [x1, y1]];
-        x1 = y1 = -(y0 = x0 = Infinity);
-        return bounds;
-    }
-};
-function boundsPoint(x, y) {
-    if (x < x0)
-        x0 = x;
-    if (x > x1)
-        x1 = x;
-    if (y < y0)
-        y0 = y;
-    if (y > y1)
-        y1 = y;
-}
-
-function fitExtent(projection, extent, object) {
-    var w = extent[1][0] - extent[0][0], h = extent[1][1] - extent[0][1], clip = projection.clipExtent && projection.clipExtent();
-    projection.scale(150).translate([0, 0]);
-    if (clip != null)
-        projection.clipExtent(null);
-    d3Geo.geoStream(object, projection.stream(boundsStream));
-    var b = boundsStream.result(), k = Math.min(w / (b[1][0] - b[0][0]), h / (b[1][1] - b[0][1])), x = +extent[0][0] + (w - k * (b[1][0] + b[0][0])) / 2, y = +extent[0][1] + (h - k * (b[1][1] + b[0][1])) / 2;
-    if (clip != null)
-        projection.clipExtent(clip);
-    return projection.scale(k * 150).translate([x, y]);
-}
-function fitSize(projection, size, object) {
-    return fitExtent(projection, [[0, 0], size], object);
-}
-
+import { epsilon } from "./math.js";
+import { geoAlbers as albers, } from "d3-geo";
+import { fitExtent, fitSize } from "./fit.js";
+import { path } from "d3-path";
 function multiplex(streams) {
     var n = streams.length;
     return {
@@ -82,8 +37,8 @@ function multiplex(streams) {
         },
     };
 }
-function albersUk () {
-    var cache, cacheStream, main = d3Geo.geoAlbers().rotate([4.4, 0.8]).center([0, 55.4]).parallels([50, 60]), mainPoint, shetland = d3Geo.geoAlbers()
+export default function () {
+    var cache, cacheStream, main = albers().rotate([4.4, 0.8]).center([0, 55.4]).parallels([50, 60]), mainPoint, shetland = albers()
         .rotate([4.4, 0.8])
         .center([0, 55.4])
         .parallels([50, 60]), shetlandPoint, point, pointStream = {
@@ -91,6 +46,10 @@ function albersUk () {
             point = [x, y];
         },
     };
+    var shetlandBbox = [
+        [-2.1, 70],
+        [-0.7, 59.8],
+    ];
     function albersUk(coordinates) {
         var x = coordinates[0], y = coordinates[1];
         return ((point = null),
@@ -190,13 +149,9 @@ function albersUk () {
         context.closePath();
     };
     albersUk.getCompositionBorders = function () {
-        var context = d3Path.path();
+        var context = path();
         this.drawCompositionBorders(context);
         return context.toString();
     };
     return albersUk.scale(2800);
 }
-
-exports.geoAlbersUk = albersUk;
-
-}));

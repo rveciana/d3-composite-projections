@@ -1,5 +1,10 @@
 import { epsilon } from "./math.js";
-import { geoAlbers as albers } from "d3-geo";
+import {
+  geoAlbers as albers,
+  GeoConicProjection,
+  GeoStream,
+  geoStream,
+} from "d3-geo";
 import { fitExtent, fitSize } from "./fit.js";
 import { path } from "d3-path";
 
@@ -48,13 +53,13 @@ export default function () {
       point: function (x, y) {
         point = [x, y];
       },
-    };
+    } as GeoStream;
 
   var shetlandBbox = [
     [-2.1, 70],
     [-0.7, 59.8],
   ];
-  function albersUk(coordinates) {
+  function albersUk(coordinates): GeoConicProjection {
     var x = coordinates[0],
       y = coordinates[1];
     return (

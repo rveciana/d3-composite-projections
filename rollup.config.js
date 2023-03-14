@@ -5,7 +5,7 @@ import { readFileSync } from "fs";
 const meta = JSON.parse(readFileSync("./package.json"), "utf8");
 
 const config = {
-  input: "index.js",
+  input: "./out-tsc/src/index.js",
   external: Object.keys(meta.dependencies || {}).filter((key) =>
     /^d3-/.test(key)
   ),
