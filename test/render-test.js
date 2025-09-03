@@ -19,6 +19,7 @@ import geoConicConformalEurope from "../src/conicConformalEurope.js";
 import geoMercatorMalaysia from "../src/mercatorMalaysia.js";
 import geoMercatorEquatorialGuinea from "../src/mercatorEquatorialGuinea.js";
 import geoAlbersUk from "../src/albersUk.js";
+import transverseMercatorDenmark from "../src/transverseMercatorDenmark.js";
 
 const projections = [
   {
@@ -99,6 +100,12 @@ const projections = [
     topojson: "./data/uk-counties.json",
     field: "UK",
   },
+  {
+    name: "transverseMercatorDenmark",
+    projection: transverseMercatorDenmark,
+    topojson: "./data/dk.json",
+    field: "dk",
+  }
 ];
 
 tape("Checks the actual image outputs", async function (test) {

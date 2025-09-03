@@ -16,7 +16,7 @@ The projection itself works the same way as the other d3 projections. To be more
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="d3-composite-projections.js"></script>
 <script>
-	var projection = d3.geoConicConformalPortugal();
+  var projection = d3.geoConicConformalPortugal();
 </script>
 ```
 
@@ -37,13 +37,16 @@ Projections are available for:
 - Malaysia: [geoMercatorMalaysia](http://bl.ocks.org/rveciana/6298dd3e71cf98b6930c06f19b6684a2), created with the help of [Saiful Azfar Ramlee](https://github.com/saifulazfar)
 - Equatorial Guinea: [geoMercatorEquatorialGuinea](http://bl.ocks.org/rveciana/4dfc136b8e2707f182aa4591f892f82e)
 - United Kingdom: [geoAlbersUk](https://gist.github.com/rveciana/27272a581e975835aaa321ddf816d726)
+- Denmark: [geoTransverseMercatorDenmark](https://observablehq.com/d/3a28765e735c5e67)
+
 To draw the borders between the projection zones, use `getCompositionBorders()` for SVG:
 
 ```javascript
-svg.append("path")
- .style("fill","none")
- .style("stroke","#000")
- .attr("d", path(projection.getCompositionBorders()));
+svg
+  .append("path")
+  .style("fill", "none")
+  .style("stroke", "#000")
+  .attr("d", path(projection.getCompositionBorders()));
 ```
 
 or drawCompositionBorders if using Canvas:
@@ -111,7 +114,7 @@ npm install --save d3-composite-projections
 Import it:
 
 ```javascript
-const d3cp = require("d3-composite-projections")
+const d3cp = require("d3-composite-projections");
 
 const projection = d3cp.geoAlbersUk();
 ```

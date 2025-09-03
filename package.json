@@ -25,17 +25,17 @@
     "postpublish": "git push && git push --tags"
   },
   "dependencies": {
-    "d3-geo": "^3.0.1",
-    "d3-path": "^3.0.1"
+    "d3-geo": "^3.1.1",
+    "d3-path": "^3.1.0"
   },
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.1.0",
-    "canvas": "2.10.2",
-    "eslint": "^8.29.0",
-    "pixelmatch": "^5.3.0",
-    "pngjs": "^6.0.0",
-    "rollup": "^3.5.1",
-    "tape": "^5.6.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "canvas": "3.2.0",
+    "eslint": "9.34.0",
+    "pixelmatch": "7.1.0",
+    "pngjs": "7.0.0",
+    "rollup": "4.49.0",
+    "tape": "5.9.0",
     "topojson-client": "^3.1.0"
   }
 }
