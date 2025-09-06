@@ -1,3 +1,7 @@
+## version v2.0.0
+
+- Typescript support
+
 ## version v1.5.0
 
 - `TransverseMercatorDenmark` added

@@ -1,4 +1,4 @@
-// http://geoexamples.com/d3-composite-projections/ v1.4.0 Copyright 2025 Roger Veciana i Rovira
+// http://geoexamples.com/d3-composite-projections/ v1.5.0 Copyright 2025 Roger Veciana i Rovira
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-geo'), require('d3-path')) :
 typeof define === 'function' && define.amd ? define(['exports', 'd3-geo', 'd3-path'], factory) :

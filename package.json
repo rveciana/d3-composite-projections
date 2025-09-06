@@ -11,6 +11,7 @@
   "main": "d3-composite-projections.js",
   "unpkg": "d3-composite-projections.min.js",
   "module": "./index.js",
+  "types": "./index.d.ts",
   "jsnext:main": "index",
   "type": "module",
   "repository": {
@@ -26,7 +27,8 @@
   },
   "dependencies": {
     "d3-geo": "^3.1.1",
-    "d3-path": "^3.1.0"
+    "d3-path": "^3.1.0",
+    "@types/d3-geo": "^3.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
